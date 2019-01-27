@@ -1,5 +1,5 @@
 <ul>
   <li *ngFor='let room of rooms'>{{room.name}}
-    <div><app-room-list-detail [room]='room'></app-room-list-detail></div>
+    <div><app-room-list-detail [room]='room | async'></app-room-list-detail></div>
   </li>
 </ul>
