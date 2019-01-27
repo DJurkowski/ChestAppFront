@@ -1,0 +1,12 @@
+<div class="container justify-content-center" style="height: 100%;">
+  <div class="d-flex flex-column" style="height: 100%; max-height: 812px;">
+    <h2 class="p-2">{{room.name}}</h2>
+    <button (click)="hideDiv()">Chat {{room.name}}</button>
+    <div *ngIf='isHidden'>
+        <div class="p-2 chat" id="{{room.id}}">Jestem</div>
+        <input id="input{{room.id}}" type="text" class="p-2 mt-auto input-group border border-success rounded"
+           #input
+           (keyup.enter)="sendMessage(input.value)"/>
+    </div>
+  </div>
+</div>

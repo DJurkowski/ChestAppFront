@@ -1,3 +1,4 @@
+import { RoomListComponent } from './room/room-list/room-list.component';
 import { TournamentUserlistComponent } from './tournament/tournament-userlist/tournament-userlist.component';
 import { TournamentListComponent } from './tournament/tournament-list/tournament-list.component';
 import { CreateTournamnetComponent } from './tournament/create-tournamnet/create-tournamnet.component';
@@ -56,6 +57,10 @@ const routes: Routes = [
 {
   path: 'usertournament',
   component: TournamentUserlistComponent
+},
+{
+  path: 'rooms',
+  component: RoomListComponent
 }
 ];
 

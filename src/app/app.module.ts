@@ -21,6 +21,8 @@ import { TournamentListComponent } from './tournament/tournament-list/tournament
 import { TournamentUserlistComponent } from './tournament/tournament-userlist/tournament-userlist.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
+import { RoomListComponent } from './room/room-list/room-list.component';
+import { RoomListDetailComponent } from './room/room-list-detail/room-list-detail.component';
 
 
 
@@ -38,7 +40,9 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
     TournamentListComponent,
     TournamentUserlistComponent,
     UserListComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    RoomListComponent,
+    RoomListDetailComponent
   ],
   imports: [
     BrowserModule,
