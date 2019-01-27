@@ -1,0 +1,40 @@
+<div *ngIf="isCreated; else createForm">
+  <a style="color: white">Your tournament created successfully</a><br/>
+</div>
+
+<ng-template #createForm>
+  <form name="form" class="form-signin" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <h1 class="h3 mb-3 font-weight-normal" style="color:white">Create Tournament</h1>
+
+        <label for="name" class="sr-only">Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="form.name" name="name" #name="ngModel"
+          required placeholder="Name" style="margin-bottom:10px">
+        <div *ngIf="f.submitted && name.invalid">
+          <div *ngIf="!!name.errors?.required" style="color: tomato">Name is required</div>
+        </div>
+
+        <label for="description" class="sr-only">Description</label>
+        <input type="text" class="form-control" id="description" [(ngModel)]="form.description" name="description" #description="ngModel"
+           placeholder="Description" style="margin-bottom:10px">
+
+          <label for="minValueOfRankValue" class="sr-only">MinValueOfRankValue</label>
+          <input type="number" class="form-control" id="minValueOfRankValue" required [(ngModel)]="form.minValueOfRankValue" name="minValueOfRankValue" #minValueOfRankValue="ngModel"
+            required placeholder="MinValueOfRankValue" style="margin-bottom:10px">
+            <div *ngIf="f.submitted && minValueOfRankValue.invalid">
+                <div *ngIf="!!minValueOfRankValue.errors?.required" style="color: tomato">MinValueOfRankValue is required</div>
+            </div>
+
+          <label for="maxNumberOfUser" class="sr-only">MaxNumberOfUser</label>
+          <input type="number" class="form-control" id="maxNumberOfUser" required [(ngModel)]="form.maxNumberOfUser" name="maxNumberOfUser" #maxNumberOfUser="ngModel"
+            required placeholder="MaxNumberOfUser" style="margin-bottom:10px">
+            <div *ngIf="f.submitted && maxNumberOfUser.invalid">
+                <div *ngIf="!!maxNumberOfUser.errors?.required" style="color: tomato">MaxNumberOfUser is required</div>
+            </div>
+
+        <button class="btn btn-lg btn-success btn-block">Submit</button>
+        <div *ngIf="f.submitted && isCreatedFailed" class="alert alert-warning">
+            Operation failed!<br/>{{errorMessage}}
+          </div>
+
+    </form>
+</ng-template>

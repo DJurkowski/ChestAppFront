@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" routerLink="home">ChessApp</a>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="home">Home</a>
+      </li>
+      <li *ngIf="authority === 'user'" class="nav-item">
+        <a class="nav-link" routerLink="user">User Board</a>
+      </li>
+      <li *ngIf="authority === 'user'" class="nav-item">
+          <a class="nav-link" routerLink="scoreboard">Score Board</a>
+        </li>
+  <li *ngIf="authority === 'user'" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" routerLink="user" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tournament</a>
+    <div class="dropdown-menu" aria-labelledby="dropdown01">
+      <a class="dropdown-item" routerLink="addtour">Create Tournament</a>
+      <a class="dropdown-item" routerLink="tournament">Join to Tournament</a>
+      <a class="dropdown-item" routerLink="usertournament">User Tournament</a>
+    </div>
+  </li>
+  <li *ngIf="authority === 'admin'" class="nav-item">
+    <a class="nav-link" routerLink="admin">Admin Board</a>
+  </li>
+  <li *ngIf="authority === 'pm'" class="nav-item">
+    <a class="nav-link" routerLink="pm">PM Board</a>
+  </li>
+</ul>
+<div *ngIf="!authority">
+  <a class="btn btn-success" routerLink="auth/login">Login</a>
+</div>
+<div *ngIf="!authority">
+  <a class="btn btn-outline-success my-2 my-sm-0" routerLink="signup" style="margin-left: 10px">Sign up</a>
+</div>
+<div *ngIf="authority">
+  <a class="btn btn-outline-secondary" routerLink="home" >Logout</a>
+</div>
+</div>
+</nav>
+<main role="main" class="container">
+<div class="transbox">
+<router-outlet></router-outlet>
+</div>
+</main>
+

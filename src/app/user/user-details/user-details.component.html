@@ -1,0 +1,10 @@
+<ng-container *ngIf="user">
+    <td *ngIf= "user.username == username; else elseBlock">
+      <u style="color: rgb(0, 189, 9)">{{user.username}}</u>
+    </td>
+      <ng-template #elseBlock>
+      <td> {{user.username}} </td>
+      </ng-template>
+      <td> {{user.rankValue}} </td>
+
+</ng-container>

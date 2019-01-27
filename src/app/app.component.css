@@ -1,0 +1,20 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+div.container {
+  padding-top: 50px;
+  margin-top: 50px;
+}
+
+div.transbox {
+  margin-top: 50px;
+  padding-top: 50px;
+  background: rgb(0,0,0,0.3);
+  opacity: 1;
+  border-radius: 25px;
+  min-height: 200px;
+}
+

@@ -1,0 +1,21 @@
+<h1 class="h3 mb-3 font-weight-normal" style="color:white">Score Board</h1>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>NickName</th>
+        <th>Rank Value</th>
+      </tr>
+    </thead>
+  <tbody>
+      <tr *ngFor="let user of users | async">
+          <!-- <app-user-details [user]='user'></app-user-details> -->
+          <td *ngIf= "user.username == username; else elseBlock">
+            <u style="color: rgb(0, 189, 9)">{{user.username}}</u>
+          </td>
+            <ng-template #elseBlock>
+            <td> {{user.username}} </td>
+            </ng-template>
+            <td> {{user.rankValue}} </td>
+      </tr>
+  </tbody>
+</table>

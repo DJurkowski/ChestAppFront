@@ -1,0 +1,22 @@
+<div *ngIf="isJoin; else joinForm">
+  <a style="color: white">You join to tournament</a><br/>
+</div>
+
+<ng-template #joinForm>
+<div *ngIf="tournament" class="card mb-4 box-shadow">
+    <div class="card-header">
+      <label class="my-0 font-weight-normal">Name: </label> {{tournament.name}}
+    </div>
+    <ul class="list-unstyled mt-3 mb-4">
+      <li><label>Description: </label> {{tournament.description}}</li>
+    <li>
+      <label>MinValueOfRankValue: </label> {{tournament.minValueOfRankValue}}
+    </li>
+    <li>
+      <label>MaxNumberOfUser: </label> {{tournament.maxNumberOfUser}}
+    </li>
+    <li><button class="btn btn-lg btn-success btn-block" (click)='addUsertoTournament()'>Join</button></li>
+    <li><span class="button is-small btn-danger" (click)='deleteTournament()'>Delete</span></li>
+  </ul>
+  </div>
+</ng-template>
