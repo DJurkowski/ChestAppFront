@@ -11,7 +11,27 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class RoomListComponent implements OnInit {
 
-  rooms: Observable<Room[]>;
+  // lista: Observable<Room[]>;
+  lista: Room[] = [
+    {
+      id: 1,
+      name: 'room1',
+      userOneId: 'dom1',
+      userTwoId: 'domo'
+    },
+    {
+      id: 2,
+      name: 'room2',
+      userOneId: '1',
+      userTwoId: '2'
+    },
+    {
+      id: 3,
+      name: 'room3',
+      userOneId: '1',
+      userTwoId: '2'
+    }
+];
   username: string;
   constructor(private roomService: RoomService, private token: TokenStorageService) { }
 
@@ -21,7 +41,7 @@ export class RoomListComponent implements OnInit {
   }
 
   reloadData() {
-    this.rooms = this.roomService.getUserRooms(this.username);
+    // this.lista = this.roomService.getUserRooms(this.username);
   }
 
 }
