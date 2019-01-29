@@ -12,7 +12,7 @@
           <a class="nav-link" routerLink="scoreboard">Score Board</a>
         </li>
   <li *ngIf="authority === 'user'" class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" routerLink="user" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tournament</a>
+    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tournament</a>
     <div class="dropdown-menu" aria-labelledby="dropdown01">
       <a class="dropdown-item" routerLink="addtour">Create Tournament</a>
       <a class="dropdown-item" routerLink="tournament">Join to Tournament</a>
@@ -44,7 +44,7 @@
 </main>
 <footer>
   <div *ngIf="authority">
-  <input type="button" value="Chat" style="float:right; color:blue" routerLink="rooms">
+  <input type="button" value="Chat" class="btn btn-primary btn-lg chat" routerLink="rooms">
   </div>
 </footer>
 
