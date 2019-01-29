@@ -1,5 +1,7 @@
 <ul>
-  <li *ngFor='let room of lista'>{{room.name}}
+  <li *ngFor='let room of lista'>
+    <h2 class="p-2" *ngIf='room.userOneId === username; else elseBlock'>{{room.userTwoId}}</h2>
+    <ng-template #elseBlock><h2 class="p-2">{{room.userOneId}}</h2></ng-template>
     <div><app-room-list-detail [room]='room'></app-room-list-detail></div>
   </li>
 </ul>

@@ -16,6 +16,7 @@ export class RoomListDetailComponent implements OnInit {
   private stompClient;
   private serverUrl = 'http://localhost:8080/api/auth/socket';
   isHidden = false;
+  private messageOut;
 
   ngOnInit() {
   }
@@ -38,7 +39,8 @@ export class RoomListDetailComponent implements OnInit {
   }
 
   sendMessage(message) {
-    this.stompClient.send('/api/' + this.room.name, {}, message);
+    this.messageOut = '@' + this.token.getUsername() + ': ' + message ;
+    this.stompClient.send('/api/' + this.room.name, {}, this.messageOut);
     $('#input' + this.room.id).val('');
   }
 
