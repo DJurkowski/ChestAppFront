@@ -6,7 +6,7 @@
       Chat
     </button>
     <div *ngIf='isHidden'>
-        <div class="p-2 chat" id="{{room.id}}">Jestem</div>
+        <div class="p-2 chat" id="{{room.id}}"></div>
         <input id="input{{room.id}}" type="text" class="p-2 mt-auto input-group border border-light rounded"
            #input
            (keyup.enter)="sendMessage(input.value)"/>

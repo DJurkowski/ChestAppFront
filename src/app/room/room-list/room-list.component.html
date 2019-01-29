@@ -1,8 +1,8 @@
 <h1 class="h3 mb-3 font-weight-normal" style="color:white">Chat Room</h1>
 <ul>
-  <li *ngFor='let room of lista'>
-    <h3 *ngIf='room.userOneId === username; else elseBlock' class="h3 mb-3 font-weight-normal">Chat with: <b>{{room.userTwoId}}</b></h3><br/>
-    <ng-template #elseBlock><h3 class="h3  font-weight-normal">Chat with: <b>{{room.userOneId}}</b></h3><br/></ng-template>
+  <li *ngFor='let room of lista | async'>
+    <h3 *ngIf='room.user1Id === username; else elseBlock' class="h3 mb-3 font-weight-normal">Chat with: <b>{{room.user2Id}}</b></h3><br/>
+    <ng-template #elseBlock><h3 class="h3 font-weight-normal">Chat with: <b>{{room.user1Id}}</b></h3><br/></ng-template>
     <div><app-room-list-detail [room]='room'></app-room-list-detail></div>
   </li>
 </ul>

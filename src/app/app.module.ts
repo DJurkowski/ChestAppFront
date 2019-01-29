@@ -1,3 +1,4 @@
+import { RoomService } from './services/room.service';
 import { TournamentService } from './services/tournament.service';
 import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { AppRoutingModule } from './app-routing.module';
@@ -50,7 +51,7 @@ import { RoomListDetailComponent } from './room/room-list-detail/room-list-detai
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService],
+  providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
