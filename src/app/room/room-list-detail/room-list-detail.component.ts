@@ -4,6 +4,9 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { Stomp} from 'stompjs/lib/stomp.js';
 import SockJS from 'sockjs-client';
 import $ from 'jquery';
+import { RoomService } from 'src/app/services/room.service';
+import { Observable } from 'rxjs';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-room-list-detail',
@@ -17,10 +20,12 @@ export class RoomListDetailComponent implements OnInit {
   private serverUrl = 'http://localhost:8080/api/auth/socket';
   isHidden = false;
   private messageOut;
+  messageList: Observable<Message[]>;
 
   ngOnInit() {
+    this.reloadData();
   }
-  constructor(private token: TokenStorageService) {
+  constructor(private token: TokenStorageService, private roomService: RoomService) {
     this.initializeWebSocketConnection();
    }
 
@@ -46,6 +51,10 @@ export class RoomListDetailComponent implements OnInit {
 
   hideDiv() {
     this.isHidden = !this.isHidden;
+  }
+
+  reloadData() {
+    this.messageList = this.roomService.getMessages(this.room.name);
   }
 
 }
