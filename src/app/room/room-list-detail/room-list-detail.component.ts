@@ -6,7 +6,7 @@ import SockJS from 'sockjs-client';
 import $ from 'jquery';
 import { RoomService } from 'src/app/services/room.service';
 import { Observable } from 'rxjs';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { Message } from 'src/app/room/message';
 
 @Component({
   selector: 'app-room-list-detail',

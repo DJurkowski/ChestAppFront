@@ -6,8 +6,10 @@
       Chat
     </button>
     <div *ngIf='isHidden'>
-        <div class="p-2 chat" id="{{room.id}}"></div>
-        <input id="input{{room.id}}" type="text" class="p-2 mt-auto input-group border border-light rounded"
+        <div class="p-2 chat" id="{{room.id}}">
+          <div class="alert alert-secondary flex-wrap" *ngFor="let roomMessage of messageList | async">{{roomMessage.message}}</div>
+        </div>
+        <input id="input{{room.id}}" placeholder="Type a message..." type="text" class="p-2 mt-auto input-group border border-light rounded"
            #input
            (keyup.enter)="sendMessage(input.value)"/>
     </div>
