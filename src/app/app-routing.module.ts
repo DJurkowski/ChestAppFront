@@ -1,3 +1,4 @@
+import { GameroomlistComponent } from './chess/gameroomlist/gameroomlist.component';
 import { RoomListComponent } from './room/room-list/room-list.component';
 import { TournamentUserlistComponent } from './tournament/tournament-userlist/tournament-userlist.component';
 import { TournamentListComponent } from './tournament/tournament-list/tournament-list.component';
@@ -61,6 +62,10 @@ const routes: Routes = [
 {
   path: 'rooms',
   component: RoomListComponent
+},
+{
+  path: 'gamerooms',
+  component: GameroomlistComponent
 }
 ];
 

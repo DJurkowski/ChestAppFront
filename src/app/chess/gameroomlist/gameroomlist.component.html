@@ -1,0 +1,17 @@
+<ul>
+  <!-- <li *ngFor='let gameroom of matches'>
+    <div *ngIf='isShowed'>
+      <div id='{{gameroom.id}}'></div> <span *ngIf='isShowed'><button (click)="playGame(gameroom)" > {{gameroom.name}}  Play</button></span>
+    </div>
+      <div *ngIf='gameroom.show' class="container">
+        <app-board [gameRoom] ='gameroom' (gameRoomBack)='endGameValue($event)'></app-board>
+      </div>
+  </li> -->
+  <li *ngFor='let tour of tournaments | async'>
+    <div style="color:white">{{tour.description}}</div>
+  </li>
+  <li *ngFor='let t of tournas'>
+    <div > {{t.description}}</div>
+    <div > {{t.status}}</div>
+  </li>
+</ul>

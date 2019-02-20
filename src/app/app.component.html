@@ -19,6 +19,9 @@
       <a class="dropdown-item" routerLink="usertournament">User Tournament</a>
     </div>
   </li>
+  <li *ngIf="authority === 'user'" class="nav-item">
+    <a class="nav-link" routerLink="gamerooms">Game Rooms</a>
+  </li>
   <li *ngIf="authority === 'admin'" class="nav-item">
     <a class="nav-link" routerLink="admin">Admin Board</a>
   </li>

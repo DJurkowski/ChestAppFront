@@ -1,0 +1,23 @@
+<h1 mat-dialog-title></h1>
+<div mat-dialog-content>
+<div [ngSwitch]="name">
+    <p *ngSwitchCase="'king'">
+      <!-- <img src="../../assets/img/Capture.PNG"> -->
+      Error King: <span style="color:red">unallowable movement</span></p>
+    <p *ngSwitchCase="'knight'">
+          <!-- <img src="../../assets/img/Capture.PNG"> -->
+      Error Knight: <span style="color:red">unallowable movement</span></p>
+    <p *ngSwitchCase="'knight2'">
+        <!-- <img src="../../assets/img/Capture.PNG"> -->
+      Error Knight: <span style="color:red">unallowable movement</span></p>
+    <p *ngSwitchCase="'pawn'">
+        <!-- <img src="../../assets/img/Capture.PNG"> -->
+      Error Pawn: <span style="color:red">unallowable movement</span></p>
+    <p *ngSwitchCase="'pawn2'">
+        <!-- <img src="../../assets/img/Capture.PNG"> -->
+      Error Pawn: <span style="color:red">unallowable movement</span></p>
+</div>
+</div>
+<div mat-dialog-actions>
+  <button (click)="onNoClick()">Close</button>
+</div>

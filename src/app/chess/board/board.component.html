@@ -1,0 +1,26 @@
+<div class="board">
+  <ng-container *ngIf="knightPosition$|async as knightp">
+  <ng-container *ngIf="knight2Position$|async as knight2p">
+  <ng-container *ngIf="kingPosition$|async as kingp">
+  <ng-container *ngIf="pawnPosition$|async as pawnp">
+  <ng-container *ngIf="pawn2Position$|async as pawn2p">
+  <ng-container *ngIf="pawnNPosition$|async as pawnNp">
+  <div *ngFor="let i of sixtyFour">
+    <app-square *ngIf="xy(i) as pos" [black]="isBlack(pos)" (dblclick)="handleSquareClick(pos)">
+      <app-king class="control-select" *ngIf="pos.x === kingp.x && pos.y === kingp.y" (click)="setFigure('king')" [check]="setKingStyle()"></app-king>
+      <app-knight class="control-select" *ngIf="pos.x === knightp.x && pos.y === knightp.y" (click)="setFigure('knight')" [check]="setKnightStyle()"></app-knight>
+      <app-knight class="control-select" *ngIf="pos.x === knight2p.x && pos.y === knight2p.y" (click)="setFigure('knight2')" [check]="setKnight2Style()"></app-knight>
+      <app-pawn class="control-select" *ngIf="pos.x === pawnp.x && pos.y === pawnp.y" (click)="setFigure('pawn')" [check]="setPawnStyle()"></app-pawn>
+      <app-pawn class="control-select" *ngIf="pos.x === pawn2p.x && pos.y === pawn2p.y" (click)="setFigure('pawn2')" [check]="setPawn2Style()"></app-pawn>
+      <app-pawn class="control-select" *ngIf="pos.x === pawnNp.x && pos.y === pawnNp.y" [neg]="true" ></app-pawn>
+    </app-square>
+  </div>
+</ng-container>
+</ng-container>
+</ng-container>
+</ng-container>
+</ng-container>
+</ng-container>
+</div>
+<button (click)='gameRoomBackValue()'>Give up</button>
+

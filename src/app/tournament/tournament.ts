@@ -6,4 +6,5 @@ export class Tournament {
   maxNumberOfUser: number;
   numberOfUser: number;
   masterUser: number;
+  status: string;
 }

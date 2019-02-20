@@ -1,3 +1,5 @@
+import { MatchService } from './services/match.service';
+import { GameService } from './chess/game.service';
 import { RoomService } from './services/room.service';
 import { TournamentService } from './services/tournament.service';
 import { httpInterceptorProviders } from './auth/auth-interceptor';
@@ -24,6 +26,15 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { RoomListComponent } from './room/room-list/room-list.component';
 import { RoomListDetailComponent } from './room/room-list-detail/room-list-detail.component';
+import { BoardComponent } from './chess/board/board.component';
+import { FigureErrorDialogComponent } from './chess/figure-error-dialog/figure-error-dialog.component';
+import { GameroomlistComponent } from './chess/gameroomlist/gameroomlist.component';
+import { KingComponent } from './chess/king/king.component';
+import { KnightComponent } from './chess/knight/knight.component';
+import { PawnComponent } from './chess/pawn/pawn.component';
+import { SquareComponent } from './chess/square/square.component';
+import { MatDialogModule, MatButtonModule, MatCheckboxModule, MatTableModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -43,15 +54,29 @@ import { RoomListDetailComponent } from './room/room-list-detail/room-list-detai
     UserListComponent,
     UserDetailsComponent,
     RoomListComponent,
-    RoomListDetailComponent
+    RoomListDetailComponent,
+    BoardComponent,
+    FigureErrorDialogComponent,
+    GameroomlistComponent,
+    KingComponent,
+    KnightComponent,
+    PawnComponent,
+    SquareComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTableModule
   ],
-  providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService],
-  bootstrap: [AppComponent]
+  providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService, GameService,
+    MatchService],
+  bootstrap: [AppComponent],
+  entryComponents: [FigureErrorDialogComponent, BoardComponent]
 })
 export class AppModule { }
