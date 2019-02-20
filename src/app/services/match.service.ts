@@ -10,7 +10,7 @@ export class MatchService {
   constructor(private http: HttpClient) { }
 
   getMetches(tournamentId: number, userId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${userId}` + `/tournaments` + `/${tournamentId}` + `matches`);
+    return this.http.get(`${this.baseUrl}/${userId}` + `/tournaments` + `/${tournamentId}` + `/matches`);
   }
 
 }

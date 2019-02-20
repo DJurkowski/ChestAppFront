@@ -21,6 +21,7 @@ export class GameroomlistComponent implements OnInit {
   matches: Observable<Match[]>;
   tournaments: Observable<Tournament[]>;
   tournas = new Array<Tournament>();
+  matchList: Array<Match> = new Array<Match>();
 
   lista: GameRoom[] = [
     {
@@ -63,7 +64,7 @@ export class GameroomlistComponent implements OnInit {
     this.tournaments = this.tournamentService.getUserTournaments(this.username);
     this.tournaments.forEach(data => {
       data.forEach( xdata => {
-        this.tournas.push( {
+        this.tournas.push({
           id: xdata.id,
           description: xdata.description,
           masterUser: xdata.masterUser,
@@ -74,11 +75,19 @@ export class GameroomlistComponent implements OnInit {
           status: xdata.status
         });
       });
+      for (const i of this.tournas) {
+          if (i.status === 'STANDBY') {
+            this.matches = this.matchService.getMetches(i.id, this.username);
+            this.matches.forEach(ydata => {
+              ydata.forEach( zdata => {
+                this.matchList.push(zdata);
+              });
+            });
+          }
+        }
     });
 
     // dodac if z tym czy status tournament = STANDBY jak tak to pobieramy mecze jak nie to nie pobieramy! GENIUS
-
-    // this.matches = this.matchService.getMetches(this.tournamentId, this.username);
   }
 
   playGame(gameroom: GameRoom) {
