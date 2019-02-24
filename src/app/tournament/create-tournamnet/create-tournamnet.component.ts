@@ -11,14 +11,12 @@ import { TournamentInfo } from '../tournament-info';
 })
 export class CreateTournamnetComponent implements OnInit {
 
-  // tournament: Tournament = new Tournament();
   form: any = {};
   tournamentInfo: TournamentInfo;
   isCreated = false;
   isCreatedFailed = false;
   errorMessage = '';
 
-  // submitted = false;
   username: string;
 
   constructor(private tournamentService: TournamentService, private token: TokenStorageService) { }
@@ -26,17 +24,6 @@ export class CreateTournamnetComponent implements OnInit {
   ngOnInit() {
     this.username = this.token.getUsername();
   }
-
-  // newTournament(): void {
-  //   this.submitted = false;
-  //   this.tournament = new Tournament();
-  // }
-
-  // save() {
-  //   this.tournamentService.createTournament(this.tournament, this.username)
-  //     .subscribe(data => console.log(data), error => console.log(error));
-  //     this.tournament = new Tournament();
-  // }
 
   onSubmit() {
     console.log(this.form);
@@ -59,8 +46,6 @@ export class CreateTournamnetComponent implements OnInit {
         this.isCreatedFailed = true;
       }
     );
-    // this.submitted = true;
-    // this.save();
   }
 
 }

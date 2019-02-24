@@ -7,6 +7,7 @@ import { Stomp} from 'stompjs/lib/stomp.js';
 import SockJS from 'sockjs-client';
 import { FigureErrorDialogComponent } from '../figure-error-dialog/figure-error-dialog.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { Match } from 'src/app/match/match';
 
 @Component({
   selector: 'app-board',
@@ -15,8 +16,8 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class BoardComponent implements OnInit {
 
-  @Input() gameRoom: GameRoom;
-  @Output() gameRoomBack = new EventEmitter<GameRoom>();
+  @Input() match: Match;
+  @Output() matchBack = new EventEmitter<Match>();
   // dopisac logike do zakonczenie gry i czas gry
 
   private stompClient;
@@ -105,7 +106,7 @@ export class BoardComponent implements OnInit {
         } else if (this.figureCoords.id === 'pawn') {
           if (this.game.canMovePawn(pos)) {
             this.game.movePawn(pos);
-            // musimy zwrocic boolean czy mamy zbicie czy nie
+            // musimy zwrocic boolean czy mamy zbicie czy nie!!!
             this.sendMessageMove(this.figureCoords.id + ';' + pos.x + ';' + pos.y + ';' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
@@ -207,10 +208,10 @@ openDialog(): void {
 
 // end game function button
 gameRoomBackValue() {
-  const gameRoomResult = this.gameRoom;
-    gameRoomResult.status = 'finished';
-    console.log('GameRoomResult: ' + gameRoomResult.status);
-    this.gameRoomBack.emit(gameRoomResult);
+  const matchResult = this.match;
+    matchResult.status = 'finished';
+    console.log('matchResult: ' + matchResult.status);
+    this.matchBack.emit(matchResult);
 }
 
 // web socket connection
@@ -219,7 +220,7 @@ initializeWebSocketConnection() {
   this.stompClient = Stomp.over(ws);
   const that = this;
   this.stompClient.connect({}, function(frame) {
-    that.stompClient.subscribe('/gameRoom/' + that.gameRoom.name, (message) => {
+    that.stompClient.subscribe('/gameRoom/' + that.match.name, (message) => {
       if (message.body) {
         console.log('Dostalem message taki bo tak : ' + message.body);
         that.opponentMove(message.body);
@@ -229,14 +230,13 @@ initializeWebSocketConnection() {
 }
 
 sendMessageMove(message) {
-  this.stompClient.send('/api/game/' + this.gameRoom.name, {}, message);
+  this.stompClient.send('/api/game/' + this.match.name, {}, message);
 }
 
 // opponent movement
 opponentMove(move: string) {
   const tabMove = move.split(';');
   if (tabMove[3] !== this.username) {
-  // if(ktory uzytkownik wykonal ruch bo tak to bedziemy ruszac i tym i tym bez sensu)
   this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]));
   console.log('Moveopponent: ' + tabMove);
   }

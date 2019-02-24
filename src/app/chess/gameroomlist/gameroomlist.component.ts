@@ -23,35 +23,35 @@ export class GameroomlistComponent implements OnInit {
   tournas = new Array<Tournament>();
   matchList: Array<Match> = new Array<Match>();
 
-  lista: GameRoom[] = [
-    {
-      id: 1,
-      name: 'room1',
-      userOneId: '1',
-      userTwoId: '2',
-      status: 'notStarted',
-      show: false,
-      whoWon: null
-    },
-    {
-      id: 2,
-      name: 'room2',
-      userOneId: '1',
-      userTwoId: '2',
-      status: 'notStarted',
-      show: false,
-      whoWon: null
-    },
-    {
-      id: 3,
-      name: 'room3',
-      userOneId: '1',
-      userTwoId: '2',
-      status: 'notStarted',
-      show: false,
-      whoWon: null
-    }
-  ];
+  // lista: GameRoom[] = [
+  //   {
+  //     id: 1,
+  //     name: 'room1',
+  //     userOneId: '1',
+  //     userTwoId: '2',
+  //     status: 'notStarted',
+  //     show: false,
+  //     whoWon: null
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'room2',
+  //     userOneId: '1',
+  //     userTwoId: '2',
+  //     status: 'notStarted',
+  //     show: false,
+  //     whoWon: null
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'room3',
+  //     userOneId: '1',
+  //     userTwoId: '2',
+  //     status: 'notStarted',
+  //     show: false,
+  //     whoWon: null
+  //   }
+  // ];
 
   constructor(private matchService: MatchService, private tournamentService: TournamentService, private token: TokenStorageService) {}
 
@@ -61,6 +61,8 @@ export class GameroomlistComponent implements OnInit {
   }
 
   reloadData() {
+    // czyscic te wartosci ??? tournamnets i tournas i matches i matchList
+
     this.tournaments = this.tournamentService.getUserTournaments(this.username);
     this.tournaments.forEach(data => {
       data.forEach( xdata => {
@@ -90,32 +92,52 @@ export class GameroomlistComponent implements OnInit {
     // dodac if z tym czy status tournament = STANDBY jak tak to pobieramy mecze jak nie to nie pobieramy! GENIUS
   }
 
-  playGame(gameroom: GameRoom) {
+  playGame(match: Match) {
 
-    for (const i of this.lista) {
-      if (i.status === 'notStarted') {
-        if ( gameroom.id === i.id) {
-            i.status = 'started';
-            i.show = true;
+    for (const i of this.matchList) {
+      if (i.status === 'STANDBY') {
+        if ( match.id === i.id) {
+            i.status = 'STARTED';
+            i.showMatch = true;
+            console.log('Jestem!!!!');
+            // dodac update na server z tymi danymi -- update
+            this.matchService.modifyMatch(i.id, this.username, i).subscribe(
+              data => {
+                console.log(i.name);
+                data = i;
+              },
+              error => {
+                console.log(error);
+              }
+            );
+            this.isShowed = false;
         }
       }
     }
-    this.isShowed = false;
-    // wjebac do appboard jakas zeminna GameRoom, moze jeszcze id po to aby to porem usunac
-    // $('#' + gameroom.id).remove();
+    // this.isShowed = false;
+    // wjebac do appboard jakas zeminna Match, moze jeszcze id po to aby to porem usunac
+    // $('#' + match.id).remove();
   }
 
-  endGameValue(event: GameRoom) {
+  endGameValue(event: Match) {
     this.endGame = event.status;
-    if (this.endGame === 'finished' ) {
-      for (const i of this.lista) {
-        if (i.show === true && i.status === 'finished') {
-          i.show = false;
-          i.status = 'finished';
+    if (this.endGame === 'STARTED' ) {
+      for (const i of this.matchList) {
+        if (i.id === event.id) {
+          i.showMatch = false;
+          i.status = 'FINISHED';
+          i.whoWon = event.whoWon;
+          // dodac upload na server -- upload
+          this.matchService.modifyMatch(i.id, this.username, i);
           this.isShowed = true;
         }
       }
     }
+    this.tournaments = null;
+    this.tournas = null;
+    this.matches = null;
+    this.matchList = null;
+    this.reloadData();
     // dopisac logike do tego jak sie skonczy rozgrywka
   }
 

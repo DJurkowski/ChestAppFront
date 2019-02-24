@@ -1,5 +1,5 @@
 <h1 class="h3 mb-3 font-weight-normal" style="color:white">Tournaments</h1>
 
-<div *ngFor="let tournament of tournaments | async" class="card-deck mb-3 text-center">
+<div *ngFor="let tournament of tournaments | async">
   <app-tournamnet-details [tournament]='tournament'></app-tournamnet-details>
 </div>
