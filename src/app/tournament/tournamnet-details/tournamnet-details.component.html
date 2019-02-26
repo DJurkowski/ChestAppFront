@@ -4,6 +4,7 @@
   </div>
 
 <ng-template #joinForm style="width: 100%;height:100%;padding-left:100px;">
+    <hr/>
 <ul *ngIf="tournament" class="list-inline" >
     <li>
       <label class="col-mid-1">Name: </label> {{tournament.name}}
@@ -18,6 +19,7 @@
           <label>MaxNumberOfUser: </label> {{tournament.maxNumberOfUser}}
         </li>
         <li><button class="btn btn-lg btn-success" (click)='addUsertoTournament()'>Join</button></li>
-        <li><span class="button btn-lg btn-danger" (click)='deleteTournament()'>Delete</span></li>
+        <li><button class="btn btn-lg btn-danger" (click)='deleteTournament()'>Delete</button></li>
       </ul>
+      <hr style="color:white"/>
 </ng-template>

@@ -1,3 +1,4 @@
+// import { Observable } from 'rxjs/Observable';
 import { TournamentService } from './../../services/tournament.service';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './../../auth/token-storage.service';
@@ -6,6 +7,7 @@ import { GameRoom } from '../gameRoom';
 import { MatchService } from 'src/app/services/match.service';
 import { Match } from 'src/app/match/match';
 import { Tournament } from 'src/app/tournament/tournament';
+// import 'rxjs/add/observable/empty';
 
 @Component({
   selector: 'app-gameroomlist',
@@ -15,6 +17,7 @@ import { Tournament } from 'src/app/tournament/tournament';
 export class GameroomlistComponent implements OnInit {
 
   isShowed = true;
+  noMatches = false;
   endGame = '';
 
   username: string;
@@ -62,8 +65,8 @@ export class GameroomlistComponent implements OnInit {
 
   reloadData() {
     // czyscic te wartosci ??? tournamnets i tournas i matches i matchList
-
     this.tournaments = this.tournamentService.getUserTournaments(this.username);
+
     this.tournaments.forEach(data => {
       data.forEach( xdata => {
         this.tournas.push({
@@ -82,7 +85,14 @@ export class GameroomlistComponent implements OnInit {
             this.matches = this.matchService.getMetches(i.id, this.username);
             this.matches.forEach(ydata => {
               ydata.forEach( zdata => {
-                this.matchList.push(zdata);
+                if (!((zdata.status === 'FINISHED') || (zdata.status === 'STARTED'))) {
+                  this.matchList.push(zdata);
+                }
+                if (this.matchList.length === 0) {
+                  this.noMatches = true;
+                } else {
+                  this.noMatches = false;
+                }
               });
             });
           }
@@ -120,23 +130,29 @@ export class GameroomlistComponent implements OnInit {
   }
 
   endGameValue(event: Match) {
-    this.endGame = event.status;
-    if (this.endGame === 'STARTED' ) {
+    if (event.status === 'FINISHED' ) {
       for (const i of this.matchList) {
         if (i.id === event.id) {
           i.showMatch = false;
           i.status = 'FINISHED';
           i.whoWon = event.whoWon;
           // dodac upload na server -- upload
-          this.matchService.modifyMatch(i.id, this.username, i);
+          this.matchService.modifyMatch(i.id, this.username, i).subscribe(
+            data => {
+              data = i;
+            },
+            error => {
+              console.log(error);
+            }
+          );
           this.isShowed = true;
         }
       }
     }
-    this.tournaments = null;
-    this.tournas = null;
-    this.matches = null;
-    this.matchList = null;
+    // this.tournaments = null;
+    this.tournas = [];
+    // this.matches;
+    this.matchList = [];
     this.reloadData();
     // dopisac logike do tego jak sie skonczy rozgrywka
   }

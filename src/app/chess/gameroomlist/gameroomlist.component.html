@@ -1,4 +1,5 @@
 <ul>
+  <li *ngIf="noMatches" ><h1 class="h3 mb-3 font-weight-normal" style="color:white">No games available</h1></li>
   <li *ngFor='let match of matchList'>
     <div *ngIf='isShowed'>
       <div id='{{match.id}}'></div> <span *ngIf='isShowed'><button (click)="playGame(match)" > {{match.name}}  Play</button></span>
@@ -7,4 +8,4 @@
         <app-board [match]='match' (matchBack)='endGameValue($event)'></app-board>
       </div>
   </li>
- 
+</ul>

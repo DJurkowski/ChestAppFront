@@ -125,18 +125,19 @@ export class BoardComponent implements OnInit {
                 this.openDialog();
               console.log('NIe prawidlowy ruch Pawn2');
             }
-        } else if (this.figureCoords.id === 'pawnN') {
-            if (this.game.canMovePawnN(pos)) {
-              this.game.movePawnN(pos);
-              this.sendMessageMove(this.figureCoords.id + ';' + pos.x + ';' + pos.y);
-              this.figureCoords.id = 'zero';
-              this.figureCoords.isCheck = false;
-            } else {
-                this.errorFigure = 'pawnN';
-                this.openDialog();
-              console.log('NIe prawidlowy ruch PawnN');
-            }
           }
+        // } else if (this.figureCoords.id === 'pawnN') {
+        //     if (this.game.canMovePawnN(pos)) {
+        //       this.game.movePawnN(pos);
+        //       this.sendMessageMove(this.figureCoords.id + ';' + pos.x + ';' + pos.y + ';' + this.username);
+        //       this.figureCoords.id = 'zero';
+        //       this.figureCoords.isCheck = false;
+        //     } else {
+        //         this.errorFigure = 'pawnN';
+        //         this.openDialog();
+        //       console.log('NIe prawidlowy ruch PawnN');
+        //     }
+        //   }
     } else {
 
         console.error('Check');
@@ -209,7 +210,7 @@ openDialog(): void {
 // end game function button
 gameRoomBackValue() {
   const matchResult = this.match;
-    matchResult.status = 'finished';
+    matchResult.status = 'FINISHED';
     console.log('matchResult: ' + matchResult.status);
     this.matchBack.emit(matchResult);
 }
