@@ -13,6 +13,7 @@ export interface DialogError {
 export class FigureErrorDialogComponent implements OnInit {
 
   name: string;
+
   constructor(public dialogRef: MatDialogRef<FigureErrorDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogError) {
       this.name = data.nameFigure;

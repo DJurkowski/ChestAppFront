@@ -33,6 +33,10 @@ export class UserService {
     return this.http.get(`${this.baseUrl}` + `/username` + `/${userId}`);
   }
 
+  getUserId(userId: string): Observable<Object> {
+    return this.http.get(`${this.baseUrl}` + `/user` + `/${userId}` + `/id`);
+  }
+
   getTournament(tournamentId: number, userId: string): Observable<Object> {
     return this.http.get(`${this.baseUrl}/${userId}` + `/tournament` + `/${tournamentId}`);
   }

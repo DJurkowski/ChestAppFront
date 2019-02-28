@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { GameRoom } from '../gameRoom';
 import { GameService } from '../game.service';
@@ -8,6 +9,7 @@ import SockJS from 'sockjs-client';
 import { FigureErrorDialogComponent } from '../figure-error-dialog/figure-error-dialog.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { Match } from 'src/app/match/match';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -24,6 +26,8 @@ export class BoardComponent implements OnInit {
   private serverUrl = 'http://localhost:8080/api/auth/socket';
 
   username: string;
+  userId: number;
+  userIdentification: Observable<Object>;
 
   sixtyFour = new Array(64).fill(0).map((_, i) => i);
 
@@ -53,9 +57,16 @@ export class BoardComponent implements OnInit {
     isCheck: false
   };
 
-  constructor(private game: GameService, public dialog: MatDialog, private token: TokenStorageService) {
+  constructor(private game: GameService, public dialog: MatDialog, private token: TokenStorageService,
+    private userService: UserService) {
     this.initializeWebSocketConnection();
-    this.username = token.getUsername();
+    this.username = this.token.getUsername();
+    this.userIdentification = this.userService.getUserId(this.username);
+    console.log('Jestem Prdzed');
+    this.userIdentification.subscribe(data => {
+      this.userId = Number(data);
+      console.log('User Identification' + this.userId);
+    });
   }
 
   xy(i): Coord {
@@ -213,8 +224,17 @@ openDialog(): void {
 gameRoomBackValue() {
   const matchResult = this.match;
     matchResult.status = 'FINISHED';
+    console.log('Przed zapisasz: ' + matchResult.userOneId + ' ' + this.userId);
+    if (matchResult.userOneId === this.userId) {
+      console.log('Zapisuje jedengo');
+        matchResult.whoWon = matchResult.userTwoId;
+    } else {
+      console.log('Zapisuje drugiego');
+        matchResult.whoWon = matchResult.userOneId;
+    }
     console.log('matchResult: ' + matchResult.status);
     this.matchBack.emit(matchResult);
+    this.sendMessageMove('END' + ';');
 }
 
 // web socket connection
@@ -239,9 +259,15 @@ sendMessageMove(message) {
 // opponent movement
 opponentMove(move: string) {
   const tabMove = move.split(';');
-  if (tabMove[3] !== this.username) {
-  this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]));
-  console.log('Moveopponent: ' + tabMove);
+  if (tabMove[0] === 'END') {
+    const matchResult = this.match;
+    matchResult.status = 'FINISHED';
+    this.matchBack.emit(matchResult);
+  } else {
+    if (tabMove[3] !== this.username) {
+    this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]));
+    console.log('Moveopponent: ' + tabMove);
+    }
   }
 
 }
