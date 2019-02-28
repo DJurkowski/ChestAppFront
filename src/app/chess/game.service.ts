@@ -42,6 +42,8 @@ export class GameService {
 
   pawnNPosition$ = new BehaviorSubject<Coord>({ x: 0, y: 1});
   pawnNCurrentPosition: Coord;
+  kingNPosition$ = new BehaviorSubject<Coord>({ x: 4, y: 0});
+  kingNCurrentPosition: Coord;
 
 
 
@@ -93,6 +95,9 @@ export class GameService {
     // Negative
     this.pawnNPosition$.subscribe(pawnNp => {
       this.pawnNCurrentPosition = pawnNp;
+    });
+    this.kingNPosition$.subscribe(kingNp => {
+      this.kingNCurrentPosition = kingNp;
     });
 
     this.currentPositions.push( {
@@ -157,6 +162,12 @@ export class GameService {
       color: false,
       namefigure: 'pawnN'
       });
+
+    this.currentPositions.push({
+      position: this.kingNCurrentPosition,
+      color: false,
+      namefigure: 'kingN'
+    });
 
   }
 
@@ -321,18 +332,28 @@ export class GameService {
     }
   }
 
-  canMovePawnN(to: Coord) {
-    const { x, y } = this.pawnNCurrentPosition;
-    const dx = to.x - x;
-    const dy = to.y - y;
-
-
-    console.log('Hallo');
-    console.log(this.currentPositions);
-
-    return (Math.abs(dx) === 0 && dy === 1) ||
-          (Math.abs(dx) === 0 && dy === 2);
+  moveKingN(to: Coord) {
+    this.kingNPosition$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'kingN') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
   }
+
+  // canMovePawnN(to: Coord) {
+  //   const { x, y } = this.pawnNCurrentPosition;
+  //   const dx = to.x - x;
+  //   const dy = to.y - y;
+
+
+  //   console.log('Hallo');
+  //   console.log(this.currentPositions);
+
+  //   return (Math.abs(dx) === 0 && dy === 1) ||
+  //         (Math.abs(dx) === 0 && dy === 2);
+  // }
 
   unsubscribeFigure (figurename: string) {
     if (figurename === 'pawnNPosition$') {
@@ -348,7 +369,12 @@ export class GameService {
         this.movePawnN(pos);
         break;
       }
-    }
+      case 'king': {
+        // dokonczyc i napisac moveKingN z odpowiednia logica
+        this.moveKingN(pos);
+        break;
+      }
 
+    }
   }
 }

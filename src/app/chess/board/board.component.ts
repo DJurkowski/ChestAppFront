@@ -42,6 +42,7 @@ export class BoardComponent implements OnInit {
 
 // Negative
   pawnNPosition$ = this.game.pawnNPosition$;
+  kingNPosition$ = this.game.kingNPosition$;
 
 
   errorFigure = '';
@@ -86,6 +87,7 @@ export class BoardComponent implements OnInit {
         } else if (this.figureCoords.id === 'king') {
           if (this.game.canMoveKing(pos)) {
           this.game.moveKing(pos);
+          this.sendMessageMove(this.figureCoords.id + ';' + pos.x + ';' + pos.y + ';' + this.username);
           this.figureCoords.id = 'zero';
           this.figureCoords.isCheck = false;
           } else {
@@ -245,6 +247,7 @@ opponentMove(move: string) {
 }
 
 makeCoor(posx: string, posy: string): Coord {
-  return {x: (Math.abs(Number(posx) - 7)), y: Math.abs(Number(posy) - 7)};
+  return {x: (Number(posx)), y: Math.abs(Number(posy) - 7)};
 }
+
 }

@@ -1,13 +1,11 @@
-// import { Observable } from 'rxjs/Observable';
 import { TournamentService } from './../../services/tournament.service';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './../../auth/token-storage.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { GameRoom } from '../gameRoom';
+// import { GameRoom } from '../gameRoom';
 import { MatchService } from 'src/app/services/match.service';
 import { Match } from 'src/app/match/match';
 import { Tournament } from 'src/app/tournament/tournament';
-// import 'rxjs/add/observable/empty';
 
 @Component({
   selector: 'app-gameroomlist',
@@ -25,36 +23,6 @@ export class GameroomlistComponent implements OnInit {
   tournaments: Observable<Tournament[]>;
   tournas = new Array<Tournament>();
   matchList: Array<Match> = new Array<Match>();
-
-  // lista: GameRoom[] = [
-  //   {
-  //     id: 1,
-  //     name: 'room1',
-  //     userOneId: '1',
-  //     userTwoId: '2',
-  //     status: 'notStarted',
-  //     show: false,
-  //     whoWon: null
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'room2',
-  //     userOneId: '1',
-  //     userTwoId: '2',
-  //     status: 'notStarted',
-  //     show: false,
-  //     whoWon: null
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'room3',
-  //     userOneId: '1',
-  //     userTwoId: '2',
-  //     status: 'notStarted',
-  //     show: false,
-  //     whoWon: null
-  //   }
-  // ];
 
   constructor(private matchService: MatchService, private tournamentService: TournamentService, private token: TokenStorageService) {}
 
@@ -109,8 +77,6 @@ export class GameroomlistComponent implements OnInit {
         if ( match.id === i.id) {
             i.status = 'STARTED';
             i.showMatch = true;
-            console.log('Jestem!!!!');
-            // dodac update na server z tymi danymi -- update
             this.matchService.modifyMatch(i.id, this.username, i).subscribe(
               data => {
                 console.log(i.name);
@@ -124,9 +90,6 @@ export class GameroomlistComponent implements OnInit {
         }
       }
     }
-    // this.isShowed = false;
-    // wjebac do appboard jakas zeminna Match, moze jeszcze id po to aby to porem usunac
-    // $('#' + match.id).remove();
   }
 
   endGameValue(event: Match) {
