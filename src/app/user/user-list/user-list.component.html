@@ -3,7 +3,10 @@
     <thead>
       <tr>
         <th>NickName</th>
-        <th>Rank Value</th>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Matches</th>
+        <th>Gamer Level</th>
       </tr>
     </thead>
   <tbody>
@@ -15,6 +18,9 @@
             <ng-template #elseBlock>
             <td> {{user.username}} </td>
             </ng-template>
+            <td>{{user.wins}}</td>
+            <td>{{user.losses}}</td>
+            <td>{{user.wins + user.losses}}</td>
             <td> {{user.rankValue}} </td>
       </tr>
   </tbody>

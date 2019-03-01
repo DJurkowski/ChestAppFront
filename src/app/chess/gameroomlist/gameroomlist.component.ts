@@ -1,7 +1,7 @@
 import { TournamentService } from './../../services/tournament.service';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './../../auth/token-storage.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // import { GameRoom } from '../gameRoom';
 import { MatchService } from 'src/app/services/match.service';
 import { Match } from 'src/app/match/match';
@@ -30,6 +30,7 @@ export class GameroomlistComponent implements OnInit {
     this.username = this.token.getUsername();
     this.reloadData();
   }
+
 
   reloadData() {
     // czyscic te wartosci ??? tournamnets i tournas i matches i matchList
@@ -63,11 +64,11 @@ export class GameroomlistComponent implements OnInit {
                 }
               });
             });
+          } else {
+            this.noMatches = true;
           }
         }
     });
-
-    // dodac if z tym czy status tournament = STANDBY jak tak to pobieramy mecze jak nie to nie pobieramy! GENIUS
   }
 
   playGame(match: Match) {

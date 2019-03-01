@@ -17,13 +17,6 @@
         <input type="text" class="form-control" id="description" [(ngModel)]="form.description" name="description" #description="ngModel"
            placeholder="Description" style="margin-bottom:10px">
 
-          <label for="minValueOfRankValue" class="sr-only">MinValueOfRankValue</label>
-          <input type="number" class="form-control" id="minValueOfRankValue" required [(ngModel)]="form.minValueOfRankValue" name="minValueOfRankValue" #minValueOfRankValue="ngModel"
-            required placeholder="MinValueOfRankValue" style="margin-bottom:10px">
-            <div *ngIf="f.submitted && minValueOfRankValue.invalid">
-                <div *ngIf="!!minValueOfRankValue.errors?.required" style="color: tomato">MinValueOfRankValue is required</div>
-            </div>
-
           <label for="maxNumberOfUser" class="sr-only">MaxNumberOfUser</label>
           <input type="number" class="form-control" id="maxNumberOfUser" required [(ngModel)]="form.maxNumberOfUser" name="maxNumberOfUser" #maxNumberOfUser="ngModel"
             required min="2" placeholder="MaxNumberOfUser" style="margin-bottom:10px">

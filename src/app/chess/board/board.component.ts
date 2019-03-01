@@ -1,5 +1,5 @@
 import { UserService } from './../../services/user.service';
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
 import { GameRoom } from '../gameRoom';
 import { GameService } from '../game.service';
 import { MatDialog } from '@angular/material';
@@ -9,14 +9,15 @@ import SockJS from 'sockjs-client';
 import { FigureErrorDialogComponent } from '../figure-error-dialog/figure-error-dialog.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { Match } from 'src/app/match/match';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
 
   @Input() match: Match;
   @Output() matchBack = new EventEmitter<Match>();
@@ -28,6 +29,11 @@ export class BoardComponent implements OnInit {
   username: string;
   userId: number;
   userIdentification: Observable<Object>;
+
+  // zegar
+  public minutes = 0;
+  public seconds = 0;
+  private subscription: Subscription;
 
   sixtyFour = new Array(64).fill(0).map((_, i) => i);
 
@@ -69,6 +75,29 @@ export class BoardComponent implements OnInit {
     });
   }
 
+// timer
+  ngOnInit() {
+    const timer = TimerObservable.create(0, 1000);
+    this.subscription = timer.subscribe(t => {
+      if (t % 60 === 0 && t !== 0) {
+        this.minutes += 1;
+      } else {
+        if (this.minutes !== 0) {
+          this.seconds = (t - (this.minutes * 60));
+        } else {
+          this.seconds = t;
+        }
+      }
+      // console.log('Timer: ' + this.minutes + ' : ' + this.seconds );
+    });
+
+  }
+
+  ngOnDestroy() {
+    console.log('OnDestroye ....');
+    this.subscription.unsubscribe();
+  }
+
   xy(i): Coord {
     return {
       x: i % 8,
@@ -78,9 +107,6 @@ export class BoardComponent implements OnInit {
 
   isBlack({x, y}: Coord) {
     return (x + y) % 2 === 1;
-  }
-
-  ngOnInit() {
   }
 
   handleSquareClick(pos: Coord) {
@@ -152,10 +178,8 @@ export class BoardComponent implements OnInit {
         //     }
         //   }
     } else {
-
         console.error('Check');
     }
-
     console.log(pos);
 }
 
@@ -251,7 +275,7 @@ initializeWebSocketConnection() {
     });
   });
 }
-
+// web socket message
 sendMessageMove(message) {
   this.stompClient.send('/api/game/' + this.match.name, {}, message);
 }
@@ -269,7 +293,6 @@ opponentMove(move: string) {
     console.log('Moveopponent: ' + tabMove);
     }
   }
-
 }
 
 makeCoor(posx: string, posy: string): Coord {

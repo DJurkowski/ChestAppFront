@@ -31,7 +31,6 @@ export class CreateTournamnetComponent implements OnInit {
     this.tournamentInfo = new TournamentInfo(
       this.form.name,
       this.form.description,
-      this.form.minValueOfRankValue,
       this.form.maxNumberOfUser
     );
     this.tournamentService.createTournament(this.tournamentInfo, this.username).subscribe(
