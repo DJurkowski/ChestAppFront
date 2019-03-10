@@ -36,6 +36,7 @@ import { SquareComponent } from './chess/square/square.component';
 import { MatDialogModule, MatButtonModule, MatCheckboxModule, MatTableModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
+import { WebSocketService } from './globalService/web-socket.service';
 
 
 
@@ -77,7 +78,7 @@ import { NotificationsComponent } from './notifications/notifications/notificati
     MatTableModule
   ],
   providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService, GameService,
-    MatchService],
+    MatchService, WebSocketService],
   bootstrap: [AppComponent],
   entryComponents: [FigureErrorDialogComponent, BoardComponent]
 })

@@ -2,6 +2,7 @@ import * as SockJS from 'sockjs-client';
 import { TokenStorageService } from './auth/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Stomp} from 'stompjs/lib/stomp.js';
+import { WebSocketService } from './globalService/web-socket.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
   private stompClient;
   private serverUrl = 'http://localhost:8080/api/auth/socket';
 
-  constructor(private tokenStorage: TokenStorageService) {
+  constructor(private tokenStorage: TokenStorageService, private webSocketService: WebSocketService) {
+    this.initializeWebSocketConnection();
   }
 
   ngOnInit(): void {
@@ -34,27 +36,37 @@ export class AppComponent implements OnInit {
         }
         this.authority = 'user';
         this.username = this.tokenStorage.getUsername();
-        this.initializeWebSocketConnection();
+        this.webSocketService.initializeWebSocket(this.username);
         return true;
       });
     }
   }
 
   initializeWebSocketConnection() {
-    const ws = new SockJS(this.serverUrl);
-    this.stompClient = Stomp.over(ws);
-    const that = this;
-    this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/notification/' + that.username, (message) => {
-        if (message.body) {
-          console.log('Dostalem message taki bo tak : ' + message.body);
-          // that.opponentMove(message.body);
-          if (message.body === 'notifi') {
-            that.notifications = true;
-          }
+    // const ws = new SockJS(this.serverUrl);
+    // this.stompClient = Stomp.over(ws);
+    // const that = this;
+    // this.stompClient.connect({}, function(frame) {
+    //   that.stompClient.subscribe('/notification/' + that.username, (message) => {
+    //     if (message.body) {
+    //       console.log('Dostalem message taki bo tak : ' + message.body);
+    //       // that.opponentMove(message.body);
+    //       if (message.body === 'notifi') {
+    //         that.notifications = true;
+    //       }
+    //     }
+    //   });
+    // });
+    this.webSocketService.globalNotificationUpdate.subscribe((data) => {
+      console.log('Jestem Notifikacje.....');
+      const messageTab = data.split(';', 5);
+      if (messageTab[0] === 'noti') {
+        if (messageTab[3] === this.username) {
+          this.notifications = true;
         }
-      });
+      }
     });
+
   }
 
   turnOffNotification() {

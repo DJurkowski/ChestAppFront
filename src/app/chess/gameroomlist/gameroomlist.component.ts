@@ -1,3 +1,4 @@
+import { WebSocketService } from 'src/app/globalService/web-socket.service';
 import { UserService } from './../../services/user.service';
 import { TournamentService } from './../../services/tournament.service';
 import { Observable } from 'rxjs';
@@ -34,7 +35,7 @@ export class GameroomlistComponent implements OnInit {
   matchList: Array<Match> = new Array<Match>();
 
   constructor(private matchService: MatchService, private tournamentService: TournamentService, private token: TokenStorageService,
-    private userService: UserService) {}
+    private userService: UserService, private webSocketService: WebSocketService) {}
 
   ngOnInit() {
     this.username = this.token.getUsername();
@@ -109,24 +110,30 @@ export class GameroomlistComponent implements OnInit {
   }
 
   sendMessageToOpponent(match: Match) {
-    const ws = new SockJS(this.serverUrl);
-    this.stompClient = Stomp.over(ws);
-    const that = this;
-    this.stompClient.connect({}, function(frame) {
-      if (that.userId === match.userOneId) {
-        console.log('Wysylam kurwa do ' + match.userTwoId);
-        that.stompClient.send('/api/notifi/' + match.userTwoId, {}, 'notifi');
-      } else {
-        console.log('Wysylam kurwa do ' + match.userTwoId);
-        that.stompClient.send('/api/notifi/' + match.userOneId, {}, 'notifi');
-      }
-      });
-      console.log('StompJestem1');
-      if (this.stompClient !== null) {
-      console.log('StompJestem2');
-        this.stompClient.disconnect();
-      }
-      console.log('StompJestem3');
+    // const ws = new SockJS(this.serverUrl);
+    // this.stompClient = Stomp.over(ws);
+    // const that = this;
+    // this.stompClient.connect({}, function(frame) {
+    //   if (that.userId === match.userOneId) {
+    //     console.log('Wysylam kurwa do ' + match.userTwoId);
+    //     that.stompClient.send('/api/notifi/' + match.userTwoId, {}, 'notifi');
+    //   } else {
+    //     console.log('Wysylam kurwa do ' + match.userTwoId);
+    //     that.stompClient.send('/api/notifi/' + match.userOneId, {}, 'notifi');
+    //   }
+    //   });
+    //   console.log('StompJestem1');
+    //   if (this.stompClient !== null) {
+    //   console.log('StompJestem2');
+    //     this.stompClient.disconnect();
+    //   }
+    //   console.log('StompJestem3');
+    if (this.userId !== match.userOneId) {
+      this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, 'notification');
+    } else {
+      this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, 'notification');
+    }
+
   }
 
   endGameValue(event: Match) {

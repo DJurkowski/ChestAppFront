@@ -1,0 +1,9 @@
+.transbox {
+  margin-top: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.boxone {
+  margin-top: 20px;
+}
