@@ -17,12 +17,12 @@
         <input type="text" class="form-control" id="description" [(ngModel)]="form.description" name="description" #description="ngModel"
            placeholder="Description" style="margin-bottom:10px">
 
-          <label for="maxNumberOfUser" class="sr-only">MaxNumberOfUser</label>
-          <input type="number" class="form-control" id="maxNumberOfUser" required [(ngModel)]="form.maxNumberOfUser" name="maxNumberOfUser" #maxNumberOfUser="ngModel"
-            required min="2" placeholder="MaxNumberOfUser" style="margin-bottom:10px">
-            <div *ngIf="f.submitted && maxNumberOfUser.invalid">
-                <div *ngIf="!!maxNumberOfUser.errors?.required" style="color: tomato">MaxNumberOfUser is required</div>
-            </div>
+        <label for="maxNumberOfUser" class="sr-only">MaxNumberOfUser</label>
+        <input type="number" class="form-control" id="maxNumberOfUser" required [(ngModel)]="form.maxNumberOfUser" name="maxNumberOfUser" #maxNumberOfUser="ngModel"
+          required min="2" placeholder="MaxNumberOfUser" style="margin-bottom:10px">
+          <div *ngIf="f.submitted && maxNumberOfUser.invalid">
+              <div *ngIf="!!maxNumberOfUser.errors?.required" style="color: tomato">MaxNumberOfUser is required</div>
+          </div>
 
         <button class="btn btn-lg btn-success btn-block">Submit</button>
         <div *ngIf="f.submitted && isCreatedFailed" class="alert alert-warning">

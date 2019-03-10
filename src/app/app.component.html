@@ -47,7 +47,14 @@
 </main>
 <footer>
   <div *ngIf="authority">
+
   <input type="button" value="Chat" class="btn btn-primary btn-lg chat" routerLink="rooms">
+    <span *ngIf="notifications; else haveNotification">
+        <input type="button" value="N" class="btn btn-danger btn-lg noti" (click)="turnOffNotification()" routerLink="notifications">
+    </span>
+    <ng-template #haveNotification>
+        <input type="button" value="N" class="btn btn-primary btn-lg noti" routerLink="notifications">
+    </ng-template>
   </div>
 </footer>
 

@@ -12,6 +12,7 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserListComponent } from './user/user-list/user-list.component';
+import { NotificationsComponent } from './notifications/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
 {
   path: 'gamerooms',
   component: GameroomlistComponent
+},
+{
+  path: 'notifications',
+  component: NotificationsComponent
 }
 ];
 

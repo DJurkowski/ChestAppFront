@@ -35,6 +35,7 @@ import { PawnComponent } from './chess/pawn/pawn.component';
 import { SquareComponent } from './chess/square/square.component';
 import { MatDialogModule, MatButtonModule, MatCheckboxModule, MatTableModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotificationsComponent } from './notifications/notifications/notifications.component';
 
 
 
@@ -61,7 +62,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     KingComponent,
     KnightComponent,
     PawnComponent,
-    SquareComponent
+    SquareComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

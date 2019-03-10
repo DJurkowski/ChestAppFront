@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { TournamentService } from './../../services/tournament.service';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './../../auth/token-storage.service';
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatchService } from 'src/app/services/match.service';
 import { Match } from 'src/app/match/match';
 import { Tournament } from 'src/app/tournament/tournament';
+import { Stomp} from 'stompjs/lib/stomp.js';
+import SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-gameroomlist',
@@ -19,15 +22,27 @@ export class GameroomlistComponent implements OnInit {
   endGame = '';
 
   username: string;
+  userId: number;
+  userIdentification: Observable<Object>;
+
+  private stompClient = null;
+  private serverUrl = 'http://localhost:8080/api/auth/socket';
+
   matches: Observable<Match[]>;
   tournaments: Observable<Tournament[]>;
   tournas = new Array<Tournament>();
   matchList: Array<Match> = new Array<Match>();
 
-  constructor(private matchService: MatchService, private tournamentService: TournamentService, private token: TokenStorageService) {}
+  constructor(private matchService: MatchService, private tournamentService: TournamentService, private token: TokenStorageService,
+    private userService: UserService) {}
 
   ngOnInit() {
     this.username = this.token.getUsername();
+    this.userIdentification = this.userService.getUserId(this.username);
+    this.userIdentification.subscribe(data => {
+      this.userId = Number(data);
+      console.log('User Identification' + this.userId);
+    });
     this.reloadData();
   }
 
@@ -93,6 +108,27 @@ export class GameroomlistComponent implements OnInit {
     }
   }
 
+  sendMessageToOpponent(match: Match) {
+    const ws = new SockJS(this.serverUrl);
+    this.stompClient = Stomp.over(ws);
+    const that = this;
+    this.stompClient.connect({}, function(frame) {
+      if (that.userId === match.userOneId) {
+        console.log('Wysylam kurwa do ' + match.userTwoId);
+        that.stompClient.send('/api/notifi/' + match.userTwoId, {}, 'notifi');
+      } else {
+        console.log('Wysylam kurwa do ' + match.userTwoId);
+        that.stompClient.send('/api/notifi/' + match.userOneId, {}, 'notifi');
+      }
+      });
+      console.log('StompJestem1');
+      if (this.stompClient !== null) {
+      console.log('StompJestem2');
+        this.stompClient.disconnect();
+      }
+      console.log('StompJestem3');
+  }
+
   endGameValue(event: Match) {
     if (event.status === 'FINISHED' ) {
       for (const i of this.matchList) {
@@ -120,5 +156,7 @@ export class GameroomlistComponent implements OnInit {
     this.reloadData();
     // dopisac logike do tego jak sie skonczy rozgrywka
   }
+
+
 
 }
