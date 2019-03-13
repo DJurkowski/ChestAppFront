@@ -4,7 +4,6 @@ import { TournamentService } from './../../services/tournament.service';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './../../auth/token-storage.service';
 import { Component, OnInit } from '@angular/core';
-// import { GameRoom } from '../gameRoom';
 import { MatchService } from 'src/app/services/match.service';
 import { Match } from 'src/app/match/match';
 import { Tournament } from 'src/app/tournament/tournament';
@@ -19,7 +18,7 @@ import SockJS from 'sockjs-client';
 export class GameroomlistComponent implements OnInit {
 
   isShowed = true;
-  noMatches = false;
+  noMatches = true;
   endGame = '';
 
   username: string;
@@ -129,9 +128,11 @@ export class GameroomlistComponent implements OnInit {
     //   }
     //   console.log('StompJestem3');
     if (this.userId !== match.userOneId) {
-      this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, 'notification');
+      // tslint:disable-next-line:max-line-length
+      this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username + ' is waiting for your joining to match');
     } else {
-      this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, 'notification');
+      // tslint:disable-next-line:max-line-length
+      this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username + ' is waiting for your joining to match');
     }
 
   }

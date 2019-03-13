@@ -2,7 +2,7 @@
   <li *ngIf="noMatches" ><h1 class="h3 mb-3 font-weight-normal" style="color:white">No games available</h1></li>
   <li *ngFor='let match of matchList'>
     <div *ngIf='isShowed'>
-      <div id='{{match.id}}'></div> <span *ngIf='isShowed'><button (click)="sendMessageToOpponent(match)" > {{match.name}}  W</button>
+      <div id='{{match.id}}'></div> <span *ngIf='isShowed'><button (click)="sendMessageToOpponent(match)" > {{match.name}}  </button>
     </span>
     </div>
       <div *ngIf='match.showMatch' class="container">

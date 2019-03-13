@@ -23,8 +23,6 @@ export class WebSocketService {
 
   private messageOut;
 
-  private wsObservable;
-
   private stompClient;
   private serverUrl = 'http://localhost:8080/api/auth/socket';
 
@@ -61,11 +59,6 @@ export class WebSocketService {
 
 
   initializeWebSocket(username) {
-    // this.wsObservable = Observable.create((observer) => {
-    //   const ws = new SockJS(this.serverUrl);
-    //   this.stompClient = Stomp.over(ws);
-
-    // }).share();
     const ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     const that = this;
@@ -102,6 +95,11 @@ export class WebSocketService {
   sendMessage(functions, roomName, userFrom, userTo, message) {
     this.messageOut = functions + ';' + roomName + ';' + userFrom + ';' + userTo + ';' + message;
     this.stompClient.send('/api/websocket/' + userTo, {}, this.messageOut);
+  }
+
+  closeConnection() {
+    this.stompClient.disconnect();
+    console.log('Closing connection!');
   }
 
 

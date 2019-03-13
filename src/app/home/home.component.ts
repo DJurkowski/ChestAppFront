@@ -1,3 +1,4 @@
+import { WebSocketService } from 'src/app/globalService/web-socket.service';
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../auth/token-storage.service';
 
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   info: any;
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private token: TokenStorageService, private webSocket: WebSocketService) { }
 
   ngOnInit() {
     this.info = {
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
+    this.webSocket.closeConnection();
     this.token.signOut();
     window.location.reload();
   }

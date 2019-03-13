@@ -58,7 +58,6 @@ export class AppComponent implements OnInit {
     //   });
     // });
     this.webSocketService.globalNotificationUpdate.subscribe((data) => {
-      console.log('Jestem Notifikacje.....');
       const messageTab = data.split(';', 5);
       if (messageTab[0] === 'noti') {
         if (messageTab[3] === this.username) {

@@ -37,6 +37,7 @@ import { MatDialogModule, MatButtonModule, MatCheckboxModule, MatTableModule } f
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { WebSocketService } from './globalService/web-socket.service';
+import { NotificationService } from './services/notification.service';
 
 
 
@@ -78,7 +79,7 @@ import { WebSocketService } from './globalService/web-socket.service';
     MatTableModule
   ],
   providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService, GameService,
-    MatchService, WebSocketService],
+    MatchService, WebSocketService, NotificationService],
   bootstrap: [AppComponent],
   entryComponents: [FigureErrorDialogComponent, BoardComponent]
 })
