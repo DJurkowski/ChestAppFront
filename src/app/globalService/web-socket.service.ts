@@ -21,6 +21,10 @@ export class WebSocketService {
   globalGameUpdate: Observable<string>;
   globalGameObserver: Observer<string>;
 
+  globalUserReady: string;
+  globalUserReadyUpdate: Observable<string>;
+  globalUserReadyObserver: Observer<string>;
+
   private messageOut;
 
   private stompClient;
@@ -35,6 +39,9 @@ export class WebSocketService {
     });
     this.globalGameUpdate = Observable.create((observer: Observer<string>) => {
       this.globalGameObserver = observer;
+    });
+    this.globalUserReadyUpdate = Observable.create((observer: Observer<string>) => {
+      this.globalUserReadyObserver = observer;
     });
   }
 
@@ -51,6 +58,11 @@ export class WebSocketService {
   updateGlobalGame(message: string) {
     this.globalNotification = message;
     this.globalNotificationObserver.next(this.globalNotification);
+  }
+
+  updateGlobalUserReady(message: string) {
+    this.globalUserReady = message;
+    this.globalUserReadyObserver.next(this.globalUserReady);
   }
 
   getMessage(): Observable<string> {
@@ -79,8 +91,13 @@ export class WebSocketService {
               break;
             }
             case 'game': {
-            console.log('JestemW Switch Noti!!!');
+            console.log('JestemW Switch Game!!!');
               that.updateGlobalGame(message.body);
+              break;
+            }
+            case 'ready': {
+            console.log('JestemW Switch Ready!!!');
+              that.updateGlobalUserReady(message.body);
               break;
             }
           }

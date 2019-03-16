@@ -1,11 +1,12 @@
+import { WebSocketService } from './../../globalService/web-socket.service';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
-import { GameRoom } from '../gameRoom';
+// import { GameRoom } from '../gameRoom';
 import { GameService } from '../game.service';
 import { MatDialog } from '@angular/material';
 import { Coord } from '../coord';
-import { Stomp} from 'stompjs/lib/stomp.js';
-import SockJS from 'sockjs-client';
+// import { Stomp} from 'stompjs/lib/stomp.js';
+// import SockJS from 'sockjs-client';
 import { FigureErrorDialogComponent } from '../figure-error-dialog/figure-error-dialog.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { Match } from 'src/app/match/match';
@@ -23,8 +24,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   @Output() matchBack = new EventEmitter<Match>();
   // dopisac logike do zakonczenie gry i czas gry
 
-  private stompClient;
-  private serverUrl = 'http://localhost:8080/api/auth/socket';
+  // private stompClient;
+  // private serverUrl = 'http://localhost:8080/api/auth/socket';
 
   username: string;
   userId: number;
@@ -64,15 +65,15 @@ export class BoardComponent implements OnInit, OnDestroy {
   };
 
   constructor(private game: GameService, public dialog: MatDialog, private token: TokenStorageService,
-    private userService: UserService) {
-    this.initializeWebSocketConnection();
+    private userService: UserService, private webSocketService: WebSocketService) {
     this.username = this.token.getUsername();
     this.userIdentification = this.userService.getUserId(this.username);
-    console.log('Jestem Prdzed');
     this.userIdentification.subscribe(data => {
       this.userId = Number(data);
       console.log('User Identification' + this.userId);
     });
+    this.initializeWebSocketConnection();
+
   }
 
 // timer
@@ -263,21 +264,34 @@ gameRoomBackValue() {
 
 // web socket connection
 initializeWebSocketConnection() {
-  const ws = new SockJS(this.serverUrl);
-  this.stompClient = Stomp.over(ws);
-  const that = this;
-  this.stompClient.connect({}, function(frame) {
-    that.stompClient.subscribe('/gameRoom/' + that.match.name, (message) => {
-      if (message.body) {
-        console.log('Dostalem message taki bo tak : ' + message.body);
-        that.opponentMove(message.body);
+  // const ws = new SockJS(this.serverUrl);
+  // this.stompClient = Stomp.over(ws);
+  // const that = this;
+  // this.stompClient.connect({}, function(frame) {
+  //   that.stompClient.subscribe('/gameRoom/' + that.match.name, (message) => {
+  //     if (message.body) {
+  //       console.log('Dostalem message taki bo tak : ' + message.body);
+  //       that.opponentMove(message.body);
+  //     }
+  //   });
+  // });
+  this.webSocketService.globalGameUpdate.subscribe((data) => {
+    const messageTab = data.split(';', 5);
+    if (messageTab[0] === 'game') {
+      if (messageTab[3] === this.username) {
+        this.opponentMove(messageTab[4]);
       }
-    });
+    }
   });
 }
 // web socket message
 sendMessageMove(message) {
-  this.stompClient.send('/api/game/' + this.match.name, {}, message);
+  if (this.userId === this.match.userOneId) {
+    this.webSocketService.sendMessage('game', this.match.name, this.match.userOneId, this.match.userTwoId, message);
+  } else {
+    this.webSocketService.sendMessage('game', this.match.name, this.match.userTwoId, this.match.userOneId, message);
+  }
+  // this.stompClient.send('/api/game/' + this.match.name, {}, message);
 }
 
 // opponent movement

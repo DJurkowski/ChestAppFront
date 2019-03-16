@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatchService } from 'src/app/services/match.service';
 import { Match } from 'src/app/match/match';
 import { Tournament } from 'src/app/tournament/tournament';
-import { Stomp} from 'stompjs/lib/stomp.js';
-import SockJS from 'sockjs-client';
+
 
 @Component({
   selector: 'app-gameroomlist',
@@ -23,15 +22,14 @@ export class GameroomlistComponent implements OnInit {
 
   username: string;
   userId: number;
-  userIdentification: Observable<Object>;
-
-  private stompClient = null;
-  private serverUrl = 'http://localhost:8080/api/auth/socket';
+  private userIdentification: Observable<Object>;
 
   matches: Observable<Match[]>;
   tournaments: Observable<Tournament[]>;
   tournas = new Array<Tournament>();
   matchList: Array<Match> = new Array<Match>();
+  matchWaitList: Array<Match> = new Array<Match>();
+
 
   constructor(private matchService: MatchService, private tournamentService: TournamentService, private token: TokenStorageService,
     private userService: UserService, private webSocketService: WebSocketService) {}
@@ -44,11 +42,30 @@ export class GameroomlistComponent implements OnInit {
       console.log('User Identification' + this.userId);
     });
     this.reloadData();
+    this.initializeWebSocketConnection();
   }
 
+  initializeWebSocketConnection() {
+    this.webSocketService.globalUserReadyUpdate.subscribe((data) => {
+      const messageTab = data.split(';', 5);
+      if (messageTab[0] === 'ready') {
+        if (messageTab[3] === this.username) {
+          console.log('Przyjalem Ready!!!!!: ' + messageTab[4] );
+          this.reloadData();
+          // dopisac logike do wyswietlania propozycji gry
+          // if( userOneReady === true && userTwoReady === true) -> start game
+          // if (userOneReady === true) => wyswietl zaproszenie(jesli nasz potwierdzi to wyslij
+          // ready do drugiego jak nie odrzuci co wyslij false do drugiego
+        }
+      }
+    });
+  }
 
   reloadData() {
     // czyscic te wartosci ??? tournamnets i tournas i matches i matchList
+    this.tournas = [];
+    this.matchList = [];
+    this.matchWaitList = [];
     this.tournaments = this.tournamentService.getUserTournaments(this.username);
 
     this.tournaments.forEach(data => {
@@ -70,9 +87,14 @@ export class GameroomlistComponent implements OnInit {
             this.matches.forEach(ydata => {
               ydata.forEach( zdata => {
                 if (!((zdata.status === 'FINISHED') || (zdata.status === 'STARTED'))) {
-                  this.matchList.push(zdata);
+                  // tslint:disable-next-line:max-line-length
+                  if ((zdata.userOneReady === true && zdata.userTwoReady !== true) || (zdata.userOneReady !== true && zdata.userTwoReady === true)) {
+                    this.matchWaitList.push(zdata);
+                  } else {
+                    this.matchList.push(zdata);
+                  }
                 }
-                if (this.matchList.length === 0) {
+                if (this.matchList.length === 0 && this.matchWaitList.length === 0) {
                   this.noMatches = true;
                 } else {
                   this.noMatches = false;
@@ -86,11 +108,15 @@ export class GameroomlistComponent implements OnInit {
     });
   }
 
-  playGame(match: Match) {
-
-    for (const i of this.matchList) {
+  acceptGame(match: Match) {
+    for (const i of this.matchWaitList) {
       if (i.status === 'STANDBY') {
         if ( match.id === i.id) {
+          if (i.userOneId === this.userId && i.userTwoReady === true) {
+              i.userOneReady = true;
+          } else if (i.userTwoId === this.userId && i.userOneReady === true) {
+              i.userTwoReady = true;
+          }
             i.status = 'STARTED';
             i.showMatch = true;
             this.matchService.modifyMatch(i.id, this.username, i).subscribe(
@@ -108,7 +134,28 @@ export class GameroomlistComponent implements OnInit {
     }
   }
 
-  sendMessageToOpponent(match: Match) {
+  denyGame(match: Match) {
+    // odrzucamy zaproszenie
+    if (this.userId !== match.userOneId) {
+      console.log('Odrzucam Ready!!!!');
+      this.webSocketService.sendMessage('ready', match.name, this.username, match.userOneId, 'false');
+
+      setTimeout(() => {
+      console.log('Odrzucam Notyfikacje!!!!');
+        this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username + ' deny your invitation');
+      }, 2000);
+    } else {
+      console.log('Odrzucam Ready!!!!');
+      this.webSocketService.sendMessage('ready', match.name, this.username, match.userTwoId, 'false');
+      setTimeout(() => {
+      console.log('Odrzucam Notyfikacje!!!!');
+      this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username + ' deny your invitation');
+      }, 2000);
+    }
+    this.reloadData();
+  }
+
+  sendInvitation(match: Match) {
     // const ws = new SockJS(this.serverUrl);
     // this.stompClient = Stomp.over(ws);
     // const that = this;
@@ -128,18 +175,32 @@ export class GameroomlistComponent implements OnInit {
     //   }
     //   console.log('StompJestem3');
     if (this.userId !== match.userOneId) {
+      console.log('Wysylam zaproszenie 1Ready');
+      this.webSocketService.sendMessage('ready', match.name, this.username, match.userOneId, 'true');
+      // zapisywac zwyklym putem a nie wysylac socketem i tyle i hujjjjj ( jak nie to obsluzyc to jako notyfikacje)
+
+      // opoznienie zrobic na notyfikacje zobaczymy czy pomoze
+      setTimeout(() => {
+      console.log('Wysylam zaproszenie 2Notyfikacje');
       // tslint:disable-next-line:max-line-length
       this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username + ' is waiting for your joining to match');
+      }, 2000);
     } else {
+      console.log('Wysylam zaproszenie 1Ready');
+      this.webSocketService.sendMessage('ready', match.name, this.username, match.userTwoId, 'true');
+      setTimeout(() => {
+      console.log('Wysylam zaproszenie 2Notyfikacje');
       // tslint:disable-next-line:max-line-length
       this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username + ' is waiting for your joining to match');
+      }, 2000);
     }
+    this.reloadData();
 
   }
 
   endGameValue(event: Match) {
     if (event.status === 'FINISHED' ) {
-      for (const i of this.matchList) {
+      for (const i of this.matchWaitList) {
         if (i.id === event.id) {
           i.showMatch = false;
           i.status = 'FINISHED';
@@ -157,14 +218,8 @@ export class GameroomlistComponent implements OnInit {
         }
       }
     }
-    // this.tournaments = null;
-    this.tournas = [];
-    // this.matches;
-    this.matchList = [];
     this.reloadData();
     // dopisac logike do tego jak sie skonczy rozgrywka
   }
-
-
 
 }

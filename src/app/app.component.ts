@@ -1,7 +1,5 @@
-import * as SockJS from 'sockjs-client';
 import { TokenStorageService } from './auth/token-storage.service';
 import { Component, OnInit } from '@angular/core';
-import { Stomp} from 'stompjs/lib/stomp.js';
 import { WebSocketService } from './globalService/web-socket.service';
 
 @Component({
@@ -65,7 +63,6 @@ export class AppComponent implements OnInit {
         }
       }
     });
-
   }
 
   turnOffNotification() {
