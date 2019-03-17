@@ -52,10 +52,15 @@ export class GameroomlistComponent implements OnInit {
         if (messageTab[3] === this.username) {
           console.log('Przyjalem Ready!!!!!: ' + messageTab[4] );
           this.reloadData();
-          // dopisac logike do wyswietlania propozycji gry
-          // if( userOneReady === true && userTwoReady === true) -> start game
-          // if (userOneReady === true) => wyswietl zaproszenie(jesli nasz potwierdzi to wyslij
-          // ready do drugiego jak nie odrzuci co wyslij false do drugiego
+        }
+      }
+    });
+
+    this.webSocketService.globalStartGameUpdate.subscribe((data) => {
+      const messageTab = data.split(';', 5);
+      if (messageTab[0] === 'startGame') {
+        if (messageTab[4] === 'true') {
+          this.startGame(messageTab[1]);
         }
       }
     });
@@ -108,6 +113,25 @@ export class GameroomlistComponent implements OnInit {
     });
   }
 
+  startGame(matchName: string) {
+    if (this.isShowed !== false) {
+      for (const i of this.matchWaitList) {
+        if (i.status === 'STANDBY') {
+          if ( matchName === i.name) {
+            if (i.userOneId === this.userId && i.userTwoReady === true) {
+                i.userOneReady = true;
+            } else if (i.userTwoId === this.userId && i.userOneReady === true) {
+                i.userTwoReady = true;
+            }
+              i.status = 'STARTED';
+              i.showMatch = true;
+              this.isShowed = false;
+          }
+        }
+      }
+    }
+  }
+
   acceptGame(match: Match) {
     for (const i of this.matchWaitList) {
       if (i.status === 'STANDBY') {
@@ -118,6 +142,11 @@ export class GameroomlistComponent implements OnInit {
               i.userTwoReady = true;
           }
             i.status = 'STARTED';
+            if (this.userId !== match.userOneId) {
+              this.webSocketService.sendMessage('startGame', i.name, this.username, i.userOneId, 'true');
+            } else {
+              this.webSocketService.sendMessage('startGame', i.name, this.username, i.userTwoId, 'true');
+            }
             i.showMatch = true;
             this.matchService.modifyMatch(i.id, this.username, i).subscribe(
               data => {

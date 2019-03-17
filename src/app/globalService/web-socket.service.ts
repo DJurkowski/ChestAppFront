@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import * as SockJS from 'sockjs-client';
 import { Stomp} from 'stompjs/lib/stomp.js';
-import { TokenStorageService } from '../auth/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +24,10 @@ export class WebSocketService {
   globalUserReadyUpdate: Observable<string>;
   globalUserReadyObserver: Observer<string>;
 
+  globalStartGame: string;
+  globalStartGameUpdate: Observable<string>;
+  globalStartGameObserver: Observer<string>;
+
   private messageOut;
 
   private stompClient;
@@ -43,6 +46,9 @@ export class WebSocketService {
     this.globalUserReadyUpdate = Observable.create((observer: Observer<string>) => {
       this.globalUserReadyObserver = observer;
     });
+    this.globalStartGameUpdate = Observable.create((observer: Observer<string>) => {
+      this.globalStartGameObserver = observer;
+    });
   }
 
   updateGlobalMessage(message: string) {
@@ -56,13 +62,18 @@ export class WebSocketService {
   }
 
   updateGlobalGame(message: string) {
-    this.globalNotification = message;
-    this.globalNotificationObserver.next(this.globalNotification);
+    this.globalGame = message;
+    this.globalGameObserver.next(this.globalGame);
   }
 
   updateGlobalUserReady(message: string) {
     this.globalUserReady = message;
     this.globalUserReadyObserver.next(this.globalUserReady);
+  }
+
+  updateGlobalStartGame(message: string) {
+    this.globalStartGame = message;
+    this.globalStartGameObserver.next(this.globalStartGame);
   }
 
   getMessage(): Observable<string> {
@@ -99,6 +110,10 @@ export class WebSocketService {
             console.log('JestemW Switch Ready!!!');
               that.updateGlobalUserReady(message.body);
               break;
+            }
+            case 'startGame': {
+              console.log('JestemW Switch StartGame');
+              that.updateGlobalStartGame(message.body);
             }
           }
           console.log('Dostalem message taki bo tak : ' + message.body);

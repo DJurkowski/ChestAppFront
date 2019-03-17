@@ -125,7 +125,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'king') {
           if (this.game.canMoveKing(pos)) {
           this.game.moveKing(pos);
-          this.sendMessageMove(this.figureCoords.id + ';' + pos.x + ';' + pos.y + ';' + this.username);
+          this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + this.username);
           this.figureCoords.id = 'zero';
           this.figureCoords.isCheck = false;
           } else {
@@ -147,7 +147,7 @@ export class BoardComponent implements OnInit, OnDestroy {
           if (this.game.canMovePawn(pos)) {
             this.game.movePawn(pos);
             // musimy zwrocic boolean czy mamy zbicie czy nie!!!
-            this.sendMessageMove(this.figureCoords.id + ';' + pos.x + ';' + pos.y + ';' + this.username);
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -259,7 +259,7 @@ gameRoomBackValue() {
     }
     console.log('matchResult: ' + matchResult.status);
     this.matchBack.emit(matchResult);
-    this.sendMessageMove('END' + ';');
+    this.sendMessageMove('END' + '-');
 }
 
 // web socket connection
@@ -279,6 +279,7 @@ initializeWebSocketConnection() {
     const messageTab = data.split(';', 5);
     if (messageTab[0] === 'game') {
       if (messageTab[3] === this.username) {
+        console.log('MessageMOveOpponent: ' + messageTab[4]);
         this.opponentMove(messageTab[4]);
       }
     }
@@ -296,7 +297,7 @@ sendMessageMove(message) {
 
 // opponent movement
 opponentMove(move: string) {
-  const tabMove = move.split(';');
+  const tabMove = move.split('-');
   if (tabMove[0] === 'END') {
     const matchResult = this.match;
     matchResult.status = 'FINISHED';

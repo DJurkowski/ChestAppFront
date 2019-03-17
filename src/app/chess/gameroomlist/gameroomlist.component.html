@@ -1,26 +1,32 @@
-<ul>
-  <li *ngIf="noMatches; else AvailableMatches" ><h1 class="h3 mb-3 font-weight-normal" style="color:white">No games available</h1></li>
-  <ng-template #AvailableMatches><h1 class="h3 mb-3 font-weight-normal" style="color:white">Available Matches</h1></ng-template>
-  <li *ngFor='let matchWait of matchWaitList'>
-      <div *ngIf='isShowed'>
-          <div *ngIf='(userId === matchWait.userOneId && matchWait.userOneReady === true) || (userId === matchWait.userTwoId && matchWait.userTwoReady === true); else BlockElse'>
-            {{matchWait.name}} Waiting for opponent acceptation...
+  <div *ngIf="noMatches; else AvailableMatches" ><h1 class="h3 mb-3 font-weight-normal" style="color:white">No games available</h1></div>
+  <ng-template #AvailableMatches><div *ngIf="isShowed"><h1 class="h3 mb-3 font-weight-normal" style="color:white">Available Matches</h1></div></ng-template>
+  <table class="table table-striped">
+    <tbody>
+      <tr *ngFor='let matchWait of matchWaitList'>
+          <div *ngIf='isShowed'>
+              <div *ngIf='(userId === matchWait.userOneId && matchWait.userOneReady === true) || (userId === matchWait.userTwoId && matchWait.userTwoReady === true); else BlockElse'>
+                <td>{{matchWait.name}}</td> <td>Waiting for opponent acceptation...</td>
+              </div>
+              <ng-template #BlockElse>
+                <div id='{{matchWait.id}}'></div> <span *ngIf='isShowed'> <td>{{matchWait.name}}</td> <td><button class="btn btn-lg btn-success" (click)="acceptGame(matchWait)" > Accept </button></td>
+                  <td><button class="btn btn-lg btn-danger" (click)="denyGame(matchWait)"> Deny </button></td>
+                </span>
+            </ng-template>
           </div>
-          <ng-template #BlockElse>
-            <div id='{{matchWait.id}}'></div> <span *ngIf='isShowed'>{{matchWait.name}}<button class="btn btn-lg btn-success" (click)="acceptGame(matchWait)" > Accept </button>
-              <button class="btn btn-lg btn-danger" (click)="denyGame(matchWait)"> Deny </button>
-            </span>
-        </ng-template>
-      </div>
-    <div *ngIf='matchWait.showMatch' class="container">
-      <app-board [match]='matchWait' (matchBack)='endGameValue($event)'></app-board>
-    </div>
-  </li>
-  <li *ngFor='let match of matchList'>
-    <div *ngIf='isShowed'>
-      <div id='{{match.id}}'></div> <span *ngIf='isShowed'> {{match.name}} <button class="btn btn-lg btn-primary" (click)="sendInvitation(match)" > Send Invitation </button>
-    </span>
-    </div>
-  </li>
-</ul>
+        <div *ngIf='matchWait.showMatch' class="container">
+          <app-board [match]='matchWait' (matchBack)='endGameValue($event)'></app-board>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table table-striped">
+    <tbody>
+        <tr *ngFor='let match of matchList'>
+        <div *ngIf='isShowed'>
+          <div id='{{match.id}}'></div> <span *ngIf='isShowed'> <td>{{match.name}}</td> <td><button class="btn btn-lg btn-primary" (click)="sendInvitation(match)" > Send Invitation </button></td>
+        </span>
+        </div>
+        </tr>
+    </tbody>
         <!-- <button (click)="acceptGame(match)" > {{match.name}}  Play</button></span> -->
+  </table>
