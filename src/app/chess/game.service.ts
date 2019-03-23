@@ -42,6 +42,8 @@ export class GameService {
 
   pawnNPosition$ = new BehaviorSubject<Coord>({ x: 0, y: 1});
   pawnNCurrentPosition: Coord;
+  pawn2NPosition$ = new BehaviorSubject<Coord>({ x: 1, y: 1});
+  pawn2NCurrentPosition: Coord;
   kingNPosition$ = new BehaviorSubject<Coord>({ x: 4, y: 0});
   kingNCurrentPosition: Coord;
 
@@ -95,6 +97,9 @@ export class GameService {
     // Negative
     this.pawnNPosition$.subscribe(pawnNp => {
       this.pawnNCurrentPosition = pawnNp;
+    });
+    this.pawn2NPosition$.subscribe(pawn2Np => {
+      this.pawn2NCurrentPosition = pawn2Np;
     });
     this.kingNPosition$.subscribe(kingNp => {
       this.kingNCurrentPosition = kingNp;
@@ -163,6 +168,12 @@ export class GameService {
       namefigure: 'pawnN'
       });
 
+    this.currentPositions.push( {
+      position: this.pawn2NCurrentPosition,
+      color: false,
+      namefigure: 'pawn2N'
+      });
+
     this.currentPositions.push({
       position: this.kingNCurrentPosition,
       color: false,
@@ -218,6 +229,7 @@ export class GameService {
       if (i.namefigure === 'king') {
         i.position.x = to.x;
         i.position.y = to.y;
+        return false;
       }
     }
   }
@@ -237,20 +249,18 @@ export class GameService {
     const { x, y } = this.pawnCurrentPosition;
     const dx = to.x - x;
     const dy = to.y - y;
-    let figure: string;
 
     if ( (dx === 1 && dy === -1) || (dx === -1 && dy === -1)) {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) || (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            figure = i.namefigure + 'Position$';
-            console.log( 'Figure Kurwo' + figure );
-            if (this.unsubscribeFigure(figure)) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
               this.pawnPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn') {
                   j.position.x = to.x;
                   j.position.y = to.y;
+                  return true;
                 }
               }
             }
@@ -258,13 +268,14 @@ export class GameService {
         }
       }
     } else {
-      this.pawnPosition$.next(to);
-      for (const i of this.currentPositions) {
-        if (i.namefigure === 'pawn') {
-          i.position.x = to.x;
-          i.position.y = to.y;
+        this.pawnPosition$.next(to);
+        for (const i of this.currentPositions) {
+          if (i.namefigure === 'pawn') {
+            i.position.x = to.x;
+            i.position.y = to.y;
+            return false;
+          }
         }
-      }
       }
   }
 
@@ -290,13 +301,38 @@ export class GameService {
   }
 
   movePawn2(to: Coord) {
-    this.pawn2Position$.next(to);
-    for (const i of this.currentPositions) {
-      if (i.namefigure === 'pawn2') {
-        i.position.x = to.x;
-        i.position.y = to.y;
+
+    const { x, y } = this.pawn2CurrentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    if ( (dx === 1 && dy === -1) || (dx === -1 && dy === -1)) {
+      for ( const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) || (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.pawn2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'pawn2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
       }
-    }
+    } else {
+        this.pawn2Position$.next(to);
+        for (const i of this.currentPositions) {
+          if (i.namefigure === 'pawn2') {
+            i.position.x = to.x;
+            i.position.y = to.y;
+            return false;
+          }
+        }
+      }
   }
 
   canMovePawn2(to: Coord) {
@@ -332,6 +368,16 @@ export class GameService {
     }
   }
 
+  movePawn2N(to: Coord) {
+    this.pawn2NPosition$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'pawn2N') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
+  }
+
   moveKingN(to: Coord) {
     this.kingNPosition$.next(to);
     for (const i of this.currentPositions) {
@@ -356,17 +402,49 @@ export class GameService {
   // }
 
   unsubscribeFigure (figurename: string) {
-    if (figurename === 'pawnNPosition$') {
+
+    switch (figurename) {
+
+      case 'pawnPosition$':
+      this.pawnPosition$.next({x: -1, y: -1});
+      this.pawnPosition$.unsubscribe();
+      return true;
+
+      case 'pawn2Position$':
+      this.pawn2Position$.next({x: -1, y: -1});
+      this.pawn2Position$.unsubscribe();
+      return true;
+
+      case 'pawnNPosition$':
       this.pawnNPosition$.next({x: -1, y: -1});
       this.pawnNPosition$.unsubscribe();
       return true;
+
+      case 'pawn2NPosition$':
+      this.pawn2NPosition$.next({x: -1, y: -1});
+      this.pawn2NPosition$.unsubscribe();
+      return true;
     }
+
   }
 
-  moveFigure(figurename: string, pos: Coord) {
+  moveFigure(figurename: string, pos: Coord, capture: boolean) {
+    if (capture) {
+      for ( const i of this.currentPositions) {
+        if (i.color) {
+          if ((i.position.x === pos.x && i.position.y === pos.y)) {
+            this.unsubscribeFigure(i.namefigure + 'Position$');
+          }
+        }
+      }
+    }
     switch (figurename) {
       case 'pawn': {
         this.movePawnN(pos);
+        break;
+      }
+      case 'pawn2': {
+        this.movePawn2N(pos);
         break;
       }
       case 'king': {

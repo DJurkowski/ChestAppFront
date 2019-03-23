@@ -1,12 +1,9 @@
 import { WebSocketService } from './../../globalService/web-socket.service';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
-// import { GameRoom } from '../gameRoom';
 import { GameService } from '../game.service';
 import { MatDialog } from '@angular/material';
 import { Coord } from '../coord';
-// import { Stomp} from 'stompjs/lib/stomp.js';
-// import SockJS from 'sockjs-client';
 import { FigureErrorDialogComponent } from '../figure-error-dialog/figure-error-dialog.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { Match } from 'src/app/match/match';
@@ -23,9 +20,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   @Input() match: Match;
   @Output() matchBack = new EventEmitter<Match>();
   // dopisac logike do zakonczenie gry i czas gry
-
-  // private stompClient;
-  // private serverUrl = 'http://localhost:8080/api/auth/socket';
 
   username: string;
   userId: number;
@@ -53,10 +47,12 @@ export class BoardComponent implements OnInit, OnDestroy {
 
 // Negative
   pawnNPosition$ = this.game.pawnNPosition$;
+  pawn2NPosition$ = this.game.pawn2NPosition$;
   kingNPosition$ = this.game.kingNPosition$;
 
 
   errorFigure = '';
+
 
   figureCoords = {
     id: 'zero',
@@ -111,6 +107,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   handleSquareClick(pos: Coord) {
+    let result: boolean;
     if (this.figureCoords.id !== 'zero') {
         if (this.figureCoords.id === 'knight') {
           if (this.game.canMoveKnight(pos)) {
@@ -124,8 +121,8 @@ export class BoardComponent implements OnInit, OnDestroy {
           }
         } else if (this.figureCoords.id === 'king') {
           if (this.game.canMoveKing(pos)) {
-          this.game.moveKing(pos);
-          this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + this.username);
+          result = this.game.moveKing(pos);
+          this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
           this.figureCoords.id = 'zero';
           this.figureCoords.isCheck = false;
           } else {
@@ -145,9 +142,12 @@ export class BoardComponent implements OnInit, OnDestroy {
           }
         } else if (this.figureCoords.id === 'pawn') {
           if (this.game.canMovePawn(pos)) {
-            this.game.movePawn(pos);
+            result = this.game.movePawn(pos);
+
+            console.log('Result czy zbity: ' + result);
             // musimy zwrocic boolean czy mamy zbicie czy nie!!!
-            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + this.username);
+
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -157,7 +157,11 @@ export class BoardComponent implements OnInit, OnDestroy {
           }
         } else if (this.figureCoords.id === 'pawn2') {
             if (this.game.canMovePawn2(pos)) {
-              this.game.movePawn2(pos);
+             result = this.game.movePawn2(pos);
+
+             console.log('Result czy zbity: ' + result);
+            // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
               this.figureCoords.id = 'zero';
               this.figureCoords.isCheck = false;
             } else {
@@ -166,18 +170,6 @@ export class BoardComponent implements OnInit, OnDestroy {
               console.log('NIe prawidlowy ruch Pawn2');
             }
           }
-        // } else if (this.figureCoords.id === 'pawnN') {
-        //     if (this.game.canMovePawnN(pos)) {
-        //       this.game.movePawnN(pos);
-        //       this.sendMessageMove(this.figureCoords.id + ';' + pos.x + ';' + pos.y + ';' + this.username);
-        //       this.figureCoords.id = 'zero';
-        //       this.figureCoords.isCheck = false;
-        //     } else {
-        //         this.errorFigure = 'pawnN';
-        //         this.openDialog();
-        //       console.log('NIe prawidlowy ruch PawnN');
-        //     }
-        //   }
     } else {
         console.error('Check');
     }
@@ -226,13 +218,6 @@ setPawn2Style() {
   }
 }
 
-// Negative
-// setPawnNStyle() {
-//   if (this.figureCoords.id === 'pawnN') {
-//   return this.figureCoords.isCheck;
-//   }
-// }
-
 // dialog window open
 openDialog(): void {
   const dialogRef = this.dialog.open(FigureErrorDialogComponent, {
@@ -264,17 +249,6 @@ gameRoomBackValue() {
 
 // web socket connection
 initializeWebSocketConnection() {
-  // const ws = new SockJS(this.serverUrl);
-  // this.stompClient = Stomp.over(ws);
-  // const that = this;
-  // this.stompClient.connect({}, function(frame) {
-  //   that.stompClient.subscribe('/gameRoom/' + that.match.name, (message) => {
-  //     if (message.body) {
-  //       console.log('Dostalem message taki bo tak : ' + message.body);
-  //       that.opponentMove(message.body);
-  //     }
-  //   });
-  // });
   this.webSocketService.globalGameUpdate.subscribe((data) => {
     const messageTab = data.split(';', 5);
     if (messageTab[0] === 'game') {
@@ -292,20 +266,18 @@ sendMessageMove(message) {
   } else {
     this.webSocketService.sendMessage('game', this.match.name, this.match.userTwoId, this.match.userOneId, message);
   }
-  // this.stompClient.send('/api/game/' + this.match.name, {}, message);
 }
 
 // opponent movement
 opponentMove(move: string) {
-  const tabMove = move.split('-');
+  const tabMove = move.split('-', 5);
   if (tabMove[0] === 'END') {
     const matchResult = this.match;
     matchResult.status = 'FINISHED';
     this.matchBack.emit(matchResult);
   } else {
-    if (tabMove[3] !== this.username) {
-    this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]));
-    console.log('Moveopponent: ' + tabMove);
+    if (tabMove[4] !== this.username) {
+    this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]), Boolean(tabMove[3]));
     }
   }
 }

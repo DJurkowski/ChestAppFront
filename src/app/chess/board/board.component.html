@@ -6,6 +6,7 @@
   <ng-container *ngIf="pawnPosition$|async as pawnp">
   <ng-container *ngIf="pawn2Position$|async as pawn2p">
   <ng-container *ngIf="pawnNPosition$|async as pawnNp">
+  <ng-container *ngIf="pawn2NPosition$|async as pawn2Np">
   <ng-container *ngIf="kingNPosition$|async as kingNp">
   <div *ngFor="let i of sixtyFour">
     <app-square *ngIf="xy(i) as pos" [black]="isBlack(pos)" (dblclick)="handleSquareClick(pos)">
@@ -15,9 +16,11 @@
       <app-pawn class="control-select" *ngIf="pos.x === pawnp.x && pos.y === pawnp.y" (click)="setFigure('pawn')" [check]="setPawnStyle()"></app-pawn>
       <app-pawn class="control-select" *ngIf="pos.x === pawn2p.x && pos.y === pawn2p.y" (click)="setFigure('pawn2')" [check]="setPawn2Style()"></app-pawn>
       <app-pawn class="control-select" *ngIf="pos.x === pawnNp.x && pos.y === pawnNp.y" [neg]="true" ></app-pawn>
+      <app-pawn class="control-select" *ngIf="pos.x === pawn2Np.x && pos.y === pawn2Np.y" [neg]="true" ></app-pawn>
       <app-king class="control-select" *ngIf="pos.x === kingNp.x && pos.y === kingNp.y" [neg]="true"></app-king>
     </app-square>
   </div>
+</ng-container>
 </ng-container>
 </ng-container>
 </ng-container>
