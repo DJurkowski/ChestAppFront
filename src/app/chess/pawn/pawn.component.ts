@@ -19,10 +19,8 @@ export class PawnComponent implements OnInit {
   }
 
   getNegStyle() {
-    if (this.neg && this.check) {
-      return {backgroundColor: '#ff3f3f', border: '8px solid #09f190' };
-    } else {
-      return { backgroundColor: '#ff3f3f' };
+    if (this.neg ) {
+      return {color: 'red'};
     }
   }
 
