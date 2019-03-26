@@ -25,6 +25,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   userId: number;
   userIdentification: Observable<Object>;
 
+  // public opponent: string;
+  public userPoints = this.game.userPointsObservable;
+
   // zegar
   public minutes = 0;
   public seconds = 0;
