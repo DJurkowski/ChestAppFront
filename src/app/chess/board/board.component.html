@@ -1,5 +1,5 @@
-<div style='color: white; float: right;'><h3>Game Time: {{minutes}} : {{seconds}}</h3></div><br>
-<div style='color: white; float: right;'><h3> User Points:<ng-container *ngIf="userPoints|async as points"> {{points}}</ng-container></h3></div>
+<div style='color: white; float: right;'><h3>Game Time: {{minutes}} : {{seconds}}</h3></div>
+<div style='color: white; float: right;'><br><h3> User Points:<ng-container *ngIf="actualUserPoints|async as points; else blockElse"> {{points}}</ng-container><ng-template #blockElse>0</ng-template></h3></div>
 <div class="board">
   <ng-container *ngIf="knightPosition$|async as knightp">
   <ng-container *ngIf="knight2Position$|async as knight2p">
@@ -21,6 +21,8 @@
   <ng-container *ngIf="pawn7NPosition$|async as pawn7Np">
   <ng-container *ngIf="pawn8NPosition$|async as pawn8Np">
   <ng-container *ngIf="kingNPosition$|async as kingNp">
+  <ng-container *ngIf="knightNPosition$|async as knightNp">
+  <ng-container *ngIf="knight2NPosition$|async as knight2Np">
   <div *ngFor="let i of sixtyFour">
     <app-square *ngIf="xy(i) as pos" [black]="isBlack(pos)" (dblclick)="handleSquareClick(pos)">
       <app-king class="control-select" *ngIf="pos.x === kingp.x && pos.y === kingp.y" (click)="setFigure('king')" [check]="setKingStyle()"></app-king>
@@ -43,8 +45,12 @@
       <app-pawn class="control-select" *ngIf="pos.x === pawn7Np.x && pos.y === pawn7Np.y" [neg]="true" ></app-pawn>
       <app-pawn class="control-select" *ngIf="pos.x === pawn8Np.x && pos.y === pawn8Np.y" [neg]="true" ></app-pawn>
       <app-king class="control-select" *ngIf="pos.x === kingNp.x && pos.y === kingNp.y" [neg]="true"></app-king>
+      <app-knight class="control-select" *ngIf="pos.x === knightNp.x && pos.y === knightNp.y" [neg]="true"></app-knight>
+      <app-knight class="control-select" *ngIf="pos.x === knight2Np.x && pos.y === knight2Np.y" [neg]="true"></app-knight>
     </app-square>
   </div>
+</ng-container>
+</ng-container>
 </ng-container>
 </ng-container>
 </ng-container>

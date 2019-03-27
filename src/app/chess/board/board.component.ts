@@ -26,7 +26,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   userIdentification: Observable<Object>;
 
   // public opponent: string;
-  public userPoints = this.game.userPointsObservable;
+  public actualUserPoints = this.game.userPointsObservable;
 
   // zegar
   public minutes = 0;
@@ -58,6 +58,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   pawn7NPosition$ = this.game.pawn7NPosition$;
   pawn8NPosition$ = this.game.pawn8NPosition$;
   kingNPosition$ = this.game.kingNPosition$;
+  knightNPosition$ = this.game.knightNPosition$;
+  knight2NPosition$ = this.game.knight2NPosition$;
 
   errorFigure = '';
 
@@ -117,8 +119,11 @@ export class BoardComponent implements OnInit, OnDestroy {
     let result: boolean;
     if (this.figureCoords.id !== 'zero') {
         if (this.figureCoords.id === 'knight') {
-          if (this.game.canMoveKnight(pos)) {
-            this.game.moveKnight(pos);
+          if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
+           result = this.game.moveKnight(pos);
+           console.log('Result czy zbity: ' + result);
+
+          this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -140,8 +145,11 @@ export class BoardComponent implements OnInit, OnDestroy {
              console.log('NIe prawidlowy ruch King');
           }
         } else if (this.figureCoords.id === 'knight2') {
-          if (this.game.canMoveKnight2(pos)) {
-            this.game.moveKnight2(pos);
+          if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
+            result = this.game.moveKnight2(pos);
+            console.log('Result czy zbity: ' + result);
+
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {

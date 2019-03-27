@@ -59,15 +59,20 @@ export class GameService {
   pawn7NCurrentPosition: Coord;
   pawn8NPosition$ = new BehaviorSubject<Coord>({ x: 7, y: 1});
   pawn8NCurrentPosition: Coord;
+
   kingNPosition$ = new BehaviorSubject<Coord>({ x: 4, y: 0});
   kingNCurrentPosition: Coord;
+  knightNPosition$ = new BehaviorSubject<Coord>({ x: 1, y: 0});
+  knightNCurrentPosition: Coord;
+  knight2NPosition$ = new BehaviorSubject<Coord>({ x: 6, y: 0});
+  knight2NCurrentPosition: Coord;
 
 
   constructor() {
 
-    this.actualUserPoints = 0;
+    // this.actualUserPoints = 0;
 
-    this.userPointsObservable.subscribe((points) => {
+    this.userPointsObservable.subscribe(points => {
       this.actualUserPoints = points;
     });
 
@@ -142,6 +147,12 @@ export class GameService {
     });
     this.kingNPosition$.subscribe(kingNp => {
       this.kingNCurrentPosition = kingNp;
+    });
+    this.knightNPosition$.subscribe(knightNp => {
+      this.knightNCurrentPosition = knightNp;
+    });
+    this.knight2NPosition$.subscribe(knight2Np => {
+      this.knight2NCurrentPosition = knight2Np;
     });
 
     this.currentPositions.push( {
@@ -254,6 +265,16 @@ export class GameService {
       color: false,
       namefigure: 'kingN'
     });
+    this.currentPositions.push( {
+      position: this.knightNCurrentPosition,
+      color: false,
+      namefigure: 'knightN'
+      });
+    this.currentPositions.push( {
+      position: this.knight2NCurrentPosition,
+      color: false,
+      namefigure: 'knight2N'
+      });
 
   }
 
@@ -277,48 +298,511 @@ export class GameService {
         return this.pawnMovementPosibility(to, this.pawn8CurrentPosition);
       case 'king':
         return this.kingMovementPosibility(to, this.kingCurrentPosition);
+      case 'knight':
+        return this.knightMovementPosibility(to, this.knightCurrentPosition);
+      case 'knight2':
+        return this.knightMovementPosibility(to, this.knight2CurrentPosition);
 
     }
   }
 
   moveKnight(to: Coord) {
-    this.knightPosition$.next(to);
-    for (const i of this.currentPositions) {
-      if (i.namefigure === 'knight') {
-        i.position.x = to.x;
-        i.position.y = to.y;
-      }
-    }
-    console.log('Kingposition:' + this.kingCurrentPosition);
-    console.log('Knightposition:' + this.knightCurrentPosition);
-  }
 
-  canMoveKnight(to: Coord) {
     const { x, y } = this.knightCurrentPosition;
     const dx = to.x - x;
     const dy = to.y - y;
+
+    if (dx === 2 && dy === 1) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 2) && i.position.y === (y + 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knightPosition$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knightPosition$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === 2 && dy === -1) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 2) && i.position.y === (y - 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knightPosition$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knightPosition$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === -2 && dy === 1) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 2) && i.position.y === (y + 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knightPosition$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knightPosition$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === -2 && dy === -1) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 2) && i.position.y === (y - 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knightPosition$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knightPosition$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === -1 && dy === 2) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y + 2)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knightPosition$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knightPosition$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === -1 && dy === -2) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y - 2)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knightPosition$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knightPosition$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === 1 && dy === 2) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y + 2)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knightPosition$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knightPosition$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === 1 && dy === -2) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y - 2)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knightPosition$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knightPosition$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    }
+  }
+
+  knightMovementPosibility(to: Coord, currentPosition: Coord) {
+    const { x, y } = currentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    if (dx === 2 && dy === 1) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x + 2) && i.position.y === (y + 1)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === 2 && dy === -1) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x + 2) && i.position.y === (y - 1)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === -2 && dy === 1) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x - 2) && i.position.y === (y + 1)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === -2 && dy === -1) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x - 2) && i.position.y === (y - 1)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === -1 && dy === 2) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y + 2)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === -1 && dy === -2) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y - 2)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === 1 && dy === 2) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y + 2)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === 1 && dy === -2) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y - 2)) ) {
+            return false;
+          }
+        }
+      }
+    }
 
     return (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
            (Math.abs(dx) === 1 && Math.abs(dy) === 2);
   }
 
   moveKnight2(to: Coord) {
-    this.knight2Position$.next(to);
-    for (const i of this.currentPositions) {
-      if (i.namefigure === 'knight2') {
-        i.position.x = to.x;
-        i.position.y = to.y;
-      }
-    }
-  }
-
-  canMoveKnight2(to: Coord) {
     const { x, y } = this.knight2CurrentPosition;
     const dx = to.x - x;
     const dy = to.y - y;
 
-    return (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
-           (Math.abs(dx) === 1 && Math.abs(dy) === 2);
+    if (dx === 2 && dy === 1) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 2) && i.position.y === (y + 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knight2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knight2Position$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight2') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === 2 && dy === -1) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 2) && i.position.y === (y - 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knight2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knight2Position$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight2') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === -2 && dy === 1) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 2) && i.position.y === (y + 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knight2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knight2Position$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight2') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === -2 && dy === -1) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 2) && i.position.y === (y - 1)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knight2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knight2Position$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight2') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === -1 && dy === 2) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y + 2)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knight2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knight2Position$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight2') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === -1 && dy === -2) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y - 2)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knight2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knight2Position$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight2') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === 1 && dy === 2) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y + 2)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knight2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knight2Position$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight2') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    } else if (dx === 1 && dy === -2) {
+      for (const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y - 2)) ) {
+            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+              this.knight2Position$.next(to);
+              for (const j of this.currentPositions) {
+                if (j.namefigure === 'knight2') {
+                  j.position.x = to.x;
+                  j.position.y = to.y;
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.knight2Position$.next(to);
+      for (const i of this.currentPositions) {
+        if (i.namefigure === 'knight2') {
+          i.position.x = to.x;
+          i.position.y = to.y;
+          return false;
+        }
+      }
+    }
+    // this.knight2Position$.next(to);
+    // for (const i of this.currentPositions) {
+    //   if (i.namefigure === 'knight2') {
+    //     i.position.x = to.x;
+    //     i.position.y = to.y;
+    //   }
+    // }
   }
 
   moveKing(to: Coord) {
@@ -1182,6 +1666,26 @@ export class GameService {
     }
   }
 
+  moveKnightN(to: Coord) {
+    this.knightNPosition$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'knightN') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
+  }
+
+  moveKnight2N(to: Coord) {
+    this.knight2NPosition$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'knight2N') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
+  }
+
 
   unsubscribeFigure (figurename: string) {
 
@@ -1327,6 +1831,20 @@ export class GameService {
         return true;
       }
 
+      case 'knightNPosition$': {
+        this.knightNPosition$.next({x: -1, y: -1});
+        this.knightNPosition$.unsubscribe();
+        this.scorePointsUser(3, 'add');
+        return true;
+      }
+
+      case 'knight2NPosition$': {
+        this.knight2NPosition$.next({x: -1, y: -1});
+        this.knight2NPosition$.unsubscribe();
+        this.scorePointsUser(3, 'add');
+        return true;
+      }
+
       default:
         return false;
     }
@@ -1380,6 +1898,14 @@ export class GameService {
       }
       case 'king': {
         this.moveKingN(pos);
+        break;
+      }
+      case 'knight': {
+        this.moveKnightN(pos);
+        break;
+      }
+      case 'knight2': {
+        this.moveKnight2N(pos);
         break;
       }
 
