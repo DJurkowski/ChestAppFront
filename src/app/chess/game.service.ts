@@ -25,6 +25,10 @@ export class GameService {
   knight2CurrentPosition: Coord;
   kingPosition$ = new BehaviorSubject<Coord>({ x: 4, y: 7});
   kingCurrentPosition: Coord;
+  rookPosition$ = new BehaviorSubject<Coord>({ x: 0, y: 7});
+  rookCurrentPosition: Coord;
+  rook2Position$ = new BehaviorSubject<Coord>({ x: 7, y: 7});
+  rook2CurrentPosition: Coord;
 
   pawnPosition$ = new BehaviorSubject<Coord>({ x: 0, y: 6});
   pawnCurrentPosition: Coord;
@@ -66,6 +70,10 @@ export class GameService {
   knightNCurrentPosition: Coord;
   knight2NPosition$ = new BehaviorSubject<Coord>({ x: 6, y: 0});
   knight2NCurrentPosition: Coord;
+  rookNPosition$ = new BehaviorSubject<Coord>({ x: 0, y: 0});
+  rookNCurrentPosition: Coord;
+  rook2NPosition$ = new BehaviorSubject<Coord>({ x: 7, y: 0});
+  rook2NCurrentPosition: Coord;
 
 
   constructor() {
@@ -86,6 +94,14 @@ export class GameService {
 
     this.knight2Position$.subscribe(knight2p => {
       this.knight2CurrentPosition = knight2p;
+    });
+
+    this.rookPosition$.subscribe(rookp => {
+      this.rookCurrentPosition = rookp;
+    });
+
+    this.rook2Position$.subscribe(rook2p => {
+      this.rook2CurrentPosition = rook2p;
     });
 
     this.pawnPosition$.subscribe(pawnp => {
@@ -124,157 +140,211 @@ export class GameService {
     this.pawnNPosition$.subscribe(pawnNp => {
       this.pawnNCurrentPosition = pawnNp;
     });
+
     this.pawn2NPosition$.subscribe(pawn2Np => {
       this.pawn2NCurrentPosition = pawn2Np;
     });
+
     this.pawn3NPosition$.subscribe(pawn3Np => {
       this.pawn3NCurrentPosition = pawn3Np;
     });
+
     this.pawn4NPosition$.subscribe(pawn4Np => {
       this.pawn4NCurrentPosition = pawn4Np;
     });
+
     this.pawn5NPosition$.subscribe(pawn5Np => {
       this.pawn5NCurrentPosition = pawn5Np;
     });
+
     this.pawn6NPosition$.subscribe(pawn6Np => {
       this.pawn6NCurrentPosition = pawn6Np;
     });
+
     this.pawn7NPosition$.subscribe(pawn7Np => {
       this.pawn7NCurrentPosition = pawn7Np;
     });
+
     this.pawn8NPosition$.subscribe(pawn8Np => {
       this.pawn8NCurrentPosition = pawn8Np;
     });
+
     this.kingNPosition$.subscribe(kingNp => {
       this.kingNCurrentPosition = kingNp;
     });
+
     this.knightNPosition$.subscribe(knightNp => {
       this.knightNCurrentPosition = knightNp;
     });
+
     this.knight2NPosition$.subscribe(knight2Np => {
       this.knight2NCurrentPosition = knight2Np;
+    });
+
+    this.rookNPosition$.subscribe(rookNp => {
+      this.rookNCurrentPosition = rookNp;
+    });
+
+    this.rook2NPosition$.subscribe(rook2Np => {
+      this.rook2NCurrentPosition = rook2Np;
     });
 
     this.currentPositions.push( {
       position: this.kingCurrentPosition,
       color: true,
       namefigure: 'king'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.knightCurrentPosition,
       color: true,
       namefigure: 'knight'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.knight2CurrentPosition,
       color: true,
       namefigure: 'knight2'
-      });
+    });
+
+    this.currentPositions.push( {
+      position: this.rookCurrentPosition,
+      color: true,
+      namefigure: 'rook'
+    });
+
+    this.currentPositions.push( {
+      position: this.rook2CurrentPosition,
+      color: true,
+      namefigure: 'rook2'
+    });
+
     this.currentPositions.push( {
       position: this.pawnCurrentPosition,
       color: true,
       namefigure: 'pawn'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.pawn2CurrentPosition,
       color: true,
       namefigure: 'pawn2'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.pawn3CurrentPosition,
       color: true,
       namefigure: 'pawn3'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.pawn4CurrentPosition,
       color: true,
       namefigure: 'pawn4'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.pawn5CurrentPosition,
       color: true,
       namefigure: 'pawn5'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.pawn6CurrentPosition,
       color: true,
       namefigure: 'pawn6'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.pawn7CurrentPosition,
       color: true,
       namefigure: 'pawn7'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.pawn8CurrentPosition,
       color: true,
       namefigure: 'pawn8'
-      });
+    });
 
       // Negative
     this.currentPositions.push( {
       position: this.pawnNCurrentPosition,
       color: false,
       namefigure: 'pawnN'
-      });
+    });
 
     this.currentPositions.push( {
       position: this.pawn2NCurrentPosition,
       color: false,
       namefigure: 'pawn2N'
-      });
+    });
 
     this.currentPositions.push( {
       position: this.pawn3NCurrentPosition,
       color: false,
       namefigure: 'pawn3N'
-      });
+    });
 
     this.currentPositions.push( {
       position: this.pawn4NCurrentPosition,
       color: false,
       namefigure: 'pawn4N'
-      });
+    });
 
     this.currentPositions.push( {
       position: this.pawn5NCurrentPosition,
       color: false,
       namefigure: 'pawn5N'
-      });
+    });
 
     this.currentPositions.push( {
       position: this.pawn6NCurrentPosition,
       color: false,
       namefigure: 'pawn6N'
-      });
+    });
 
     this.currentPositions.push( {
       position: this.pawn7NCurrentPosition,
       color: false,
       namefigure: 'pawn7N'
-      });
+    });
 
     this.currentPositions.push( {
       position: this.pawn8NCurrentPosition,
       color: false,
       namefigure: 'pawn8N'
-      });
+    });
 
     this.currentPositions.push({
       position: this.kingNCurrentPosition,
       color: false,
       namefigure: 'kingN'
     });
+
     this.currentPositions.push( {
       position: this.knightNCurrentPosition,
       color: false,
       namefigure: 'knightN'
-      });
+    });
+
     this.currentPositions.push( {
       position: this.knight2NCurrentPosition,
       color: false,
       namefigure: 'knight2N'
-      });
+    });
+
+    this.currentPositions.push( {
+      position: this.rookNCurrentPosition,
+      color: false,
+      namefigure: 'rookN'
+    });
+
+    this.currentPositions.push( {
+      position: this.rook2NCurrentPosition,
+      color: false,
+      namefigure: 'rook2N'
+    });
 
   }
 
@@ -302,8 +372,139 @@ export class GameService {
         return this.knightMovementPosibility(to, this.knightCurrentPosition);
       case 'knight2':
         return this.knightMovementPosibility(to, this.knight2CurrentPosition);
+      case 'rook':
+        return this.rookMovementPosibility(to, this.rookCurrentPosition);
+      case 'rook2':
+        return this.rookMovementPosibility(to, this.rook2CurrentPosition);
 
     }
+  }
+
+  moveRook2(to: Coord) {
+    this.rook2Position$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'rook2') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
+  }
+
+  moveRook(to: Coord) {
+    this.rookPosition$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'rook') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
+  }
+
+  rookMovementPosibility(to: Coord, currentPosition: Coord) {
+    const { x, y } = currentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    for (let i = 1; i <= 7; i++) {
+
+      if (dx === 0 && dy === i) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y + i)) ) {
+              console.log('Jestem 1');
+              return false;
+            }
+          }
+        }
+        if (i !== 1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x) && j.position.y === (y + k)) ) {
+                console.log('Jestem 2');
+                  return false;
+                }
+            }
+          }
+        }
+      } else if (dx === 0 && dy === -i) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y - i)) ) {
+              console.log('Jestem 3');
+              return false;
+            }
+          }
+        }
+        if (-i !== -1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x) && j.position.y === (y - k)) ) {
+                console.log('Jestem 4');
+                  return false;
+                }
+            }
+          }
+        }
+      } else if (dx === i && dy === 0) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y)) ) {
+              console.log('Jestem 5');
+
+              return false;
+            }
+          }
+        }
+        if (i !== 1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x + k) && j.position.y === (y)) ) {
+              console.log('Jestem 6');
+                  return false;
+                }
+            }
+          }
+        }
+      } else if (dx === -i && dy === 0) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y)) ) {
+              console.log('Jestem 7');
+              return false;
+            }
+          }
+        }
+        if (-i !== -1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x - k) && j.position.y === (y)) ) {
+              console.log('Jestem 8');
+
+                  return false;
+                }
+            }
+          }
+        }
+      }
+    }
+    return (Math.abs(dx) === 0 && Math.abs(dy) === 1) ||
+           (Math.abs(dx) === 0 && Math.abs(dy) === 2) ||
+           (Math.abs(dx) === 0 && Math.abs(dy) === 3) ||
+           (Math.abs(dx) === 0 && Math.abs(dy) === 4) ||
+           (Math.abs(dx) === 0 && Math.abs(dy) === 5) ||
+           (Math.abs(dx) === 0 && Math.abs(dy) === 6) ||
+           (Math.abs(dx) === 0 && Math.abs(dy) === 7) ||
+           (Math.abs(dx) === 1 && Math.abs(dy) === 0) ||
+           (Math.abs(dx) === 2 && Math.abs(dy) === 0) ||
+           (Math.abs(dx) === 3 && Math.abs(dy) === 0) ||
+           (Math.abs(dx) === 4 && Math.abs(dy) === 0) ||
+           (Math.abs(dx) === 5 && Math.abs(dy) === 0) ||
+           (Math.abs(dx) === 6 && Math.abs(dy) === 0) ||
+           (Math.abs(dx) === 7 && Math.abs(dy) === 0);
   }
 
   moveKnight(to: Coord) {
@@ -513,81 +714,6 @@ export class GameService {
         }
       }
     }
-  }
-
-  knightMovementPosibility(to: Coord, currentPosition: Coord) {
-    const { x, y } = currentPosition;
-    const dx = to.x - x;
-    const dy = to.y - y;
-
-    if (dx === 2 && dy === 1) {
-      for (const i of this.currentPositions) {
-        if (i.color) {
-          if ( (i.position.x === (x + 2) && i.position.y === (y + 1)) ) {
-            return false;
-          }
-        }
-      }
-    } else if (dx === 2 && dy === -1) {
-      for (const i of this.currentPositions) {
-        if (i.color) {
-          if ( (i.position.x === (x + 2) && i.position.y === (y - 1)) ) {
-            return false;
-          }
-        }
-      }
-    } else if (dx === -2 && dy === 1) {
-      for (const i of this.currentPositions) {
-        if (i.color) {
-          if ( (i.position.x === (x - 2) && i.position.y === (y + 1)) ) {
-            return false;
-          }
-        }
-      }
-    } else if (dx === -2 && dy === -1) {
-      for (const i of this.currentPositions) {
-        if (i.color) {
-          if ( (i.position.x === (x - 2) && i.position.y === (y - 1)) ) {
-            return false;
-          }
-        }
-      }
-    } else if (dx === -1 && dy === 2) {
-      for (const i of this.currentPositions) {
-        if (i.color) {
-          if ( (i.position.x === (x - 1) && i.position.y === (y + 2)) ) {
-            return false;
-          }
-        }
-      }
-    } else if (dx === -1 && dy === -2) {
-      for (const i of this.currentPositions) {
-        if (i.color) {
-          if ( (i.position.x === (x - 1) && i.position.y === (y - 2)) ) {
-            return false;
-          }
-        }
-      }
-    } else if (dx === 1 && dy === 2) {
-      for (const i of this.currentPositions) {
-        if (i.color) {
-          if ( (i.position.x === (x + 1) && i.position.y === (y + 2)) ) {
-            return false;
-          }
-        }
-      }
-    } else if (dx === 1 && dy === -2) {
-      for (const i of this.currentPositions) {
-        if (i.color) {
-          if ( (i.position.x === (x + 1) && i.position.y === (y - 2)) ) {
-            return false;
-          }
-        }
-      }
-    }
-
-    return (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
-           (Math.abs(dx) === 1 && Math.abs(dy) === 2);
   }
 
   moveKnight2(to: Coord) {
@@ -803,6 +929,81 @@ export class GameService {
     //     i.position.y = to.y;
     //   }
     // }
+  }
+
+  knightMovementPosibility(to: Coord, currentPosition: Coord) {
+    const { x, y } = currentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    if (dx === 2 && dy === 1) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x + 2) && i.position.y === (y + 1)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === 2 && dy === -1) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x + 2) && i.position.y === (y - 1)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === -2 && dy === 1) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x - 2) && i.position.y === (y + 1)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === -2 && dy === -1) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x - 2) && i.position.y === (y - 1)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === -1 && dy === 2) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y + 2)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === -1 && dy === -2) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y - 2)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === 1 && dy === 2) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y + 2)) ) {
+            return false;
+          }
+        }
+      }
+    } else if (dx === 1 && dy === -2) {
+      for (const i of this.currentPositions) {
+        if (i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y - 2)) ) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
+           (Math.abs(dx) === 1 && Math.abs(dy) === 2);
   }
 
   moveKing(to: Coord) {
@@ -1088,46 +1289,6 @@ export class GameService {
     return (Math.abs(dx) === 1 && Math.abs(dy) === 0) ||
            (Math.abs(dx) === 0 && Math.abs(dy) === 1) ||
            (Math.abs(dx) === 1 && Math.abs(dy) === 1) ;
-  }
-
-  pawnMovementPosibility(to: Coord, currentPosition: Coord) {
-    const { x, y } = currentPosition;
-    const dx = to.x - x;
-    const dy = to.y - y;
-
-    if ( (dx === 1 && dy === -1) ) {
-      for ( const i of this.currentPositions) {
-        if (!i.color) {
-          if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            return true;
-          }
-        }
-      }
-    } else if ((dx === -1 && dy === -1)) {
-      for ( const i of this.currentPositions) {
-        if (!i.color) {
-          if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            return true;
-          }
-        }
-      }
-    } else if ((Math.abs(dx) === 0 && dy === -1)) {
-      for ( const i of this.currentPositions) {
-          if ( (i.position.x === x && i.position.y === (y - 1)) ) {
-            return false;
-          }
-      }
-    } else if ((Math.abs(dx) === 0 && dy === -2)) {
-      for ( const i of this.currentPositions) {
-          if ( (i.position.x === x && i.position.y === (y - 2)) || (i.position.x === x && i.position.y === (y - 1)) ) {
-            return false;
-          }
-      }
-    }
-    console.log(this.currentPositions);
-
-    return (Math.abs(dx) === 0 && dy === -1) ||
-          (Math.abs(dx) === 0 && dy === -2);
   }
 
   movePawn(to: Coord) {
@@ -1574,6 +1735,46 @@ export class GameService {
     }
   }
 
+  pawnMovementPosibility(to: Coord, currentPosition: Coord) {
+    const { x, y } = currentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    if ( (dx === 1 && dy === -1) ) {
+      for ( const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
+            return true;
+          }
+        }
+      }
+    } else if ((dx === -1 && dy === -1)) {
+      for ( const i of this.currentPositions) {
+        if (!i.color) {
+          if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
+            return true;
+          }
+        }
+      }
+    } else if ((Math.abs(dx) === 0 && dy === -1)) {
+      for ( const i of this.currentPositions) {
+          if ( (i.position.x === x && i.position.y === (y - 1)) ) {
+            return false;
+          }
+      }
+    } else if ((Math.abs(dx) === 0 && dy === -2)) {
+      for ( const i of this.currentPositions) {
+          if ( (i.position.x === x && i.position.y === (y - 2)) || (i.position.x === x && i.position.y === (y - 1)) ) {
+            return false;
+          }
+      }
+    }
+    console.log(this.currentPositions);
+
+    return (Math.abs(dx) === 0 && dy === -1) ||
+          (Math.abs(dx) === 0 && dy === -2);
+  }
+
   // Negative
 
   movePawnN(to: Coord) {
@@ -1686,6 +1887,25 @@ export class GameService {
     }
   }
 
+  moveRookN(to: Coord) {
+    this.rookNPosition$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'rookN') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
+  }
+
+  moveRook2N(to: Coord) {
+    this.rook2NPosition$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'rook2N') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
+  }
 
   unsubscribeFigure (figurename: string) {
 
@@ -1709,6 +1929,20 @@ export class GameService {
         this.knight2Position$.next({x: -1, y: -1});
         this.knight2Position$.unsubscribe();
         this.scorePointsUser(3, 'sub');
+        return true;
+      }
+
+      case 'rookPosition$': {
+        this.rookPosition$.next({x: -1, y: -1});
+        this.rookPosition$.unsubscribe();
+        this.scorePointsUser(2, 'sub');
+        return true;
+      }
+
+      case 'rook2Position$': {
+        this.rook2Position$.next({x: -1, y: -1});
+        this.rook2Position$.unsubscribe();
+        this.scorePointsUser(2, 'sub');
         return true;
       }
 
@@ -1841,7 +2075,21 @@ export class GameService {
       case 'knight2NPosition$': {
         this.knight2NPosition$.next({x: -1, y: -1});
         this.knight2NPosition$.unsubscribe();
-        this.scorePointsUser(3, 'add');
+        this.scorePointsUser(2, 'add');
+        return true;
+      }
+
+      case 'rookNPosition$': {
+        this.rookNPosition$.next({x: -1, y: -1});
+        this.rookNPosition$.unsubscribe();
+        this.scorePointsUser(2, 'add');
+        return true;
+      }
+
+      case 'rook2NPosition$': {
+        this.rook2NPosition$.next({x: -1, y: -1});
+        this.rook2NPosition$.unsubscribe();
+        this.scorePointsUser(2, 'add');
         return true;
       }
 
@@ -1906,6 +2154,14 @@ export class GameService {
       }
       case 'knight2': {
         this.moveKnight2N(pos);
+        break;
+      }
+      case 'rook': {
+        this.moveRookN(pos);
+        break;
+      }
+      case 'rook2': {
+        this.moveRook2N(pos);
         break;
       }
 

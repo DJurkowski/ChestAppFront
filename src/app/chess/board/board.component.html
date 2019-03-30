@@ -3,6 +3,8 @@
 <div class="board">
   <ng-container *ngIf="knightPosition$|async as knightp">
   <ng-container *ngIf="knight2Position$|async as knight2p">
+  <ng-container *ngIf="rookPosition$|async as rookp">
+  <ng-container *ngIf="rook2Position$|async as rook2p">
   <ng-container *ngIf="kingPosition$|async as kingp">
   <ng-container *ngIf="pawnPosition$|async as pawnp">
   <ng-container *ngIf="pawn2Position$|async as pawn2p">
@@ -23,11 +25,15 @@
   <ng-container *ngIf="kingNPosition$|async as kingNp">
   <ng-container *ngIf="knightNPosition$|async as knightNp">
   <ng-container *ngIf="knight2NPosition$|async as knight2Np">
+  <ng-container *ngIf="rookNPosition$|async as rookNp">
+  <ng-container *ngIf="rook2NPosition$|async as rook2Np">
   <div *ngFor="let i of sixtyFour">
     <app-square *ngIf="xy(i) as pos" [black]="isBlack(pos)" (dblclick)="handleSquareClick(pos)">
       <app-king class="control-select" *ngIf="pos.x === kingp.x && pos.y === kingp.y" (click)="setFigure('king')" [check]="setKingStyle()"></app-king>
       <app-knight class="control-select" *ngIf="pos.x === knightp.x && pos.y === knightp.y" (click)="setFigure('knight')" [check]="setKnightStyle()"></app-knight>
       <app-knight class="control-select" *ngIf="pos.x === knight2p.x && pos.y === knight2p.y" (click)="setFigure('knight2')" [check]="setKnight2Style()"></app-knight>
+      <app-rook class="control-select" *ngIf="pos.x === rookp.x && pos.y === rookp.y" (click)="setFigure('rook')" [check]="setRookStyle()"></app-rook>
+      <app-rook class="control-select" *ngIf="pos.x === rook2p.x && pos.y === rook2p.y" (click)="setFigure('rook2')" [check]="setRook2Style()"></app-rook>
       <app-pawn class="control-select" *ngIf="pos.x === pawnp.x && pos.y === pawnp.y" (click)="setFigure('pawn')" [check]="setPawnStyle()"></app-pawn>
       <app-pawn class="control-select" *ngIf="pos.x === pawn2p.x && pos.y === pawn2p.y" (click)="setFigure('pawn2')" [check]="setPawn2Style()"></app-pawn>
       <app-pawn class="control-select" *ngIf="pos.x === pawn3p.x && pos.y === pawn3p.y" (click)="setFigure('pawn3')" [check]="setPawn3Style()"></app-pawn>
@@ -47,8 +53,14 @@
       <app-king class="control-select" *ngIf="pos.x === kingNp.x && pos.y === kingNp.y" [neg]="true"></app-king>
       <app-knight class="control-select" *ngIf="pos.x === knightNp.x && pos.y === knightNp.y" [neg]="true"></app-knight>
       <app-knight class="control-select" *ngIf="pos.x === knight2Np.x && pos.y === knight2Np.y" [neg]="true"></app-knight>
+      <app-rook class="control-select" *ngIf="pos.x === rookNp.x && pos.y === rookNp.y" [neg]="true"></app-rook>
+      <app-rook class="control-select" *ngIf="pos.x === rook2Np.x && pos.y === rook2Np.y" [neg]="true"></app-rook>
     </app-square>
   </div>
+</ng-container>
+</ng-container>
+</ng-container>
+</ng-container>
 </ng-container>
 </ng-container>
 </ng-container>

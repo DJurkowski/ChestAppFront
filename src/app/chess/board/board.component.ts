@@ -38,6 +38,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   knightPosition$ = this.game.knightPosition$;
   knight2Position$ = this.game.knight2Position$;
   kingPosition$ = this.game.kingPosition$;
+  rookPosition$ = this.game.rookPosition$;
+  rook2Position$ = this.game.rook2Position$;
 
   pawnPosition$ = this.game.pawnPosition$;
   pawn2Position$ = this.game.pawn2Position$;
@@ -60,6 +62,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   kingNPosition$ = this.game.kingNPosition$;
   knightNPosition$ = this.game.knightNPosition$;
   knight2NPosition$ = this.game.knight2NPosition$;
+  rookNPosition$ = this.game.rookNPosition$;
+  rook2NPosition$ = this.game.rook2NPosition$;
 
   errorFigure = '';
 
@@ -162,7 +166,6 @@ export class BoardComponent implements OnInit, OnDestroy {
             result = this.game.movePawn(pos);
 
             console.log('Result czy zbity: ' + result);
-            // musimy zwrocic boolean czy mamy zbicie czy nie!!!
 
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
@@ -177,7 +180,6 @@ export class BoardComponent implements OnInit, OnDestroy {
              result = this.game.movePawn2(pos);
 
              console.log('Result czy zbity: ' + result);
-            // musimy zwrocic boolean czy mamy zbicie czy nie!!!
              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
               this.figureCoords.id = 'zero';
               this.figureCoords.isCheck = false;
@@ -219,7 +221,6 @@ export class BoardComponent implements OnInit, OnDestroy {
             result = this.game.movePawn5(pos);
 
             console.log('Result czy zbity: ' + result);
-          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
@@ -233,7 +234,6 @@ export class BoardComponent implements OnInit, OnDestroy {
             result = this.game.movePawn6(pos);
 
             console.log('Result czy zbity: ' + result);
-          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
@@ -247,7 +247,6 @@ export class BoardComponent implements OnInit, OnDestroy {
             result = this.game.movePawn7(pos);
 
             console.log('Result czy zbity: ' + result);
-          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
@@ -269,6 +268,34 @@ export class BoardComponent implements OnInit, OnDestroy {
               this.errorFigure = 'pawn8';
               this.openDialog();
             console.log('NIe prawidlowy ruch Pawn8');
+          }
+        } else if (this.figureCoords.id === 'rook') {
+          if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
+            this.game.moveRook(pos);
+
+            // console.log('Result czy zbity: ' + result);
+          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + false + '-' + this.username);
+            this.figureCoords.id = 'zero';
+            this.figureCoords.isCheck = false;
+          } else {
+              this.errorFigure = 'rook';
+              this.openDialog();
+            console.log('NIe prawidlowy ruch Rook');
+          }
+        } else if (this.figureCoords.id === 'rook2') {
+          if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
+            this.game.moveRook2(pos);
+
+            // console.log('Result czy zbity: ' + result);
+          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + false + '-' + this.username);
+            this.figureCoords.id = 'zero';
+            this.figureCoords.isCheck = false;
+          } else {
+              this.errorFigure = 'rook2';
+              this.openDialog();
+            console.log('NIe prawidlowy ruch Rook2');
           }
         }
     } else {
@@ -303,6 +330,18 @@ setKnightStyle() {
 
 setKnight2Style() {
   if (this.figureCoords.id === 'knight2') {
+  return this.figureCoords.isCheck;
+  }
+}
+
+setRookStyle() {
+  if (this.figureCoords.id === 'rook') {
+  return this.figureCoords.isCheck;
+  }
+}
+
+setRook2Style() {
+  if (this.figureCoords.id === 'rook2') {
   return this.figureCoords.isCheck;
   }
 }

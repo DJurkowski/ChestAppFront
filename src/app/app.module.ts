@@ -38,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { WebSocketService } from './globalService/web-socket.service';
 import { NotificationService } from './services/notification.service';
+import { RookComponent } from './chess/rook/rook.component';
 
 
 
@@ -65,7 +66,8 @@ import { NotificationService } from './services/notification.service';
     KnightComponent,
     PawnComponent,
     SquareComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    RookComponent
   ],
   imports: [
     BrowserModule,

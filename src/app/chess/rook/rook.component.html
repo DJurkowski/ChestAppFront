@@ -1,0 +1,6 @@
+<span *ngIf='!neg; else elseOption'>
+  <span [ngStyle]="getStyle()">♖</span>
+  </span>
+  <ng-template #elseOption>
+  <span [ngStyle]="getNegStyle()">♖</span>
+  </ng-template>
