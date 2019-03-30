@@ -271,11 +271,11 @@ export class BoardComponent implements OnInit, OnDestroy {
           }
         } else if (this.figureCoords.id === 'rook') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
-            this.game.moveRook(pos);
+            result = this.game.moveRook(pos);
 
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
-            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + false + '-' + this.username);
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -285,11 +285,11 @@ export class BoardComponent implements OnInit, OnDestroy {
           }
         } else if (this.figureCoords.id === 'rook2') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
-            this.game.moveRook2(pos);
+            result = this.game.moveRook2(pos);
 
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
-            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + false + '-' + this.username);
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {

@@ -381,23 +381,235 @@ export class GameService {
   }
 
   moveRook2(to: Coord) {
-    this.rook2Position$.next(to);
-    for (const i of this.currentPositions) {
-      if (i.namefigure === 'rook2') {
-        i.position.x = to.x;
-        i.position.y = to.y;
+    const { x, y } = this.rook2CurrentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    for (let i = 1; i <= 7; i++) {
+
+      if (dx === 0 && dy === i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y + i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.rook2Position$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'rook2') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.rook2Position$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'rook2') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === 0 && dy === -i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y - i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.rook2Position$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'rook2') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.rook2Position$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'rook2') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === i && dy === 0) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.rook2Position$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'rook2') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.rook2Position$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'rook2') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+
+      } else if (dx === -i && dy === 0) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.rook2Position$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'rook2') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.rook2Position$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'rook2') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
       }
     }
   }
 
   moveRook(to: Coord) {
-    this.rookPosition$.next(to);
-    for (const i of this.currentPositions) {
-      if (i.namefigure === 'rook') {
-        i.position.x = to.x;
-        i.position.y = to.y;
+    const { x, y } = this.rookCurrentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    for (let i = 1; i <= 7; i++) {
+
+      if (dx === 0 && dy === i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y + i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.rookPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'rook') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.rookPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'rook') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === 0 && dy === -i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y - i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.rookPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'rook') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.rookPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'rook') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === i && dy === 0) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.rookPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'rook') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.rookPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'rook') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+
+      } else if (dx === -i && dy === 0) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.rookPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'rook') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.rookPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'rook') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
       }
     }
+
+    // this.rookPosition$.next(to);
+    // for (const i of this.currentPositions) {
+    //   if (i.namefigure === 'rook') {
+    //     i.position.x = to.x;
+    //     i.position.y = to.y;
+    //   }
+    // }
   }
 
   rookMovementPosibility(to: Coord, currentPosition: Coord) {
@@ -517,7 +729,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 2) && i.position.y === (y + 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knightPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight') {
@@ -542,7 +754,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 2) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knightPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight') {
@@ -567,7 +779,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 2) && i.position.y === (y + 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knightPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight') {
@@ -592,7 +804,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 2) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knightPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight') {
@@ -617,7 +829,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y + 2)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knightPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight') {
@@ -642,7 +854,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 2)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knightPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight') {
@@ -667,7 +879,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y + 2)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knightPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight') {
@@ -692,7 +904,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 2)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knightPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight') {
@@ -725,7 +937,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 2) && i.position.y === (y + 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knight2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight2') {
@@ -750,7 +962,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 2) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knight2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight2') {
@@ -775,7 +987,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 2) && i.position.y === (y + 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knight2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight2') {
@@ -800,7 +1012,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 2) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knight2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight2') {
@@ -825,7 +1037,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y + 2)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knight2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight2') {
@@ -850,7 +1062,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 2)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knight2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight2') {
@@ -875,7 +1087,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y + 2)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knight2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight2') {
@@ -900,7 +1112,7 @@ export class GameService {
       for (const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 2)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.knight2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'knight2') {
@@ -1016,7 +1228,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y + 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.kingPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'king') {
@@ -1041,7 +1253,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x) && i.position.y === (y + 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.kingPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'king') {
@@ -1066,7 +1278,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y + 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.kingPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'king') {
@@ -1091,7 +1303,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.kingPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'king') {
@@ -1116,7 +1328,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.kingPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'king') {
@@ -1141,7 +1353,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.kingPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'king') {
@@ -1166,7 +1378,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.kingPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'king') {
@@ -1191,7 +1403,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.kingPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'king') {
@@ -1301,7 +1513,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawnPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn') {
@@ -1318,7 +1530,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawnPosition$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn') {
@@ -1381,7 +1593,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn2') {
@@ -1398,7 +1610,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn2Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn2') {
@@ -1433,7 +1645,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn3Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn3') {
@@ -1450,7 +1662,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn3Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn3') {
@@ -1485,7 +1697,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn4Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn4') {
@@ -1502,7 +1714,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn4Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn4') {
@@ -1537,7 +1749,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn5Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn5') {
@@ -1554,7 +1766,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn5Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn5') {
@@ -1589,7 +1801,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn6Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn6') {
@@ -1606,7 +1818,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn6Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn6') {
@@ -1641,7 +1853,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn7Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn7') {
@@ -1658,7 +1870,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn7Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn7') {
@@ -1693,7 +1905,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn8Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn8') {
@@ -1710,7 +1922,7 @@ export class GameService {
       for ( const i of this.currentPositions) {
         if (!i.color) {
           if ( (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-            if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
+            if (this.unsubscribeFigure(i.namefigure)) {
               this.pawn8Position$.next(to);
               for (const j of this.currentPositions) {
                 if (j.namefigure === 'pawn8') {
@@ -1909,186 +2121,191 @@ export class GameService {
 
   unsubscribeFigure (figurename: string) {
 
+    console.log(this.currentPositions);
+
+    const pos = {x: -1, y: -1};
+    this.changePosition(figurename, pos);
+
     switch (figurename) {
 
-      case 'kingPosition$': {
-        this.kingPosition$.next({x: -1, y: -1});
-        this.kingPosition$.unsubscribe();
+      case 'king': {
+        this.kingPosition$.next(pos);
+        // this.kingPosition$.unsubscribe();
         this.scorePointsUser(5, 'sub');
         return true;
       }
 
-      case 'knightPosition$': {
-        this.knightPosition$.next({x: -1, y: -1});
-        this.knightPosition$.unsubscribe();
+      case 'knight': {
+        this.knightPosition$.next(pos);
+        // this.knightPosition$.unsubscribe();
         this.scorePointsUser(3, 'sub');
         return true;
       }
 
-      case 'knight2Position$': {
-        this.knight2Position$.next({x: -1, y: -1});
-        this.knight2Position$.unsubscribe();
+      case 'knight2': {
+        this.knight2Position$.next(pos);
+        // this.knight2Position$.unsubscribe();
         this.scorePointsUser(3, 'sub');
         return true;
       }
 
-      case 'rookPosition$': {
-        this.rookPosition$.next({x: -1, y: -1});
-        this.rookPosition$.unsubscribe();
+      case 'rook': {
+        this.rookPosition$.next(pos);
+        // this.rookPosition$.unsubscribe();
         this.scorePointsUser(2, 'sub');
         return true;
       }
 
-      case 'rook2Position$': {
-        this.rook2Position$.next({x: -1, y: -1});
-        this.rook2Position$.unsubscribe();
+      case 'rook2': {
+        this.rook2Position$.next(pos);
+        // this.rook2Position$.unsubscribe();
         this.scorePointsUser(2, 'sub');
         return true;
       }
 
-      case 'pawnPosition$': {
-        this.pawnPosition$.next({x: -1, y: -1});
-        this.pawnPosition$.unsubscribe();
+      case 'pawn': {
+        this.pawnPosition$.next(pos);
+        // this.pawnPosition$.unsubscribe();
         this.scorePointsUser(1, 'sub');
         return true;
       }
 
-      case 'pawn2Position$': {
-        this.pawn2Position$.next({x: -1, y: -1});
-        this.pawn2Position$.unsubscribe();
+      case 'pawn2': {
+        this.pawn2Position$.next(pos);
+        // this.pawn2Position$.unsubscribe();
         this.scorePointsUser(1, 'sub');
         return true;
       }
 
-      case 'pawn3Position$': {
-        this.pawn3Position$.next({x: -1, y: -1});
-        this.pawn3Position$.unsubscribe();
+      case 'pawn3': {
+        this.pawn3Position$.next(pos);
+        // this.pawn3Position$.unsubscribe();
         this.scorePointsUser(1, 'sub');
         return true;
       }
 
-      case 'pawn4Position$': {
-        this.pawn4Position$.next({x: -1, y: -1});
-        this.pawn4Position$.unsubscribe();
+      case 'pawn4': {
+        this.pawn4Position$.next(pos);
+        // this.pawn4Position$.unsubscribe();
         this.scorePointsUser(1, 'sub');
         return true;
       }
 
-      case 'pawn5Position$': {
-        this.pawn5Position$.next({x: -1, y: -1});
-        this.pawn5Position$.unsubscribe();
+      case 'pawn5': {
+        this.pawn5Position$.next(pos);
+        // this.pawn5Position$.unsubscribe();
         this.scorePointsUser(1, 'sub');
         return true;
       }
 
-      case 'pawn6Position$': {
-        this.pawn6Position$.next({x: -1, y: -1});
-        this.pawn6Position$.unsubscribe();
+      case 'pawn6': {
+        this.pawn6Position$.next(pos);
+        // this.pawn6Position$.unsubscribe();
         this.scorePointsUser(1, 'sub');
         return true;
       }
 
-      case 'pawn7Position$': {
-        this.pawn7Position$.next({x: -1, y: -1});
-        this.pawn7Position$.unsubscribe();
+      case 'pawn7': {
+        this.pawn7Position$.next(pos);
+        // this.pawn7Position$.unsubscribe();
         this.scorePointsUser(1, 'sub');
         return true;
       }
 
-      case 'pawn8Position$': {
-        this.pawn8Position$.next({x: -1, y: -1});
-        this.pawn8Position$.unsubscribe();
+      case 'pawn8': {
+        this.pawn8Position$.next(pos);
+        // this.pawn8Position$.unsubscribe();
         this.scorePointsUser(1, 'sub');
         return true;
       }
 
       // Negative
-      case 'pawnNPosition$': {
-        this.pawnNPosition$.next({x: -1, y: -1});
-        this.pawnNPosition$.unsubscribe();
+      case 'pawnN': {
+        this.pawnNPosition$.next(pos);
+        // this.pawnNPosition$.unsubscribe();
         this.scorePointsUser(1, 'add');
         return true;
       }
 
-      case 'pawn2NPosition$': {
-        this.pawn2NPosition$.next({x: -1, y: -1});
-        this.pawn2NPosition$.unsubscribe();
+      case 'pawn2N': {
+        this.pawn2NPosition$.next(pos);
+        // this.pawn2NPosition$.unsubscribe();
         this.scorePointsUser(1, 'add');
         return true;
       }
 
-      case 'pawn3NPosition$': {
-        this.pawn3NPosition$.next({x: -1, y: -1});
-        this.pawn3NPosition$.unsubscribe();
+      case 'pawn3N': {
+        this.pawn3NPosition$.next(pos);
+        // this.pawn3NPosition$.unsubscribe();
         this.scorePointsUser(1, 'add');
         return true;
       }
 
-      case 'pawn4NPosition$': {
-        this.pawn4NPosition$.next({x: -1, y: -1});
-        this.pawn4NPosition$.unsubscribe();
+      case 'pawn4N': {
+        this.pawn4NPosition$.next(pos);
+        // this.pawn4NPosition$.unsubscribe();
         this.scorePointsUser(1, 'add');
         return true;
       }
 
-      case 'pawn5NPosition$': {
-        this.pawn5NPosition$.next({x: -1, y: -1});
-        this.pawn5NPosition$.unsubscribe();
+      case 'pawn5N': {
+        this.pawn5NPosition$.next(pos);
+        // this.pawn5NPosition$.unsubscribe();
         this.scorePointsUser(1, 'add');
         return true;
       }
 
-      case 'pawn6NPosition$':
-      this.pawn6NPosition$.next({x: -1, y: -1});
-      this.pawn6NPosition$.unsubscribe();
+      case 'pawn6N':
+      this.pawn6NPosition$.next(pos);
+      // this.pawn6NPosition$.unsubscribe();
       this.scorePointsUser(1, 'add');
       return true;
 
-      case 'pawn7NPosition$': {
-        this.pawn7NPosition$.next({x: -1, y: -1});
-        this.pawn7NPosition$.unsubscribe();
+      case 'pawn7N': {
+        this.pawn7NPosition$.next(pos);
+        // this.pawn7NPosition$.unsubscribe();
         this.scorePointsUser(1, 'add');
         return true;
       }
 
-      case 'pawn8NPosition$': {
-        this.pawn8NPosition$.next({x: -1, y: -1});
-        this.pawn8NPosition$.unsubscribe();
+      case 'pawn8N': {
+        this.pawn8NPosition$.next(pos);
+        // this.pawn8NPosition$.unsubscribe();
         this.scorePointsUser(1, 'add');
         return true;
       }
 
-      case 'kingNPosition$': {
-        this.kingNPosition$.next({x: -1, y: -1});
-        this.kingNPosition$.unsubscribe();
+      case 'kingN': {
+        this.kingNPosition$.next(pos);
+        // this.kingNPosition$.unsubscribe();
         this.scorePointsUser(5, 'add');
         return true;
       }
 
-      case 'knightNPosition$': {
-        this.knightNPosition$.next({x: -1, y: -1});
-        this.knightNPosition$.unsubscribe();
+      case 'knightN': {
+        this.knightNPosition$.next(pos);
+        // this.knightNPosition$.unsubscribe();
         this.scorePointsUser(3, 'add');
         return true;
       }
 
-      case 'knight2NPosition$': {
-        this.knight2NPosition$.next({x: -1, y: -1});
-        this.knight2NPosition$.unsubscribe();
+      case 'knight2N': {
+        this.knight2NPosition$.next(pos);
+        // this.knight2NPosition$.unsubscribe();
+        this.scorePointsUser(3, 'add');
+        return true;
+      }
+
+      case 'rookN': {
+        this.rookNPosition$.next(pos);
+        // this.rookNPosition$.unsubscribe();
         this.scorePointsUser(2, 'add');
         return true;
       }
 
-      case 'rookNPosition$': {
-        this.rookNPosition$.next({x: -1, y: -1});
-        this.rookNPosition$.unsubscribe();
-        this.scorePointsUser(2, 'add');
-        return true;
-      }
-
-      case 'rook2NPosition$': {
-        this.rook2NPosition$.next({x: -1, y: -1});
-        this.rook2NPosition$.unsubscribe();
+      case 'rook2N': {
+        this.rook2NPosition$.next(pos);
+        // this.rook2NPosition$.unsubscribe();
         this.scorePointsUser(2, 'add');
         return true;
       }
@@ -2099,14 +2316,23 @@ export class GameService {
 
   }
 
+  changePosition(figurename: string, pos: Coord) {
+    for (const i of this.currentPositions) {
+      if (i.namefigure === figurename) {
+        i.position.x = pos.x;
+        i.position.y = pos.y;
+      }
+    }
+  }
+
   moveFigure(figurename: string, pos: Coord, capture: boolean) {
     if (capture) {
       for ( const i of this.currentPositions) {
         if (i.color) {
           if ((i.position.x === pos.x && i.position.y === pos.y)) {
-            this.unsubscribeFigure(i.namefigure + 'Position$');
-              i.position.x = -1;
-              i.position.y = -1;
+            this.unsubscribeFigure(i.namefigure);
+              // i.position.x = -1;
+              // i.position.y = -1;
           }
         }
       }
