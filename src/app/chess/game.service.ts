@@ -29,11 +29,12 @@ export class GameService {
   rookCurrentPosition: Coord;
   rook2Position$ = new BehaviorSubject<Coord>({ x: 7, y: 7});
   rook2CurrentPosition: Coord;
-
   bishopPosition$ = new BehaviorSubject<Coord>({ x: 2, y: 7});
   bishopCurrentPosition: Coord;
   bishop2Position$ = new BehaviorSubject<Coord>({ x: 5, y: 7});
   bishop2CurrentPosition: Coord;
+  queenPosition$ = new BehaviorSubject<Coord>({ x: 3, y: 7});
+  queenCurrentPosition: Coord;
 
   pawnPosition$ = new BehaviorSubject<Coord>({ x: 0, y: 6});
   pawnCurrentPosition: Coord;
@@ -83,6 +84,8 @@ export class GameService {
   bishopNCurrentPosition: Coord;
   bishop2NPosition$ = new BehaviorSubject<Coord>({ x: 5, y: 0});
   bishop2NCurrentPosition: Coord;
+  queenNPosition$ = new BehaviorSubject<Coord>({ x: 3, y: 0});
+  queenNCurrentPosition: Coord;
 
 
   constructor() {
@@ -95,6 +98,10 @@ export class GameService {
 
     this.kingPosition$.subscribe(kingp => {
       this.kingCurrentPosition = kingp;
+    });
+
+    this.queenPosition$.subscribe(queenp => {
+      this.queenCurrentPosition = queenp;
     });
 
     this.knightPosition$.subscribe(knightp => {
@@ -214,10 +221,20 @@ export class GameService {
       this.bishop2NCurrentPosition = bishop2Np;
     });
 
+    this.queenNPosition$.subscribe(queenNp => {
+      this.queenNCurrentPosition = queenNp;
+    });
+
     this.currentPositions.push( {
       position: this.kingCurrentPosition,
       color: true,
       namefigure: 'king'
+    });
+
+    this.currentPositions.push( {
+      position: this.queenCurrentPosition,
+      color: true,
+      namefigure: 'queen'
     });
 
     this.currentPositions.push( {
@@ -359,6 +376,12 @@ export class GameService {
       namefigure: 'kingN'
     });
 
+    this.currentPositions.push({
+      position: this.queenNCurrentPosition,
+      color: false,
+      namefigure: 'queenN'
+    });
+
     this.currentPositions.push( {
       position: this.knightNCurrentPosition,
       color: false,
@@ -417,6 +440,8 @@ export class GameService {
         return this.pawnMovementPosibility(to, this.pawn8CurrentPosition);
       case 'king':
         return this.kingMovementPosibility(to, this.kingCurrentPosition);
+      case 'queen':
+        return this.queenMovementPosibility(to, this.queenCurrentPosition);
       case 'knight':
         return this.knightMovementPosibility(to, this.knightCurrentPosition);
       case 'knight2':
@@ -430,6 +455,397 @@ export class GameService {
       case 'bishop2':
         return this.bishopMovementPosibility(to, this.bishop2CurrentPosition);
 
+    }
+  }
+
+  moveQueen(to: Coord) {
+    const { x, y } = this.queenCurrentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    for (let i = 1; i <= 7; i++) {
+
+      if (dx === i && dy === i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y + i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.queenPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'queen') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.queenPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'queen') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === -i && dy === i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y + i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.queenPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'queen') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.queenPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'queen') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === i && dy === -i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y - i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.queenPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'queen') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.queenPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'queen') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === -i && dy === -i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y - i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.queenPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'queen') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.queenPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'queen') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === 0 && dy === i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y + i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.queenPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'queen') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.queenPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'queen') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === 0 && dy === -i) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y - i)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.queenPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'queen') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.queenPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'queen') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      } else if (dx === i && dy === 0) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.queenPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'queen') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.queenPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'queen') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+
+      } else if (dx === -i && dy === 0) {
+        for (const j of this.currentPositions) {
+          if (!j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y)) ) {
+              if (this.unsubscribeFigure(j.namefigure)) {
+                this.queenPosition$.next(to);
+                for (const k of this.currentPositions) {
+                  if (k.namefigure === 'queen') {
+                    k.position.x = to.x;
+                    k.position.y = to.y;
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.queenPosition$.next(to);
+        for (const k of this.currentPositions) {
+          if (k.namefigure === 'queen') {
+            k.position.x = to.x;
+            k.position.y = to.y;
+            return false;
+          }
+        }
+      }
+    }
+  }
+
+  queenMovementPosibility(to: Coord, currentPosition: Coord) {
+    const { x, y } = currentPosition;
+    const dx = to.x - x;
+    const dy = to.y - y;
+
+    for (let i = 1; i <= 7; i++) {
+
+      if (dx === i && dy === i) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y + i)) ) {
+              console.log('Jestem 1');
+              return false;
+            }
+          }
+        }
+        if (i !== 1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x + k) && j.position.y === (y + k)) ) {
+                console.log('Jestem 2');
+                  return false;
+                }
+            }
+          }
+        }
+        return true;
+      } else if (dx === -i && dy === i) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y + i)) ) {
+              console.log('Jestem 1');
+              return false;
+            }
+          }
+        }
+        if (i !== 1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x - k) && j.position.y === (y + k)) ) {
+                console.log('Jestem 2');
+                  return false;
+                }
+            }
+          }
+        }
+        return true;
+      } else if (dx === i && dy === -i) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y - i)) ) {
+              console.log('Jestem 1');
+              return false;
+            }
+          }
+        }
+        if (i !== 1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x + k) && j.position.y === (y - k)) ) {
+                console.log('Jestem 2');
+                  return false;
+                }
+            }
+          }
+        }
+        return true;
+      } else if (dx === -i && dy === -i) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y - i)) ) {
+              console.log('Jestem 1');
+              return false;
+            }
+          }
+        }
+        if (i !== 1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x - k) && j.position.y === (y - k)) ) {
+                console.log('Jestem 2');
+                  return false;
+                }
+            }
+          }
+        }
+        return true;
+      } else if (dx === 0 && dy === i) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y + i)) ) {
+              console.log('Jestem 1');
+              return false;
+            }
+          }
+        }
+        if (i !== 1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x) && j.position.y === (y + k)) ) {
+                console.log('Jestem 2');
+                  return false;
+                }
+            }
+          }
+        }
+        return true;
+      } else if (dx === 0 && dy === -i) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x) && j.position.y === (y - i)) ) {
+              console.log('Jestem 3');
+              return false;
+            }
+          }
+        }
+        if (-i !== -1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x) && j.position.y === (y - k)) ) {
+                console.log('Jestem 4');
+                  return false;
+                }
+            }
+          }
+        }
+        return true;
+      } else if (dx === i && dy === 0) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x + i) && j.position.y === (y)) ) {
+              console.log('Jestem 5');
+              return false;
+            }
+          }
+        }
+        if (i !== 1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x + k) && j.position.y === (y)) ) {
+              console.log('Jestem 6');
+                  return false;
+                }
+            }
+          }
+        }
+        return true;
+      } else if (dx === -i && dy === 0) {
+
+        for (const j of this.currentPositions) {
+          if (j.color) {
+            if ( (j.position.x === (x - i) && j.position.y === (y)) ) {
+              console.log('Jestem 7');
+              return false;
+            }
+          }
+        }
+        if (-i !== -1) {
+          for (let k = (i - 1); k >= 1; k--) {
+            for (const j of this.currentPositions) {
+                if ( (j.position.x === (x - k) && j.position.y === (y)) ) {
+              console.log('Jestem 8');
+                  return false;
+                }
+            }
+          }
+        }
+        return true;
+      }
     }
   }
 
@@ -974,14 +1390,6 @@ export class GameService {
         }
       }
     }
-
-    // this.rookPosition$.next(to);
-    // for (const i of this.currentPositions) {
-    //   if (i.namefigure === 'rook') {
-    //     i.position.x = to.x;
-    //     i.position.y = to.y;
-    //   }
-    // }
   }
 
   rookMovementPosibility(to: Coord, currentPosition: Coord) {
@@ -1011,6 +1419,7 @@ export class GameService {
             }
           }
         }
+        return true;
       } else if (dx === 0 && dy === -i) {
 
         for (const j of this.currentPositions) {
@@ -1031,6 +1440,7 @@ export class GameService {
             }
           }
         }
+        return true;
       } else if (dx === i && dy === 0) {
 
         for (const j of this.currentPositions) {
@@ -1052,6 +1462,7 @@ export class GameService {
             }
           }
         }
+        return true;
       } else if (dx === -i && dy === 0) {
 
         for (const j of this.currentPositions) {
@@ -1074,21 +1485,8 @@ export class GameService {
           }
         }
       }
+      return true;
     }
-    return (Math.abs(dx) === 0 && Math.abs(dy) === 1) ||
-           (Math.abs(dx) === 0 && Math.abs(dy) === 2) ||
-           (Math.abs(dx) === 0 && Math.abs(dy) === 3) ||
-           (Math.abs(dx) === 0 && Math.abs(dy) === 4) ||
-           (Math.abs(dx) === 0 && Math.abs(dy) === 5) ||
-           (Math.abs(dx) === 0 && Math.abs(dy) === 6) ||
-           (Math.abs(dx) === 0 && Math.abs(dy) === 7) ||
-           (Math.abs(dx) === 1 && Math.abs(dy) === 0) ||
-           (Math.abs(dx) === 2 && Math.abs(dy) === 0) ||
-           (Math.abs(dx) === 3 && Math.abs(dy) === 0) ||
-           (Math.abs(dx) === 4 && Math.abs(dy) === 0) ||
-           (Math.abs(dx) === 5 && Math.abs(dy) === 0) ||
-           (Math.abs(dx) === 6 && Math.abs(dy) === 0) ||
-           (Math.abs(dx) === 7 && Math.abs(dy) === 0);
   }
 
   moveKnight(to: Coord) {
@@ -1506,13 +1904,6 @@ export class GameService {
         }
       }
     }
-    // this.knight2Position$.next(to);
-    // for (const i of this.currentPositions) {
-    //   if (i.namefigure === 'knight2') {
-    //     i.position.x = to.x;
-    //     i.position.y = to.y;
-    //   }
-    // }
   }
 
   knightMovementPosibility(to: Coord, currentPosition: Coord) {
@@ -1925,34 +2316,6 @@ export class GameService {
           }
         }
     }
-
-    // if ( (dx === 1 && dy === -1) || (dx === -1 && dy === -1)) {
-    //   for ( const i of this.currentPositions) {
-    //     if (!i.color) {
-    //       if ( (i.position.x === (x + 1) && i.position.y === (y - 1)) || (i.position.x === (x - 1) && i.position.y === (y - 1)) ) {
-    //         if (this.unsubscribeFigure(i.namefigure + 'Position$')) {
-    //           this.pawnPosition$.next(to);
-    //           for (const j of this.currentPositions) {
-    //             if (j.namefigure === 'pawn') {
-    //               j.position.x = to.x;
-    //               j.position.y = to.y;
-    //               return true;
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // } else {
-    //     this.pawnPosition$.next(to);
-    //     for (const i of this.currentPositions) {
-    //       if (i.namefigure === 'pawn') {
-    //         i.position.x = to.x;
-    //         i.position.y = to.y;
-    //         return false;
-    //       }
-    //     }
-    //   }
   }
 
   movePawn2(to: Coord) {
@@ -2451,6 +2814,16 @@ export class GameService {
     }
   }
 
+  moveQueenN(to: Coord) {
+    this.queenNPosition$.next(to);
+    for (const i of this.currentPositions) {
+      if (i.namefigure === 'queenN') {
+        i.position.x = to.x;
+        i.position.y = to.y;
+      }
+    }
+  }
+
   moveKnightN(to: Coord) {
     this.knightNPosition$.next(to);
     for (const i of this.currentPositions) {
@@ -2524,6 +2897,14 @@ export class GameService {
         this.kingPosition$.next(pos);
         // this.kingPosition$.unsubscribe();
         this.scorePointsUser(5, 'sub');
+        return true;
+      }
+
+      case 'queen': {
+        this.queenPosition$.next(pos);
+        // koniec gry!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // this.kingPosition$.unsubscribe();
+        this.scorePointsUser(6, 'sub');
         return true;
       }
 
@@ -2688,6 +3069,13 @@ export class GameService {
         return true;
       }
 
+      case 'queenN': {
+        this.queenNPosition$.next(pos);
+        // this.kingNPosition$.unsubscribe();
+        this.scorePointsUser(6, 'add');
+        return true;
+      }
+
       case 'knightN': {
         this.knightNPosition$.next(pos);
         // this.knightNPosition$.unsubscribe();
@@ -2792,6 +3180,10 @@ export class GameService {
       }
       case 'king': {
         this.moveKingN(pos);
+        break;
+      }
+      case 'queen': {
+        this.moveQueenN(pos);
         break;
       }
       case 'knight': {

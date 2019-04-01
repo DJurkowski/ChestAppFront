@@ -8,6 +8,7 @@
   <ng-container *ngIf="bishopPosition$|async as bishopp">
   <ng-container *ngIf="bishop2Position$|async as bishop2p">
   <ng-container *ngIf="kingPosition$|async as kingp">
+  <ng-container *ngIf="queenPosition$|async as queenp">
   <ng-container *ngIf="pawnPosition$|async as pawnp">
   <ng-container *ngIf="pawn2Position$|async as pawn2p">
   <ng-container *ngIf="pawn3Position$|async as pawn3p">
@@ -25,6 +26,7 @@
   <ng-container *ngIf="pawn7NPosition$|async as pawn7Np">
   <ng-container *ngIf="pawn8NPosition$|async as pawn8Np">
   <ng-container *ngIf="kingNPosition$|async as kingNp">
+  <ng-container *ngIf="queenNPosition$|async as queenNp">
   <ng-container *ngIf="knightNPosition$|async as knightNp">
   <ng-container *ngIf="knight2NPosition$|async as knight2Np">
   <ng-container *ngIf="rookNPosition$|async as rookNp">
@@ -34,6 +36,7 @@
   <div *ngFor="let i of sixtyFour">
     <app-square *ngIf="xy(i) as pos" [black]="isBlack(pos)" (dblclick)="handleSquareClick(pos)">
       <app-king class="control-select" *ngIf="pos.x === kingp.x && pos.y === kingp.y" (click)="setFigure('king')" [check]="setKingStyle()"></app-king>
+      <app-queen class="control-select" *ngIf="pos.x === queenp.x && pos.y === queenp.y" (click)="setFigure('queen')" [check]="setQueenStyle()"></app-queen>
       <app-knight class="control-select" *ngIf="pos.x === knightp.x && pos.y === knightp.y" (click)="setFigure('knight')" [check]="setKnightStyle()"></app-knight>
       <app-knight class="control-select" *ngIf="pos.x === knight2p.x && pos.y === knight2p.y" (click)="setFigure('knight2')" [check]="setKnight2Style()"></app-knight>
       <app-rook class="control-select" *ngIf="pos.x === rookp.x && pos.y === rookp.y" (click)="setFigure('rook')" [check]="setRookStyle()"></app-rook>
@@ -57,6 +60,7 @@
       <app-pawn class="control-select" *ngIf="pos.x === pawn7Np.x && pos.y === pawn7Np.y" [neg]="true" ></app-pawn>
       <app-pawn class="control-select" *ngIf="pos.x === pawn8Np.x && pos.y === pawn8Np.y" [neg]="true" ></app-pawn>
       <app-king class="control-select" *ngIf="pos.x === kingNp.x && pos.y === kingNp.y" [neg]="true"></app-king>
+      <app-queen class="control-select" *ngIf="pos.x === queenNp.x && pos.y === queenNp.y" [neg]="true"></app-queen>
       <app-knight class="control-select" *ngIf="pos.x === knightNp.x && pos.y === knightNp.y" [neg]="true"></app-knight>
       <app-knight class="control-select" *ngIf="pos.x === knight2Np.x && pos.y === knight2Np.y" [neg]="true"></app-knight>
       <app-rook class="control-select" *ngIf="pos.x === rookNp.x && pos.y === rookNp.y" [neg]="true"></app-rook>
@@ -65,6 +69,8 @@
       <app-bishop class="control-select" *ngIf="pos.x === bishop2Np.x && pos.y === bishop2Np.y" [neg]="true"></app-bishop>
     </app-square>
   </div>
+</ng-container>
+</ng-container>
 </ng-container>
 </ng-container>
 </ng-container>

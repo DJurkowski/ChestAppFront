@@ -40,6 +40,7 @@ import { WebSocketService } from './globalService/web-socket.service';
 import { NotificationService } from './services/notification.service';
 import { RookComponent } from './chess/rook/rook.component';
 import { BishopComponent } from './chess/bishop/bishop.component';
+import { QueenComponent } from './chess/queen/queen.component';
 
 
 
@@ -69,7 +70,8 @@ import { BishopComponent } from './chess/bishop/bishop.component';
     SquareComponent,
     NotificationsComponent,
     RookComponent,
-    BishopComponent
+    BishopComponent,
+    QueenComponent
   ],
   imports: [
     BrowserModule,

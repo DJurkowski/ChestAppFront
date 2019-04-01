@@ -38,6 +38,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   knightPosition$ = this.game.knightPosition$;
   knight2Position$ = this.game.knight2Position$;
   kingPosition$ = this.game.kingPosition$;
+  queenPosition$ = this.game.queenPosition$;
   rookPosition$ = this.game.rookPosition$;
   rook2Position$ = this.game.rook2Position$;
   bishopPosition$ = this.game.bishopPosition$;
@@ -62,6 +63,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   pawn7NPosition$ = this.game.pawn7NPosition$;
   pawn8NPosition$ = this.game.pawn8NPosition$;
   kingNPosition$ = this.game.kingNPosition$;
+  queenNPosition$ = this.game.queenNPosition$;
   knightNPosition$ = this.game.knightNPosition$;
   knight2NPosition$ = this.game.knight2NPosition$;
   rookNPosition$ = this.game.rookNPosition$;
@@ -329,6 +331,20 @@ export class BoardComponent implements OnInit, OnDestroy {
               this.openDialog();
             console.log('NIe prawidlowy ruch Bishop2');
           }
+        } else if (this.figureCoords.id === 'queen') {
+          if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
+            result = this.game.moveQueen(pos);
+
+            // console.log('Result czy zbity: ' + result);
+          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            this.figureCoords.id = 'zero';
+            this.figureCoords.isCheck = false;
+          } else {
+              this.errorFigure = 'queen';
+              this.openDialog();
+            console.log('NIe prawidlowy ruch Queen');
+          }
         }
     } else {
         console.error('Check');
@@ -350,6 +366,12 @@ setFigure(id: string) {
 
 setKingStyle() {
   if (this.figureCoords.id === 'king') {
+  return this.figureCoords.isCheck;
+  }
+}
+
+setQueenStyle() {
+  if (this.figureCoords.id === 'queen') {
   return this.figureCoords.isCheck;
   }
 }
