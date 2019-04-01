@@ -28,6 +28,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   // public opponent: string;
   public actualUserPoints = this.game.userPointsObservable;
 
+  endGameVariable = this.game.endGameObservable;
+
   // zegar
   public minutes = 0;
   public seconds = 0;
@@ -133,7 +135,16 @@ export class BoardComponent implements OnInit, OnDestroy {
            result = this.game.moveKnight(pos);
            console.log('Result czy zbity: ' + result);
 
-          this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+          //  this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -145,8 +156,16 @@ export class BoardComponent implements OnInit, OnDestroy {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
           result = this.game.moveKing(pos);
           console.log('Result czy zbity: ' + result);
-
-          this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+          // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
           this.figureCoords.id = 'zero';
           this.figureCoords.isCheck = false;
           } else {
@@ -158,8 +177,16 @@ export class BoardComponent implements OnInit, OnDestroy {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.moveKnight2(pos);
             console.log('Result czy zbity: ' + result);
-
-            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            if (result) {
+              if (this.endGameVariable.value) {
+                this.endGameBackValue();
+              } else {
+                this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+              }
+             } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+             }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -172,8 +199,16 @@ export class BoardComponent implements OnInit, OnDestroy {
             result = this.game.movePawn(pos);
 
             console.log('Result czy zbity: ' + result);
-
-            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            if (result) {
+              if (this.endGameVariable.value) {
+                this.endGameBackValue();
+              } else {
+                this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+              }
+             } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+             }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -186,7 +221,16 @@ export class BoardComponent implements OnInit, OnDestroy {
              result = this.game.movePawn2(pos);
 
              console.log('Result czy zbity: ' + result);
-             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+             if (result) {
+              if (this.endGameVariable.value) {
+                this.endGameBackValue();
+              } else {
+                this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+              }
+             } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+             }
+            //  this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
               this.figureCoords.id = 'zero';
               this.figureCoords.isCheck = false;
             } else {
@@ -200,7 +244,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
             console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -214,7 +267,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
             console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -227,7 +289,16 @@ export class BoardComponent implements OnInit, OnDestroy {
             result = this.game.movePawn5(pos);
 
             console.log('Result czy zbity: ' + result);
-            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            if (result) {
+              if (this.endGameVariable.value) {
+                this.endGameBackValue();
+              } else {
+                this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+              }
+             } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+             }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -240,7 +311,16 @@ export class BoardComponent implements OnInit, OnDestroy {
             result = this.game.movePawn6(pos);
 
             console.log('Result czy zbity: ' + result);
-            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            if (result) {
+              if (this.endGameVariable.value) {
+                this.endGameBackValue();
+              } else {
+                this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+              }
+             } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+             }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -253,7 +333,16 @@ export class BoardComponent implements OnInit, OnDestroy {
             result = this.game.movePawn7(pos);
 
             console.log('Result czy zbity: ' + result);
-            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            if (result) {
+              if (this.endGameVariable.value) {
+                this.endGameBackValue();
+              } else {
+                this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+              }
+             } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+             }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -267,7 +356,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
             console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -281,7 +379,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -295,7 +402,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -309,7 +425,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -323,7 +448,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+          if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -337,7 +471,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+           if (result) {
+            if (this.endGameVariable.value) {
+              this.endGameBackValue();
+            } else {
+              this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            }
+           } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+           }
+            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -483,6 +626,22 @@ gameRoomBackValue() {
     } else {
       console.log('Zapisuje drugiego');
         matchResult.whoWon = matchResult.userOneId;
+    }
+    console.log('matchResult: ' + matchResult.status);
+    this.matchBack.emit(matchResult);
+    this.sendMessageMove('END' + '-');
+}
+
+endGameBackValue() {
+  const matchResult = this.match;
+    matchResult.status = 'FINISHED';
+    console.log('Przed zapisasz: ' + matchResult.userOneId + ' ' + this.userId);
+    if (matchResult.userOneId === this.userId) {
+      console.log('Zapisuje jedengo');
+        matchResult.whoWon = matchResult.userOneId;
+    } else {
+      console.log('Zapisuje drugiego');
+        matchResult.whoWon = matchResult.userTwoId;
     }
     console.log('matchResult: ' + matchResult.status);
     this.matchBack.emit(matchResult);

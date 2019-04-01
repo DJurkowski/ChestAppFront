@@ -17,6 +17,9 @@ export class GameService {
   userPointsObservable = new BehaviorSubject<Number>(0);
   actualUserPoints: Number;
 
+  endGameObservable = new BehaviorSubject<Boolean>(false);
+  endGameVariable: Boolean;
+
   currentPositions: FigureType [] = new Array<FigureType>();
 
   knightPosition$ = new BehaviorSubject<Coord>({ x: 1, y: 7});
@@ -91,6 +94,10 @@ export class GameService {
   constructor() {
 
     // this.actualUserPoints = 0;
+
+    this.endGameObservable.subscribe(endGame => {
+      this.endGameVariable = endGame;
+    });
 
     this.userPointsObservable.subscribe(points => {
       this.actualUserPoints = points;
@@ -3071,6 +3078,7 @@ export class GameService {
 
       case 'queenN': {
         this.queenNPosition$.next(pos);
+        this.endGameObservable.next(true);
         // this.kingNPosition$.unsubscribe();
         this.scorePointsUser(6, 'add');
         return true;
