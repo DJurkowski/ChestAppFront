@@ -40,6 +40,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   kingPosition$ = this.game.kingPosition$;
   rookPosition$ = this.game.rookPosition$;
   rook2Position$ = this.game.rook2Position$;
+  bishopPosition$ = this.game.bishopPosition$;
+  bishop2Position$ = this.game.bishop2Position$;
 
   pawnPosition$ = this.game.pawnPosition$;
   pawn2Position$ = this.game.pawn2Position$;
@@ -64,6 +66,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   knight2NPosition$ = this.game.knight2NPosition$;
   rookNPosition$ = this.game.rookNPosition$;
   rook2NPosition$ = this.game.rook2NPosition$;
+  bishopNPosition$ = this.game.bishopNPosition$;
+  bishop2NPosition$ = this.game.bishop2NPosition$;
 
   errorFigure = '';
 
@@ -297,6 +301,34 @@ export class BoardComponent implements OnInit, OnDestroy {
               this.openDialog();
             console.log('NIe prawidlowy ruch Rook2');
           }
+        } else if (this.figureCoords.id === 'bishop') {
+          if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
+            result = this.game.moveBishop(pos);
+
+            // console.log('Result czy zbity: ' + result);
+          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            this.figureCoords.id = 'zero';
+            this.figureCoords.isCheck = false;
+          } else {
+              this.errorFigure = 'bishop';
+              this.openDialog();
+            console.log('NIe prawidlowy ruch Bishop');
+          }
+        } else if (this.figureCoords.id === 'bishop2') {
+          if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
+            result = this.game.moveBishop2(pos);
+
+            // console.log('Result czy zbity: ' + result);
+          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+            this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
+            this.figureCoords.id = 'zero';
+            this.figureCoords.isCheck = false;
+          } else {
+              this.errorFigure = 'bishop2';
+              this.openDialog();
+            console.log('NIe prawidlowy ruch Bishop2');
+          }
         }
     } else {
         console.error('Check');
@@ -342,6 +374,18 @@ setRookStyle() {
 
 setRook2Style() {
   if (this.figureCoords.id === 'rook2') {
+  return this.figureCoords.isCheck;
+  }
+}
+
+setBishopStyle() {
+  if (this.figureCoords.id === 'bishop') {
+  return this.figureCoords.isCheck;
+  }
+}
+
+setBishop2Style() {
+  if (this.figureCoords.id === 'bishop2') {
   return this.figureCoords.isCheck;
   }
 }

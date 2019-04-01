@@ -39,6 +39,7 @@ import { NotificationsComponent } from './notifications/notifications/notificati
 import { WebSocketService } from './globalService/web-socket.service';
 import { NotificationService } from './services/notification.service';
 import { RookComponent } from './chess/rook/rook.component';
+import { BishopComponent } from './chess/bishop/bishop.component';
 
 
 
@@ -67,7 +68,8 @@ import { RookComponent } from './chess/rook/rook.component';
     PawnComponent,
     SquareComponent,
     NotificationsComponent,
-    RookComponent
+    RookComponent,
+    BishopComponent
   ],
   imports: [
     BrowserModule,
