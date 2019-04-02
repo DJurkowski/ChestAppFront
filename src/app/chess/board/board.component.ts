@@ -31,6 +31,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   endGameVariable = this.game.endGameObservable;
 
   // zegar
+  private timer;
+  public overallMinutes = 0;
+  public overallSeconds = 0;
   public minutes = 0;
   public seconds = 0;
   private subscription: Subscription;
@@ -87,7 +90,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.userIdentification = this.userService.getUserId(this.username);
     this.userIdentification.subscribe(data => {
       this.userId = Number(data);
-      console.log('User Identification' + this.userId);
+      // console.log('User Identification' + this.userId);
     });
     this.initializeWebSocketConnection();
 
@@ -95,22 +98,34 @@ export class BoardComponent implements OnInit, OnDestroy {
 
 // timer
   ngOnInit() {
-    const timer = TimerObservable.create(0, 1000);
-    this.subscription = timer.subscribe(t => {
+    console.log('Jestem w init(StartGameUser): ' + this.match.startGameUser);
+    if (this.match.startGameUser === this.userId) {
+      this.startCountTime();
+      console.log('Odpalam Zegar z ngOnInit!!!');
+    }
+  }
+
+  startCountTime() {
+    this.timer = TimerObservable.create(0, 1000);
+    this.subscription = this.timer.subscribe(t => {
       if (t % 60 === 0 && t !== 0) {
         this.minutes += 1;
       } else {
         if (this.minutes !== 0) {
           this.seconds = (t - (this.minutes * 60));
+          this.overallSeconds += 1;
         } else {
           this.seconds = t;
+          this.overallSeconds += 1;
         }
+      }
+      if (this.overallSeconds % 60 === 0 && this.overallSeconds !== 0) {
+        this.overallMinutes += 1;
+        this.overallSeconds = 0;
       }
       // console.log('Timer: ' + this.minutes + ' : ' + this.seconds );
     });
-
   }
-
   ngOnDestroy() {
     console.log('OnDestroye ....');
     this.subscription.unsubscribe();
@@ -656,6 +671,10 @@ initializeWebSocketConnection() {
       if (messageTab[3] === this.username) {
         console.log('MessageMOveOpponent: ' + messageTab[4]);
         this.opponentMove(messageTab[4]);
+        console.log('Odpalam czas znowu');
+        this.minutes = 0;
+        this.seconds = 0;
+        this.startCountTime();
       }
     }
   });
@@ -667,6 +686,10 @@ sendMessageMove(message) {
   } else {
     this.webSocketService.sendMessage('game', this.match.name, this.match.userTwoId, this.match.userOneId, message);
   }
+  console.log('Resetuje czas Unsubscirbe');
+        this.subscription.unsubscribe();
+        this.minutes = 0;
+        this.seconds = 0;
 }
 
 // opponent movement

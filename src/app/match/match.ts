@@ -11,4 +11,5 @@ export class Match {
   showMatch: boolean;
   // dodac jeszcze kto wgral rozgrywke
   whoWon: number;
+  startGameUser: number;
 }

@@ -142,11 +142,7 @@ export class GameroomlistComponent implements OnInit {
               i.userTwoReady = true;
           }
             i.status = 'STARTED';
-            if (this.userId !== match.userOneId) {
-              this.webSocketService.sendMessage('startGame', i.name, this.username, i.userOneId, 'true');
-            } else {
-              this.webSocketService.sendMessage('startGame', i.name, this.username, i.userTwoId, 'true');
-            }
+            i.startGameUser = this.userId;
             i.showMatch = true;
             this.matchService.modifyMatch(i.id, this.username, i).subscribe(
               data => {
@@ -157,6 +153,22 @@ export class GameroomlistComponent implements OnInit {
                 console.log(error);
               }
             );
+            if (this.userId !== match.userOneId) {
+              this.webSocketService.sendMessage('startGame', i.name, this.username, i.userOneId, 'true');
+            } else {
+              this.webSocketService.sendMessage('startGame', i.name, this.username, i.userTwoId, 'true');
+            }
+            // i.startGameUser = this.userId;
+            // i.showMatch = true;
+            // this.matchService.modifyMatch(i.id, this.username, i).subscribe(
+            //   data => {
+            //     console.log(i.name);
+            //     data = i;
+            //   },
+            //   error => {
+            //     console.log(error);
+            //   }
+            // );
             this.isShowed = false;
         }
       }
@@ -185,24 +197,6 @@ export class GameroomlistComponent implements OnInit {
   }
 
   sendInvitation(match: Match) {
-    // const ws = new SockJS(this.serverUrl);
-    // this.stompClient = Stomp.over(ws);
-    // const that = this;
-    // this.stompClient.connect({}, function(frame) {
-    //   if (that.userId === match.userOneId) {
-    //     console.log('Wysylam kurwa do ' + match.userTwoId);
-    //     that.stompClient.send('/api/notifi/' + match.userTwoId, {}, 'notifi');
-    //   } else {
-    //     console.log('Wysylam kurwa do ' + match.userTwoId);
-    //     that.stompClient.send('/api/notifi/' + match.userOneId, {}, 'notifi');
-    //   }
-    //   });
-    //   console.log('StompJestem1');
-    //   if (this.stompClient !== null) {
-    //   console.log('StompJestem2');
-    //     this.stompClient.disconnect();
-    //   }
-    //   console.log('StompJestem3');
     if (this.userId !== match.userOneId) {
       console.log('Wysylam zaproszenie 1Ready');
       this.webSocketService.sendMessage('ready', match.name, this.username, match.userOneId, 'true');
