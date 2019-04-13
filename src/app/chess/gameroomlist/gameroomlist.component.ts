@@ -142,6 +142,7 @@ export class GameroomlistComponent implements OnInit {
               i.userTwoReady = true;
           }
             i.status = 'STARTED';
+            console.log('Zapisuje startGameUser!!!!!');
             i.startGameUser = this.userId;
             i.showMatch = true;
             this.matchService.modifyMatch(i.id, this.username, i).subscribe(
@@ -222,7 +223,7 @@ export class GameroomlistComponent implements OnInit {
   }
 
   endGameValue(event: Match) {
-    if (event.status === 'FINISHED' ) {
+    if (event.status === 'FINISHED' && event.whoWon !== 0) {
       for (const i of this.matchWaitList) {
         if (i.id === event.id) {
           i.showMatch = false;

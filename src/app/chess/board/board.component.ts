@@ -25,6 +25,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   userId: number;
   userIdentification: Observable<Object>;
 
+  userTurn: Boolean;
+
   // public opponent: string;
   public actualUserPoints = this.game.userPointsObservable;
 
@@ -36,7 +38,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   public overallSeconds = 0;
   public minutes = 0;
   public seconds = 0;
-  private subscription: Subscription;
+  // private subscription: Subscription;
 
   sixtyFour = new Array(64).fill(0).map((_, i) => i);
 
@@ -86,49 +88,70 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   constructor(private game: GameService, public dialog: MatDialog, private token: TokenStorageService,
     private userService: UserService, private webSocketService: WebSocketService) {
+      console.log('Constructor Jestem!!!!!!!');
     this.username = this.token.getUsername();
     this.userIdentification = this.userService.getUserId(this.username);
     this.userIdentification.subscribe(data => {
       this.userId = Number(data);
-      // console.log('User Identification' + this.userId);
+      console.log('User Identification' + this.userId);
     });
-    this.initializeWebSocketConnection();
 
+
+    this.initializeWebSocketConnection();
   }
 
 // timer
   ngOnInit() {
-    console.log('Jestem w init(StartGameUser): ' + this.match.startGameUser);
-    if (this.match.startGameUser === this.userId) {
-      this.startCountTime();
-      console.log('Odpalam Zegar z ngOnInit!!!');
-    }
+    console.log('ngOnInittttttt Jestem!!!!!!!');
+
+    // this.initializeService();
+    this.checkStartGame();
   }
 
-  startCountTime() {
-    this.timer = TimerObservable.create(0, 1000);
-    this.subscription = this.timer.subscribe(t => {
-      if (t % 60 === 0 && t !== 0) {
-        this.minutes += 1;
-      } else {
-        if (this.minutes !== 0) {
-          this.seconds = (t - (this.minutes * 60));
-          this.overallSeconds += 1;
-        } else {
-          this.seconds = t;
-          this.overallSeconds += 1;
-        }
-      }
-      if (this.overallSeconds % 60 === 0 && this.overallSeconds !== 0) {
-        this.overallMinutes += 1;
-        this.overallSeconds = 0;
-      }
-      // console.log('Timer: ' + this.minutes + ' : ' + this.seconds );
-    });
+  checkStartGame() {
+    console.log('Jestem w init(StartGameUser): ' + this.match.startGameUser);
+    console.log('Jestem w init(Status): ' + this.match.status);
+
+    if (this.match.startGameUser !== this.userId && this.match.startGameUser !== null ) {
+      // this.startCountTime();
+      this.userTurn = true;
+      console.log('Odpalam Zegar z ngOnInit!!! i userTurn = true');
+    } else {
+      this.userTurn = false;
+      console.log('UserTurn = false');
+    }
+
   }
+
+  // startCountTime() {
+  //   this.timer = TimerObservable.create(0, 1000);
+  //   this.subscription = this.timer.subscribe(t => {
+  //     if (t % 60 === 0 && t !== 0) {
+  //       this.minutes += 1;
+  //     } else {
+  //       if (this.minutes !== 0) {
+  //         this.seconds = (t - (this.minutes * 60));
+  //         this.overallSeconds += 1;
+  //       } else {
+  //         this.seconds = t;
+  //         this.overallSeconds += 1;
+  //       }
+  //     }
+  //     if (this.overallSeconds % 60 === 0 && this.overallSeconds !== 0) {
+  //       this.overallMinutes += 1;
+  //       this.overallSeconds = 0;
+  //     }
+  //     // console.log('Timer: ' + this.minutes + ' : ' + this.seconds );
+  //   });
+  // }
+
   ngOnDestroy() {
+    if (this.userTurn) {
     console.log('OnDestroye ....');
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
+    }
+    console.log('Ustawienie Pinokow KOniec OnDestroye');
+    this.game.resetFiguresPositions();
   }
 
   xy(i): Coord {
@@ -674,7 +697,7 @@ initializeWebSocketConnection() {
         console.log('Odpalam czas znowu');
         this.minutes = 0;
         this.seconds = 0;
-        this.startCountTime();
+        // this.startCountTime();
       }
     }
   });
@@ -686,10 +709,13 @@ sendMessageMove(message) {
   } else {
     this.webSocketService.sendMessage('game', this.match.name, this.match.userTwoId, this.match.userOneId, message);
   }
-  console.log('Resetuje czas Unsubscirbe');
-        this.subscription.unsubscribe();
-        this.minutes = 0;
-        this.seconds = 0;
+   if (this.userTurn) {
+    console.log('Resetuje czas Unsubscirbe');
+    // this.subscription.unsubscribe();
+    this.minutes = 0;
+    this.seconds = 0;
+    this.userTurn = false;
+   }
 }
 
 // opponent movement
@@ -702,6 +728,7 @@ opponentMove(move: string) {
   } else {
     if (tabMove[4] !== this.username) {
     this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]), Boolean(tabMove[3]));
+    this.userTurn = true;
     }
   }
 }

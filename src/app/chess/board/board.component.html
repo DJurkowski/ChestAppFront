@@ -34,7 +34,7 @@
   <ng-container *ngIf="rook2NPosition$|async as rook2Np">
   <ng-container *ngIf="bishopNPosition$|async as bishopNp">
   <ng-container *ngIf="bishop2NPosition$|async as bishop2Np">
-  <div *ngFor="let i of sixtyFour">
+  <div *ngFor="let i of sixtyFour" >
     <app-square *ngIf="xy(i) as pos" [black]="isBlack(pos)" (dblclick)="handleSquareClick(pos)">
       <app-king class="control-select" *ngIf="pos.x === kingp.x && pos.y === kingp.y" (click)="setFigure('king')" [check]="setKingStyle()"></app-king>
       <app-queen class="control-select" *ngIf="pos.x === queenp.x && pos.y === queenp.y" (click)="setFigure('queen')" [check]="setQueenStyle()"></app-queen>

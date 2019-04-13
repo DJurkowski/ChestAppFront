@@ -14,6 +14,7 @@ export interface FigureType {
 })
 export class GameService {
 
+
   userPointsObservable = new BehaviorSubject<Number>(0);
   actualUserPoints: Number;
 
@@ -90,9 +91,9 @@ export class GameService {
   queenNPosition$ = new BehaviorSubject<Coord>({ x: 3, y: 0});
   queenNCurrentPosition: Coord;
 
-
   constructor() {
 
+    console.log('Constructor Game Service');
     // this.actualUserPoints = 0;
 
     this.endGameObservable.subscribe(endGame => {
@@ -3147,8 +3148,6 @@ export class GameService {
         if (i.color) {
           if ((i.position.x === pos.x && i.position.y === pos.y)) {
             this.unsubscribeFigure(i.namefigure);
-              // i.position.x = -1;
-              // i.position.y = -1;
           }
         }
       }
@@ -3234,5 +3233,79 @@ export class GameService {
       break;
     }
   }
+
+  resetFiguresPositions() {
+    this.knightPosition$.next({ x: 1, y: 7});
+    this.changePosition('knight', { x: 1, y: 7});
+    this.knight2Position$.next({ x: 6, y: 7});
+    this.changePosition('knight2', { x: 6, y: 7});
+    this.kingPosition$.next({ x: 4, y: 7});
+    this.changePosition('king', { x: 4, y: 7});
+    this.rookPosition$.next({ x: 0, y: 7});
+    this.changePosition('rook', { x: 0, y: 7});
+    this.rook2Position$.next({ x: 7, y: 7});
+    this.changePosition('rook2', { x: 7, y: 7});
+    this.bishopPosition$.next({ x: 2, y: 7});
+    this.changePosition('bishop', { x: 2, y: 7});
+    this.bishop2Position$.next({ x: 5, y: 7});
+    this.changePosition('bishop2', { x: 5, y: 7});
+    this.queenPosition$.next({ x: 3, y: 7});
+    this.changePosition('queen', { x: 3, y: 7});
+
+    this.pawnPosition$.next({ x: 0, y: 6});
+    this.changePosition('pawn', { x: 0, y: 6});
+    this.pawn2Position$.next({ x: 1, y: 6});
+    this.changePosition('pawn2', { x: 1, y: 6});
+    this.pawn3Position$.next({ x: 2, y: 6});
+    this.changePosition('pawn3', { x: 2, y: 6});
+    this.pawn4Position$.next({ x: 3, y: 6});
+    this.changePosition('pawn4', { x: 3, y: 6});
+    this.pawn5Position$.next({ x: 4, y: 6});
+    this.changePosition('pawn5', { x: 4, y: 6});
+    this.pawn6Position$.next({ x: 5, y: 6});
+    this.changePosition('pawn6', { x: 5, y: 6});
+    this.pawn7Position$.next({ x: 6, y: 6});
+    this.changePosition('pawn7', { x: 6, y: 6});
+    this.pawn8Position$.next({ x: 7, y: 6});
+    this.changePosition('pawn8', { x: 7, y: 6});
+
+
+    this.pawnNPosition$.next({ x: 0, y: 1});
+    this.changePosition('pawnN', { x: 0, y: 1});
+    this.pawn2NPosition$.next({ x: 1, y: 1});
+    this.changePosition('pawn2N', { x: 1, y: 1});
+    this.pawn3NPosition$.next({ x: 2, y: 1});
+    this.changePosition('pawn3N', { x: 2, y: 1});
+    this.pawn4NPosition$.next({ x: 3, y: 1});
+    this.changePosition('pawn4N', { x: 3, y: 1});
+    this.pawn5NPosition$.next({ x: 4, y: 1});
+    this.changePosition('pawn5N', { x: 4, y: 1});
+    this.pawn6NPosition$.next({ x: 5, y: 1});
+    this.changePosition('pawn6N', { x: 5, y: 1});
+    this.pawn7NPosition$.next({ x: 6, y: 1});
+    this.changePosition('pawn7N', { x: 6, y: 1});
+    this.pawn8NPosition$.next({ x: 7, y: 1});
+    this.changePosition('pawn8N', { x: 7, y: 1});
+
+    this.knightNPosition$.next({ x: 1, y: 0});
+    this.changePosition('knightN', { x: 1, y: 0});
+    this.knight2NPosition$.next({ x: 6, y: 0});
+    this.changePosition('knight2N', { x: 6, y: 0});
+    this.kingNPosition$.next({ x: 4, y: 0});
+    this.changePosition('kingN', { x: 4, y: 0});
+    this.rookNPosition$.next({ x: 0, y: 0});
+    this.changePosition('rookN', { x: 0, y: 0});
+    this.rook2NPosition$.next({ x: 7, y: 0});
+    this.changePosition('rook2N', { x: 7, y: 0});
+    this.bishopNPosition$.next({ x: 2, y: 0});
+    this.changePosition('bishopN', { x: 2, y: 0});
+    this.bishop2NPosition$.next({ x: 5, y: 0});
+    this.changePosition('bishop2N', { x: 5, y: 0});
+    this.queenNPosition$.next({ x: 3, y: 0});
+    this.changePosition('queenN', { x: 3, y: 0});
+
+
+  }
+
 
 }
