@@ -41,6 +41,7 @@ import { NotificationService } from './services/notification.service';
 import { RookComponent } from './chess/rook/rook.component';
 import { BishopComponent } from './chess/bishop/bishop.component';
 import { QueenComponent } from './chess/queen/queen.component';
+import { OpponentDialogComponent } from './chess/opponent-dialog/opponent-dialog.component';
 
 
 
@@ -71,7 +72,8 @@ import { QueenComponent } from './chess/queen/queen.component';
     NotificationsComponent,
     RookComponent,
     BishopComponent,
-    QueenComponent
+    QueenComponent,
+    OpponentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +89,6 @@ import { QueenComponent } from './chess/queen/queen.component';
   providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService, GameService,
     MatchService, WebSocketService, NotificationService],
   bootstrap: [AppComponent],
-  entryComponents: [FigureErrorDialogComponent, BoardComponent]
+  entryComponents: [FigureErrorDialogComponent, OpponentDialogComponent, BoardComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Coord } from './coord';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Observer } from 'rxjs';
 
 export interface FigureType {
   position: Coord;
@@ -14,6 +14,13 @@ export interface FigureType {
 })
 export class GameService {
 
+
+  userTurn: Boolean;
+  userTurnUpdate: Observable<Boolean>;
+  userTurnObserver: Observer<Boolean>;
+
+  // userTurnObservable = new BehaviorSubject<Boolean>(0);
+  // userTurnVariable
 
   userPointsObservable = new BehaviorSubject<Number>(0);
   actualUserPoints: Number;
@@ -91,10 +98,19 @@ export class GameService {
   queenNPosition$ = new BehaviorSubject<Coord>({ x: 3, y: 0});
   queenNCurrentPosition: Coord;
 
+
   constructor() {
 
     console.log('Constructor Game Service');
     // this.actualUserPoints = 0;
+
+    // this.userTurnObservable.subscribe(userTurn => {
+    //   this.userTurnVariable = userTurn;
+    // });
+
+    this.userTurnUpdate = Observable.create((observer: Observer<Boolean>) => {
+      this.userTurnObserver = observer;
+    });
 
     this.endGameObservable.subscribe(endGame => {
       this.endGameVariable = endGame;
@@ -426,6 +442,11 @@ export class GameService {
       namefigure: 'bishop2N'
     });
 
+  }
+
+  updateUserTurn(variabel: Boolean) {
+    this.userTurn = variabel;
+    this.userTurnObserver.next(this.userTurn);
   }
 
   canMoveFigure(to: Coord, figureName: string) {

@@ -1,3 +1,4 @@
+import { DialogVariable } from './../opponent-dialog/opponent-dialog.component';
 import { WebSocketService } from './../../globalService/web-socket.service';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
@@ -9,6 +10,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { Match } from 'src/app/match/match';
 import { Observable, Subscription } from 'rxjs';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
+import { OpponentDialogComponent } from '../opponent-dialog/opponent-dialog.component';
 
 @Component({
   selector: 'app-board',
@@ -20,6 +22,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   @Input() match: Match;
   @Output() matchBack = new EventEmitter<Match>();
   // dopisac logike do zakonczenie gry i czas gry
+
 
   username: string;
   userId: number;
@@ -105,6 +108,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     console.log('ngOnInittttttt Jestem!!!!!!!');
 
     // this.initializeService();
+    this.openOppoentMovesDialog('false');
     this.checkStartGame();
   }
 
@@ -112,13 +116,21 @@ export class BoardComponent implements OnInit, OnDestroy {
     console.log('Jestem w init(StartGameUser): ' + this.match.startGameUser);
     console.log('Jestem w init(Status): ' + this.match.status);
 
+
     if (this.match.startGameUser !== this.userId && this.match.startGameUser !== null ) {
       // this.startCountTime();
       this.userTurn = true;
+      // this.game.updateUserTurn(true);
+      // this.game.updateUserTurn(true);
       console.log('Odpalam Zegar z ngOnInit!!! i userTurn = true');
+      this.game.updateUserTurn(true);
     } else {
       this.userTurn = false;
+      // this.game.updateUserTurn(false);
+      // this.game.updateUserTurn(false);
       console.log('UserTurn = false');
+      this.openOppoentMovesDialog('true');
+      this.game.updateUserTurn(false);
     }
 
   }
@@ -149,6 +161,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (this.userTurn) {
     console.log('OnDestroye ....');
     // this.subscription.unsubscribe();
+    } else {
+      this.game.updateUserTurn(true);
+      // this.openOppoentMovesDialog('close');
     }
     console.log('Ustawienie Pinokow KOniec OnDestroye');
     this.game.resetFiguresPositions();
@@ -653,6 +668,14 @@ openDialog(): void {
   });
 }
 
+openOppoentMovesDialog(dialogContent: string) {
+
+     this.dialog.open(OpponentDialogComponent, {
+        data: { dialogVariable: dialogContent},
+        disableClose: true
+      });
+  }
+
 // end game function button
 gameRoomBackValue() {
   const matchResult = this.match;
@@ -684,6 +707,11 @@ endGameBackValue() {
     console.log('matchResult: ' + matchResult.status);
     this.matchBack.emit(matchResult);
     this.sendMessageMove('END' + '-');
+
+    if (this.userTurn === false) {
+      this.game.updateUserTurn(true);
+      // this.openOppoentMovesDialog('close');
+    }
 }
 
 // web socket connection
@@ -715,6 +743,8 @@ sendMessageMove(message) {
     this.minutes = 0;
     this.seconds = 0;
     this.userTurn = false;
+    this.game.updateUserTurn(false);
+    this.openOppoentMovesDialog('true');
    }
 }
 
@@ -729,6 +759,8 @@ opponentMove(move: string) {
     if (tabMove[4] !== this.username) {
     this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]), Boolean(tabMove[3]));
     this.userTurn = true;
+    this.game.updateUserTurn(true);
+    // this.openOppoentMovesDialog('close');
     }
   }
 }
