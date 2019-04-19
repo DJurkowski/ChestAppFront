@@ -201,9 +201,8 @@ export class GameroomlistComponent implements OnInit {
     if (this.userId !== match.userOneId) {
       console.log('Wysylam zaproszenie 1Ready');
       this.webSocketService.sendMessage('ready', match.name, this.username, match.userOneId, 'true');
-      // zapisywac zwyklym putem a nie wysylac socketem i tyle i hujjjjj ( jak nie to obsluzyc to jako notyfikacje)
 
-      // opoznienie zrobic na notyfikacje zobaczymy czy pomoze
+      // opoznienie zrobic na notyfikacje pomoze
       setTimeout(() => {
       console.log('Wysylam zaproszenie 2Notyfikacje');
       // tslint:disable-next-line:max-line-length

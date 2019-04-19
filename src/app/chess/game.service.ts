@@ -19,9 +19,6 @@ export class GameService {
   userTurnUpdate: Observable<Boolean>;
   userTurnObserver: Observer<Boolean>;
 
-  // userTurnObservable = new BehaviorSubject<Boolean>(0);
-  // userTurnVariable
-
   userPointsObservable = new BehaviorSubject<Number>(0);
   actualUserPoints: Number;
 

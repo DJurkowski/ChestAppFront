@@ -41,7 +41,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   public overallSeconds = 0;
   public minutes = 0;
   public seconds = 0;
-  // private subscription: Subscription;
+  private subscription: Subscription;
 
   sixtyFour = new Array(64).fill(0).map((_, i) => i);
 
@@ -118,7 +118,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
 
     if (this.match.startGameUser !== this.userId && this.match.startGameUser !== null ) {
-      // this.startCountTime();
+      this.startCountTime();
       this.userTurn = true;
       // this.game.updateUserTurn(true);
       // this.game.updateUserTurn(true);
@@ -135,27 +135,27 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   }
 
-  // startCountTime() {
-  //   this.timer = TimerObservable.create(0, 1000);
-  //   this.subscription = this.timer.subscribe(t => {
-  //     if (t % 60 === 0 && t !== 0) {
-  //       this.minutes += 1;
-  //     } else {
-  //       if (this.minutes !== 0) {
-  //         this.seconds = (t - (this.minutes * 60));
-  //         this.overallSeconds += 1;
-  //       } else {
-  //         this.seconds = t;
-  //         this.overallSeconds += 1;
-  //       }
-  //     }
-  //     if (this.overallSeconds % 60 === 0 && this.overallSeconds !== 0) {
-  //       this.overallMinutes += 1;
-  //       this.overallSeconds = 0;
-  //     }
-  //     // console.log('Timer: ' + this.minutes + ' : ' + this.seconds );
-  //   });
-  // }
+  startCountTime() {
+    this.timer = TimerObservable.create(0, 1000);
+    this.subscription = this.timer.subscribe(t => {
+      if (t % 60 === 0 && t !== 0) {
+        this.minutes += 1;
+      } else {
+        if (this.minutes !== 0) {
+          this.seconds = (t - (this.minutes * 60));
+          this.overallSeconds += 1;
+        } else {
+          this.seconds = t;
+          this.overallSeconds += 1;
+        }
+      }
+      if (this.overallSeconds % 60 === 0 && this.overallSeconds !== 0) {
+        this.overallMinutes += 1;
+        this.overallSeconds = 0;
+      }
+      // console.log('Timer: ' + this.minutes + ' : ' + this.seconds );
+    });
+  }
 
   ngOnDestroy() {
     if (this.userTurn) {
@@ -197,7 +197,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-          //  this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -218,7 +217,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-          // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
           this.figureCoords.id = 'zero';
           this.figureCoords.isCheck = false;
           } else {
@@ -239,7 +237,6 @@ export class BoardComponent implements OnInit, OnDestroy {
              } else {
               this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
              }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -261,7 +258,6 @@ export class BoardComponent implements OnInit, OnDestroy {
              } else {
               this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
              }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -283,7 +279,6 @@ export class BoardComponent implements OnInit, OnDestroy {
              } else {
               this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
              }
-            //  this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
               this.figureCoords.id = 'zero';
               this.figureCoords.isCheck = false;
             } else {
@@ -306,7 +301,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -329,7 +323,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -351,7 +344,6 @@ export class BoardComponent implements OnInit, OnDestroy {
              } else {
               this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
              }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -373,7 +365,6 @@ export class BoardComponent implements OnInit, OnDestroy {
              } else {
               this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
              }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -395,7 +386,6 @@ export class BoardComponent implements OnInit, OnDestroy {
              } else {
               this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
              }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -418,7 +408,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -441,7 +430,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -464,7 +452,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -487,7 +474,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -510,7 +496,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -533,7 +518,6 @@ export class BoardComponent implements OnInit, OnDestroy {
            } else {
             this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
            }
-            // this.sendMessageMove(this.figureCoords.id + '-' + pos.x + '-' + pos.y + '-' + result + '-' + this.username);
             this.figureCoords.id = 'zero';
             this.figureCoords.isCheck = false;
           } else {
@@ -705,6 +689,10 @@ endGameBackValue() {
         matchResult.whoWon = matchResult.userTwoId;
     }
     console.log('matchResult: ' + matchResult.status);
+    // ----------------------
+    this.errorFigure = 'WIN';
+    this.openDialog();
+    // ----------------------
     this.matchBack.emit(matchResult);
     this.sendMessageMove('END' + '-');
 
@@ -725,7 +713,7 @@ initializeWebSocketConnection() {
         console.log('Odpalam czas znowu');
         this.minutes = 0;
         this.seconds = 0;
-        // this.startCountTime();
+        this.startCountTime();
       }
     }
   });
@@ -739,7 +727,7 @@ sendMessageMove(message) {
   }
    if (this.userTurn) {
     console.log('Resetuje czas Unsubscirbe');
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
     this.minutes = 0;
     this.seconds = 0;
     this.userTurn = false;
@@ -754,6 +742,10 @@ opponentMove(move: string) {
   if (tabMove[0] === 'END') {
     const matchResult = this.match;
     matchResult.status = 'FINISHED';
+    // ----------------------
+    this.errorFigure = 'END';
+    this.openDialog();
+    // ----------------------
     this.matchBack.emit(matchResult);
   } else {
     if (tabMove[4] !== this.username) {
