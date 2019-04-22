@@ -2,54 +2,41 @@
 <div mat-dialog-content>
 <div [ngSwitch]="name">
     <p *ngSwitchCase="'king'">
-      <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error King: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'knight'">
-          <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Knight: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'knight2'">
-        <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Knight: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'rook'">
-        <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Rook: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'rook2'">
-        <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Rook: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'bishop'">
-        <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Bishop: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'bishop2'">
-        <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Bishop: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'pawn'">
-        <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Pawn: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'pawn2'">
-        <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Pawn: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'pawn3'">
-      <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Pawn: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'pawn4'">
-      <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Pawn: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'pawn5'">
-      <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Pawn: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'pawn6'">
-      <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Pawn: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'pawn7'">
-      <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Pawn: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'pawn8'">
-      <!-- <img src="../../assets/img/Capture.PNG"> -->
       Error Pawn: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'END'">
       <span style="color:black"><b>GAME OVER</b></span></p>
     <p *ngSwitchCase="'WIN'">
       GAME OVER<br><span style="color:black"><b>YOU WIN!</b></span></p>
+    <p *ngSwitchCase="'Unavailable'">
+      User<br><span style="color:black"><b>is unavailable now. Try later</b></span></p>
 </div>
 </div>
 <div mat-dialog-actions>

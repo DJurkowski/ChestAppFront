@@ -21,7 +21,6 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   @Input() match: Match;
   @Output() matchBack = new EventEmitter<Match>();
-  // dopisac logike do zakonczenie gry i czas gry
 
 
   username: string;
@@ -99,7 +98,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       console.log('User Identification' + this.userId);
     });
 
-
+    this.userService.userAvailable(this.username, 'false').subscribe();
     this.initializeWebSocketConnection();
   }
 
@@ -107,9 +106,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log('ngOnInittttttt Jestem!!!!!!!');
 
-    // this.initializeService();
+
     this.openOppoentMovesDialog('false');
     this.checkStartGame();
+    this.webSocketService.updateUserAvailable(true);
   }
 
   checkStartGame() {
@@ -120,14 +120,10 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (this.match.startGameUser !== this.userId && this.match.startGameUser !== null ) {
       this.startCountTime();
       this.userTurn = true;
-      // this.game.updateUserTurn(true);
-      // this.game.updateUserTurn(true);
       console.log('Odpalam Zegar z ngOnInit!!! i userTurn = true');
       this.game.updateUserTurn(true);
     } else {
       this.userTurn = false;
-      // this.game.updateUserTurn(false);
-      // this.game.updateUserTurn(false);
       console.log('UserTurn = false');
       this.openOppoentMovesDialog('true');
       this.game.updateUserTurn(false);
@@ -163,10 +159,11 @@ export class BoardComponent implements OnInit, OnDestroy {
     // this.subscription.unsubscribe();
     } else {
       this.game.updateUserTurn(true);
-      // this.openOppoentMovesDialog('close');
     }
     console.log('Ustawienie Pinokow KOniec OnDestroye');
     this.game.resetFiguresPositions();
+    this.webSocketService.updateUserAvailable(false);
+    this.userService.userAvailable(this.username, 'true').subscribe();
   }
 
   xy(i): Coord {
@@ -698,7 +695,6 @@ endGameBackValue() {
 
     if (this.userTurn === false) {
       this.game.updateUserTurn(true);
-      // this.openOppoentMovesDialog('close');
     }
 }
 
@@ -752,7 +748,6 @@ opponentMove(move: string) {
     this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]), Boolean(tabMove[3]));
     this.userTurn = true;
     this.game.updateUserTurn(true);
-    // this.openOppoentMovesDialog('close');
     }
   }
 }

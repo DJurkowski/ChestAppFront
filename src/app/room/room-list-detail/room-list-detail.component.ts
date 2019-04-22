@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Room } from '../room';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
-// import { Stomp} from 'stompjs/lib/stomp.js';
-// import SockJS from 'sockjs-client';
 import $ from 'jquery';
 import { RoomService } from 'src/app/services/room.service';
 import { Observable } from 'rxjs';
@@ -20,11 +18,7 @@ export class RoomListDetailComponent implements OnInit {
 
   username: string;
 
-  // private stompClient;
-  // private serverUrl = 'http://localhost:8080/api/auth/socket';
-
   isHidden = false;
-  // private messageOut;
   messageList: Observable<Message[]>;
 
   public setRoom() {

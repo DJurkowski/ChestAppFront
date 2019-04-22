@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatchService } from 'src/app/services/match.service';
 import { Match } from 'src/app/match/match';
 import { Tournament } from 'src/app/tournament/tournament';
+import { User } from 'src/app/user/user';
+import { MatDialog } from '@angular/material';
+import { FigureErrorDialogComponent } from '../figure-error-dialog/figure-error-dialog.component';
 
 
 @Component({
@@ -32,7 +35,7 @@ export class GameroomlistComponent implements OnInit {
 
 
   constructor(private matchService: MatchService, private tournamentService: TournamentService, private token: TokenStorageService,
-    private userService: UserService, private webSocketService: WebSocketService) {}
+    private userService: UserService, private webSocketService: WebSocketService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.username = this.token.getUsername();
@@ -67,7 +70,6 @@ export class GameroomlistComponent implements OnInit {
   }
 
   reloadData() {
-    // czyscic te wartosci ??? tournamnets i tournas i matches i matchList
     this.tournas = [];
     this.matchList = [];
     this.matchWaitList = [];
@@ -136,41 +138,54 @@ export class GameroomlistComponent implements OnInit {
     for (const i of this.matchWaitList) {
       if (i.status === 'STANDBY') {
         if ( match.id === i.id) {
-          if (i.userOneId === this.userId && i.userTwoReady === true) {
-              i.userOneReady = true;
-          } else if (i.userTwoId === this.userId && i.userOneReady === true) {
-              i.userTwoReady = true;
+          let userObservable: Observable<User>;
+          let user: User;
+          if (i.userOneId === this.userId) {
+            userObservable = this.userService.getUser(i.userTwoId);
+          } else if (i.userTwoId === this.userId) {
+            userObservable = this.userService.getUser(i.userOneId);
           }
-            i.status = 'STARTED';
-            console.log('Zapisuje startGameUser!!!!!');
-            i.startGameUser = this.userId;
-            i.showMatch = true;
-            this.matchService.modifyMatch(i.id, this.username, i).subscribe(
-              data => {
-                console.log(i.name);
-                data = i;
-              },
-              error => {
-                console.log(error);
-              }
-            );
-            if (this.userId !== match.userOneId) {
-              this.webSocketService.sendMessage('startGame', i.name, this.username, i.userOneId, 'true');
-            } else {
-              this.webSocketService.sendMessage('startGame', i.name, this.username, i.userTwoId, 'true');
-            }
-            // i.startGameUser = this.userId;
-            // i.showMatch = true;
-            // this.matchService.modifyMatch(i.id, this.username, i).subscribe(
-            //   data => {
-            //     console.log(i.name);
-            //     data = i;
-            //   },
-            //   error => {
-            //     console.log(error);
-            //   }
-            // );
-            this.isShowed = false;
+            userObservable.subscribe(data => {
+              user = data;
+              console.log('Jestem w subscribeUser Available : !!!!' + user.available);
+
+              if (user.available) {
+                if (i.userOneId === this.userId && i.userTwoReady === true) {
+                    i.userOneReady = true;
+                } else if (i.userTwoId === this.userId && i.userOneReady === true) {
+                    i.userTwoReady = true;
+                }
+                  i.status = 'STARTED';
+                  console.log('Zapisuje startGameUser!!!!!');
+                  i.startGameUser = this.userId;
+                  i.showMatch = true;
+                  this.matchService.modifyMatch(i.id, this.username, i).subscribe(
+                    dataV => {
+                      console.log(i.name);
+                      dataV = i;
+                    },
+                    error => {
+                      console.log(error);
+                    }
+                  );
+                  if (this.userId !== match.userOneId) {
+                    this.webSocketService.sendMessage('startGame', i.name, this.username, i.userOneId, 'true');
+                  } else {
+                    this.webSocketService.sendMessage('startGame', i.name, this.username, i.userTwoId, 'true');
+                  }
+
+                  this.isShowed = false;
+                } else {
+                  // open dialog uzytkownik unavailable
+                  this.openDialog();
+                  if (this.userId !== match.userOneId) {
+                  this.webSocketService.sendMessage('ready', match.name, this.username, match.userOneId, 'false');
+                  } else {
+                    this.webSocketService.sendMessage('ready', match.name, this.username, match.userTwoId, 'false');
+                  }
+                }
+            });
+
         }
       }
     }
@@ -202,7 +217,6 @@ export class GameroomlistComponent implements OnInit {
       console.log('Wysylam zaproszenie 1Ready');
       this.webSocketService.sendMessage('ready', match.name, this.username, match.userOneId, 'true');
 
-      // opoznienie zrobic na notyfikacje pomoze
       setTimeout(() => {
       console.log('Wysylam zaproszenie 2Notyfikacje');
       // tslint:disable-next-line:max-line-length
@@ -243,6 +257,17 @@ export class GameroomlistComponent implements OnInit {
     }
     this.reloadData();
     // dopisac logike do tego jak sie skonczy rozgrywka
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(FigureErrorDialogComponent, {
+      data: { nameFigure: 'Unavailable' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
   }
 
 }

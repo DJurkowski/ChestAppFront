@@ -99,11 +99,6 @@ export class GameService {
   constructor() {
 
     console.log('Constructor Game Service');
-    // this.actualUserPoints = 0;
-
-    // this.userTurnObservable.subscribe(userTurn => {
-    //   this.userTurnVariable = userTurn;
-    // });
 
     this.userTurnUpdate = Observable.create((observer: Observer<Boolean>) => {
       this.userTurnObserver = observer;

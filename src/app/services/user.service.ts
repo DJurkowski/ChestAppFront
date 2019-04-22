@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../user/user';
 
 @Injectable()
 export class UserService {
@@ -40,4 +41,13 @@ export class UserService {
   getTournament(tournamentId: number, userId: string): Observable<Object> {
     return this.http.get(`${this.baseUrl}/${userId}` + `/tournament` + `/${tournamentId}`);
   }
+
+  getUser(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}` + `/user/user` + `/${userId}`);
+  }
+
+  userAvailable(userId: string, available: string): Observable<Object> {
+    return this.http.put(`${this.baseUrl}` + `/user` + `/${userId}` + `/mod`, available);
+  }
+
 }

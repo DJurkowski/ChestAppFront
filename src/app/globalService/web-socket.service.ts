@@ -8,6 +8,10 @@ import { Stomp} from 'stompjs/lib/stomp.js';
 })
 export class WebSocketService {
 
+  userAvailable: boolean;
+  userAvailableUpdate: Observable<boolean>;
+  userAvailableObserver: Observer<boolean>;
+
   globalMessage: string;
   globalMessageUpdate: Observable<string>;
   globalMessageObserver: Observer<string>;
@@ -49,6 +53,9 @@ export class WebSocketService {
     this.globalStartGameUpdate = Observable.create((observer: Observer<string>) => {
       this.globalStartGameObserver = observer;
     });
+    this.userAvailableUpdate = Observable.create((observer: Observer<boolean>) => {
+      this.userAvailableObserver = observer;
+    });
   }
 
   updateGlobalMessage(message: string) {
@@ -74,6 +81,11 @@ export class WebSocketService {
   updateGlobalStartGame(message: string) {
     this.globalStartGame = message;
     this.globalStartGameObserver.next(this.globalStartGame);
+  }
+
+  updateUserAvailable(message: boolean) {
+    this.userAvailable = message;
+    this.userAvailableObserver.next(this.userAvailable);
   }
 
   getMessage(): Observable<string> {
@@ -117,8 +129,7 @@ export class WebSocketService {
             }
           }
           console.log('Dostalem message taki bo tak : ' + message.body);
-          // that.opponentMove(message.body);
-          // that.updateGlobalMessage(message.body);
+
         }
       });
     });
@@ -133,6 +144,5 @@ export class WebSocketService {
     this.stompClient.disconnect();
     console.log('Closing connection!');
   }
-
 
 }

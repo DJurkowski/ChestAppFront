@@ -4,4 +4,5 @@ export class User {
   rankValue: number;
   wins: number;
   losses: number;
+  available: boolean;
 }

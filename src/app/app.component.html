@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" routerLink="home">ChessApp</a>
+  <button class="navbar-brand btn btn-dark" routerLink="home" [disabled]='isDisabled'>ChessApp</button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a class="nav-link active" routerLink="home">Home</a>
+        <button class="nav-link btn btn-outline-dark" routerLink="home" [disabled]='isDisabled'>Home</button>
       </li>
       <li *ngIf="authority === 'user'" class="nav-item">
-        <a class="nav-link" routerLink="user">User Board</a>
+        <button class="nav-link btn btn-outline-dark" routerLink="user" [disabled]='isDisabled'>User Board</button>
       </li>
       <li *ngIf="authority === 'user'" class="nav-item">
-          <a class="nav-link" routerLink="scoreboard">Score Board</a>
+          <button class="nav-link btn btn-outline-dark" routerLink="scoreboard" [disabled]='isDisabled'>Score Board</button>
         </li>
   <li *ngIf="authority === 'user'" class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tournament</a>
+    <button class="nav-link dropdown-toggle btn btn-outline-dark" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]='isDisabled'>Tournament</button>
     <div class="dropdown-menu" aria-labelledby="dropdown01">
       <a class="dropdown-item" routerLink="addtour">Create Tournament</a>
       <a class="dropdown-item" routerLink="tournament">Join to Tournament</a>
@@ -20,10 +20,10 @@
     </div>
   </li>
   <li *ngIf="authority === 'user'" class="nav-item">
-    <a class="nav-link" routerLink="gamerooms">Game Rooms</a>
+    <button class="nav-link btn btn-outline-dark" routerLink="gamerooms" [disabled]='isDisabled'>Game Rooms</button>
   </li>
   <li *ngIf="authority === 'admin'" class="nav-item">
-    <a class="nav-link" routerLink="admin">Admin Board</a>
+    <a class="nav-link " routerLink="admin">Admin Board</a>
   </li>
   <li *ngIf="authority === 'pm'" class="nav-item">
     <a class="nav-link" routerLink="pm">PM Board</a>
@@ -36,7 +36,7 @@
   <a class="btn btn-outline-success my-2 my-sm-0" routerLink="signup" style="margin-left: 10px">Sign up</a>
 </div>
 <div *ngIf="authority">
-  <a class="btn btn-outline-secondary" routerLink="home" >Logout</a>
+  <button class="btn btn-outline-secondary" routerLink="home" [disabled]='isDisabled'>Logout</button>
 </div>
 </div>
 </nav>
@@ -48,12 +48,12 @@
 <footer>
   <div *ngIf="authority">
 
-  <input type="button" value="Chat" class="btn btn-primary btn-lg chat" routerLink="rooms">
+  <input type="button" value="Chat" class="btn btn-primary btn-lg chat" routerLink="rooms" [disabled]='isDisabled'>
     <span *ngIf="notifications; else haveNotification">
-        <input type="button" value="N" class="btn btn-danger btn-lg noti" (click)="turnOffNotification()" routerLink="notifications">
+        <input type="button" value="N" class="btn btn-danger btn-lg noti" (click)="turnOffNotification()" routerLink="notifications" [disabled]='isDisabled'>
     </span>
     <ng-template #haveNotification>
-        <input type="button" value="N" class="btn btn-primary btn-lg noti" routerLink="notifications">
+        <input type="button" value="N" class="btn btn-primary btn-lg noti" routerLink="notifications" [disabled]='isDisabled'>
     </ng-template>
   </div>
 </footer>

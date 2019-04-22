@@ -15,7 +15,6 @@ export class MatchService {
   }
 
   modifyMatch(matchId: number, userId: string, match: Match): Observable<Object> {
-    console.log('Jestem w modify Match');
     return this.http.put(`${this.baseUrl}/${userId}` + `/matches` + `/${matchId}`, match);
   }
 
