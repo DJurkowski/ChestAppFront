@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './pawn.component.html',
   styleUrls: ['./pawn.component.css']
 })
-export class PawnComponent implements OnInit {
+export class PawnComponent {
 
   @Input() check: boolean;
   @Input() neg: boolean;
@@ -22,9 +22,6 @@ export class PawnComponent implements OnInit {
     if (this.neg ) {
       return {color: 'red'};
     }
-  }
-
-  ngOnInit() {
   }
 
 

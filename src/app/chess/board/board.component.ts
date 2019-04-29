@@ -1,7 +1,7 @@
 import { DialogVariable } from './../opponent-dialog/opponent-dialog.component';
 import { WebSocketService } from './../../globalService/web-socket.service';
 import { UserService } from './../../services/user.service';
-import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, OnDestroy, HostBinding, HostListener } from '@angular/core';
 import { GameService } from '../game.service';
 import { MatDialog } from '@angular/material';
 import { Coord } from '../coord';
@@ -21,7 +21,6 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   @Input() match: Match;
   @Output() matchBack = new EventEmitter<Match>();
-
 
   username: string;
   userId: number;
@@ -87,6 +86,11 @@ export class BoardComponent implements OnInit, OnDestroy {
     position: null,
     isCheck: false
   };
+
+  @HostListener('window:beforeunload', ['$event']) canDeactivate(event: BeforeUnloadEvent): void  {
+    console.log('Po odswiezeniu strony!!!!');
+    event.returnValue = true;
+  }
 
   constructor(private game: GameService, public dialog: MatDialog, private token: TokenStorageService,
     private userService: UserService, private webSocketService: WebSocketService) {

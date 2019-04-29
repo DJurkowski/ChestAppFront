@@ -1,11 +1,12 @@
   <div class="container justify-content-center" style="height: 100%; margin-bottom: 20px;">
     <div class="d-flex flex-column bd-highlight" style="max-height: 812px;">
-      <button (click)="hideDiv()" class="btn btn-outline-light">
+      <!-- <button (click)="hideDiv()" class="btn btn-outline-light">
         <span *ngIf='!isHidden;else elseBlock'>Open</span>
         <ng-template #elseBlock>Close</ng-template>
         Chat
-      </button>
-      <div *ngIf='isHidden' class="boxone">
+      </button> -->
+      <!-- <div *ngIf='isHidden' class="boxone"> -->
+        <div class="boxone">
           <input id="input{{room.id}}" placeholder="Type a message..." type="text" class="p-2 mt-auto input-group border border-light rounded"
           #input
           (keyup.enter)="sendMessage(input.value)"

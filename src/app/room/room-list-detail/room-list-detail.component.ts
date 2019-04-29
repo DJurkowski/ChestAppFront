@@ -18,12 +18,12 @@ export class RoomListDetailComponent implements OnInit {
 
   username: string;
 
-  isHidden = false;
+  // isHidden = false;
   messageList: Observable<Message[]>;
 
-  public setRoom() {
-    this.ngOnInit();
-  }
+  // public setRoom() {
+  //   this.ngOnInit();
+  // }
 
   ngOnInit() {
     this.reloadData();
@@ -65,12 +65,12 @@ export class RoomListDetailComponent implements OnInit {
     $('#input' + this.room.id).val('');
   }
 
-  hideDiv() {
-    this.isHidden = !this.isHidden;
-    if (this.isHidden) {
-      this.setRoom();
-    }
-  }
+  // hideDiv() {
+  //   this.isHidden = !this.isHidden;
+  //   if (this.isHidden) {
+  //     this.setRoom();
+  //   }
+  // }
 
   reloadData() {
     this.messageList = this.roomService.getMessages(this.room.name);

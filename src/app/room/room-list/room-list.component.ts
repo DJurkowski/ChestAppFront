@@ -13,6 +13,10 @@ export class RoomListComponent implements OnInit {
 
   lista: Observable<Room[]>;
   username: string;
+
+  isHidden = false;
+  isOpened: number;
+
   constructor(private roomService: RoomService, private token: TokenStorageService) { }
 
   ngOnInit() {
@@ -24,4 +28,12 @@ export class RoomListComponent implements OnInit {
     this.lista = this.roomService.getUserRooms(this.username);
   }
 
+  hideDiv(digit: number) {
+    this.isHidden = !this.isHidden;
+    if (this.isOpened === digit) {
+      this.isOpened = 0;
+    } else {
+      this.isOpened = digit;
+    }
+  }
 }

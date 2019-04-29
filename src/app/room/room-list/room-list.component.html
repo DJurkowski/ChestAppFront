@@ -3,6 +3,13 @@
   <li *ngFor='let room of lista | async'>
     <h3 *ngIf='room.user1Id === username; else elseBlock' class="h3 mb-3 font-weight-normal">Chat with: <b>{{room.user2Id}}</b></h3><br/>
     <ng-template #elseBlock><h3 class="h3 font-weight-normal">Chat with: <b>{{room.user1Id}}</b></h3></ng-template><br>
-    <div><app-room-list-detail [room]='room'></app-room-list-detail></div>
+    <button (click)="hideDiv(room.id)" class="btn btn-outline-light">
+      <span *ngIf='isHidden && isOpened === room.id;else elseBut'>Close</span>
+      <ng-template #elseBut>Open</ng-template>
+      Chat
+    </button>
+    <div *ngIf='isOpened === room.id'>
+      <app-room-list-detail [room]='room'></app-room-list-detail>
+    </div>
   </li>
 </ul>
