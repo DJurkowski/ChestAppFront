@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
+    // console.log(this.form);
 
     this.signupInfo = new SignupInfo(
       this.form.username,

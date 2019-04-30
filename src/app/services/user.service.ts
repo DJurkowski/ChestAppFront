@@ -46,6 +46,10 @@ export class UserService {
     return this.http.get(`${this.baseUrl}` + `/user/user` + `/${userId}`);
   }
 
+  getUserProfil(userId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}` + `/user/profil` + `/${userId}`);
+  }
+
   userAvailable(userId: string, available: string): Observable<Object> {
     return this.http.put(`${this.baseUrl}` + `/user` + `/${userId}` + `/mod`, available);
   }

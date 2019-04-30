@@ -1,3 +1,5 @@
+import { User } from './../user/user';
+import { TokenStorageService } from './../auth/token-storage.service';
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +13,8 @@ export class PmComponent implements OnInit {
   board: string;
   errorMessage: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+   }
 
   ngOnInit() {
     this.userService.getPMBoard().subscribe(
@@ -22,6 +25,7 @@ export class PmComponent implements OnInit {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );
+
   }
 }
 
