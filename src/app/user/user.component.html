@@ -1,38 +1,45 @@
 <h1 class="h3 mb-3 font-weight-normal text-primary" style="color:white">User Profil</h1>
 <div class="center">
   <div class="text-white mb-3 box">
-      <strong>Username: </strong>
-        <input type="name" value="{{userProfil.username}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="name"
-        required [disabled]='true'>
-        <form>
+
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+            <strong>Username: </strong>
+            <input type="text" value="{{form.username}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"
+            class="form-control bg-dark" username [disabled]='true'>
         <div class="list-unstyled mt-3 mb-2">
             <li class="form-group">
               <strong >Email: </strong>
-              <input type="email" value="{{userProfil.email}}" class="form-control bg-dark text-white" id="email"
-              required [disabled]='isDisabled'>
+              <input type="text" class="form-control bg-dark text-white" [(ngModel)]="form.email" #email="ngModel"
+               name="email" required email [disabled]="isDisabled"/>
+              <div *ngIf="f.submitted && email.invalid">
+                <div *ngIf="!!email.errors?.required" style="background-color: tomato; color: black; border-style: none">Email is required</div>
+                <div *ngIf="!!email.errors?.email" style="background-color: tomato; color: black; border-style: none">Email must be a valid email address</div>
+              </div>
+              <div *ngIf="f.submitted && isEditedFailed" class="alert alert-warning" style="background-color: tomato; color: black; border-style: none">
+                Edit failed!<br/>{{errorMessage}}
+              </div>
             </li>
-
             <li><strong >Joined: </strong>
-              <input type="data" value="{{userProfil.joined}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="data"
+              <input type="data" value="{{form.joined}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="data"
               required [disabled]='true'>
             </li>
             <li><strong >Rank Level: </strong>
-              <input type="text" value="{{userProfil.rankValue}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="rank"
+              <input type="text" value="{{form.rankValue}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="rank"
               required [disabled]='true'>
             </li>
 
             <li><strong >Number of Matches: </strong>
-              <input type="text" value="{{userProfil.wins + userProfil.losses}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="matches"
+              <input type="text" value="{{form.wins + form.losses}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="matches"
               required [disabled]='true'>
             </li>
 
             <li><strong >Wins: </strong>
-              <input type="text" value="{{userProfil.wins}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="wins"
+              <input type="text" value="{{form.wins}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="wins"
               required [disabled]='true'>
             </li>
 
             <li><strong >Losses: </strong>
-              <input type="text" value="{{userProfil.losses}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="losses"
+              <input type="text" value="{{form.losses}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="losses"
               required [disabled]='true'>
             </li>
         </div>
@@ -42,7 +49,7 @@
               <button type="button" class="btn btn-lg btn-block btn-danger">Delete</button>
             </div>
             <ng-template #elseBlock class="but">
-              <button type="submit"  class="btn btn-lg btn-block btn-success">Save</button>
+              <input type="submit"  class="btn btn-lg btn-block btn-success" value="Save">
               <button type="button" (click)="disabledFunction()" class="btn btn-lg btn-block btn-secondary">Back</button>
             </ng-template>
         </div>

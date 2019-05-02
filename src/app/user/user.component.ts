@@ -1,3 +1,4 @@
+import { Message } from 'src/app/room/message';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { TokenStorageService } from '../auth/token-storage.service';
@@ -11,28 +12,25 @@ import { User } from './user';
 export class UserComponent implements OnInit {
 
   userProfil: User;
-  form: string;
+  usernameId: string;
+
+  form: any = {};
+  isEdited = false;
+  isEditedFailed = false;
   errorMessage: string;
-  username: string;
 
   public isDisabled = true;
 
   constructor(private userService: UserService, private token: TokenStorageService) {
-    this.username = this.token.getUsername();
+
    }
 
   ngOnInit() {
-    // this.userService.getUserBoard().subscribe(
-    //   data => {
-    //     this.board = data;
-    //   },
-    //   error => {
-    //     this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-    //   }
-    // );
-    this.userService.getUserProfil(this.username).subscribe(
+    this.usernameId = this.token.getUsername();
+    this.userService.getUserProfil(this.usernameId).subscribe(
       data => {
         this.userProfil = data;
+        this.form = this.userProfil;
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
@@ -43,5 +41,21 @@ export class UserComponent implements OnInit {
   disabledFunction() {
     this.isDisabled = !this.isDisabled;
   }
+
+  onSubmit() {
+      this.userService.userEmail(this.usernameId, this.form.email).subscribe(
+        data => {
+          console.log(data);
+          this.isEdited = true;
+          this.isEditedFailed = false;
+          this.disabledFunction();
+          this.ngOnInit();
+        },
+        error => {
+          this.errorMessage = error.error.message;
+          this.isEditedFailed = true;
+        }
+      );
+    }
 
 }

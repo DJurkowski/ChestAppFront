@@ -54,4 +54,9 @@ export class UserService {
     return this.http.put(`${this.baseUrl}` + `/user` + `/${userId}` + `/mod`, available);
   }
 
+  userEmail(userId: string, email: string): Observable<Object> {
+    return this.http.put(`${this.baseUrl}` + `/user` + `/${userId}` + `/edi`, email);
+  }
+
+
 }
