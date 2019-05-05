@@ -18,6 +18,7 @@ export class CreateTournamnetComponent implements OnInit {
   errorMessage = '';
 
   username: string;
+  times = [ 1, 5, 10, 15];
 
   constructor(private tournamentService: TournamentService, private token: TokenStorageService) { }
 
@@ -31,7 +32,8 @@ export class CreateTournamnetComponent implements OnInit {
     this.tournamentInfo = new TournamentInfo(
       this.form.name,
       this.form.description,
-      this.form.maxNumberOfUser
+      this.form.maxNumberOfUser,
+      this.form.matchTime
     );
     this.tournamentService.createTournament(this.tournamentInfo, this.username).subscribe(
       data => {

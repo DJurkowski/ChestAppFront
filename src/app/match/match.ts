@@ -12,4 +12,5 @@ export class Match {
   // dodac jeszcze kto wgral rozgrywke
   whoWon: number;
   startGameUser: number;
+  matchTime: number;
 }

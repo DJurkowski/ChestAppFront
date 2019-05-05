@@ -153,17 +153,25 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.overallMinutes += 1;
         this.overallSeconds = 0;
       }
+      if (this.match.matchTime === this.overallMinutes) {
+        this.errorFigure = 'TIME';
+        this.openDialog();
+        this.gameRoomBackValue();
+      }
       // console.log('Timer: ' + this.minutes + ' : ' + this.seconds );
     });
   }
 
   ngOnDestroy() {
-    if (this.userTurn) {
-    console.log('OnDestroye ....');
+    console.log('OnDestroyeStart ....');
+    // if (this.userTurn) {
+    // console.log('OnDestroyeUserTurn ....');
     // this.subscription.unsubscribe();
-    } else {
+    // } else {
+    console.log('OnDestroyeUserTurnElse ....');
       this.game.updateUserTurn(true);
-    }
+      this.subscription.unsubscribe();
+    // }
     console.log('Ustawienie Pinokow KOniec OnDestroye');
     this.game.resetFiguresPositions();
     this.webSocketService.updateUserAvailable(false);

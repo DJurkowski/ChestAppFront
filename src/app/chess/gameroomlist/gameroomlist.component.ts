@@ -85,7 +85,8 @@ export class GameroomlistComponent implements OnInit {
           minValueOfRankValue: xdata.minValueOfRankValue,
           name: xdata.name,
           numberOfUser: xdata.masterUser,
-          status: xdata.status
+          status: xdata.status,
+          matchTime: xdata.matchTime
         });
       });
       for (const i of this.tournas) {

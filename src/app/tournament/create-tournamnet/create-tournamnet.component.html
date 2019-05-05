@@ -19,10 +19,17 @@
 
         <label for="maxNumberOfUser" class="sr-only">MaxNumberOfUser</label>
         <input type="number" class="form-control" id="maxNumberOfUser" required [(ngModel)]="form.maxNumberOfUser" name="maxNumberOfUser" #maxNumberOfUser="ngModel"
-          required min="2" placeholder="MaxNumberOfUser" style="margin-bottom:10px">
+           min="2" placeholder="Max Number Of User" style="margin-bottom:10px">
           <div *ngIf="f.submitted && maxNumberOfUser.invalid">
               <div *ngIf="!!maxNumberOfUser.errors?.required" style="color: tomato">MaxNumberOfUser is required</div>
           </div>
+
+          <label for="matchTime" class="sr-only">Match Time</label>
+          <select class="form-control" id="matchTime" required [(ngModel)]="form.matchTime" name="matchTime" #matchTime="ngModel"
+           style="margin-bottom:10px;color:gray">
+            <option [value]='undefined' selected disabled>Match Time</option>
+            <option *ngFor= "let tim of times" [value]="tim" style="color:black">{{tim}}</option>
+          </select>
 
         <button class="btn btn-lg btn-success btn-block">Submit</button>
         <div *ngIf="f.submitted && isCreatedFailed" class="alert alert-warning">

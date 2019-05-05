@@ -7,4 +7,5 @@ export class Tournament {
   numberOfUser: number;
   masterUser: number;
   status: string;
+  matchTime: number;
 }
