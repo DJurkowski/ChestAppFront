@@ -27,6 +27,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   userIdentification: Observable<Object>;
 
   userTurn: Boolean;
+  userMoves: number;
+  userRoundTime: number;
 
   // public opponent: string;
   public actualUserPoints = this.game.userPointsObservable;
@@ -119,7 +121,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   checkStartGame() {
     console.log('Jestem w init(StartGameUser): ' + this.match.startGameUser);
     console.log('Jestem w init(Status): ' + this.match.status);
-
+    this.userMoves = 0;
+    this.userRoundTime = 0;
 
     if (this.match.startGameUser !== this.userId && this.match.startGameUser !== null ) {
       this.startCountTime();
@@ -172,7 +175,6 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.game.updateUserTurn(true);
       this.subscription.unsubscribe();
     // }
-    console.log('Ustawienie Pinokow KOniec OnDestroye');
     this.game.resetFiguresPositions();
     this.webSocketService.updateUserAvailable(false);
     this.userService.userAvailable(this.username, 'true').subscribe();
@@ -195,6 +197,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         if (this.figureCoords.id === 'knight') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
            result = this.game.moveKnight(pos);
+           this.userMoves += 1;
            console.log('Result czy zbity: ' + result);
 
           if (result) {
@@ -216,6 +219,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'king') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
           result = this.game.moveKing(pos);
+          this.userMoves += 1;
           console.log('Result czy zbity: ' + result);
           if (result) {
             if (this.endGameVariable.value) {
@@ -236,6 +240,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'knight2') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.moveKnight2(pos);
+            this.userMoves += 1;
             console.log('Result czy zbity: ' + result);
             if (result) {
               if (this.endGameVariable.value) {
@@ -256,7 +261,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'pawn') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.movePawn(pos);
-
+            this.userMoves += 1;
             console.log('Result czy zbity: ' + result);
             if (result) {
               if (this.endGameVariable.value) {
@@ -277,7 +282,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'pawn2') {
             if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
              result = this.game.movePawn2(pos);
-
+             this.userMoves += 1;
              console.log('Result czy zbity: ' + result);
              if (result) {
               if (this.endGameVariable.value) {
@@ -298,7 +303,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'pawn3') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.movePawn3(pos);
-
+            this.userMoves += 1;
             console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
           if (result) {
@@ -320,7 +325,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'pawn4') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.movePawn4(pos);
-
+            this.userMoves += 1;
             console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
           if (result) {
@@ -342,7 +347,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'pawn5') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.movePawn5(pos);
-
+            this.userMoves += 1;
             console.log('Result czy zbity: ' + result);
             if (result) {
               if (this.endGameVariable.value) {
@@ -363,7 +368,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'pawn6') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.movePawn6(pos);
-
+            this.userMoves += 1;
             console.log('Result czy zbity: ' + result);
             if (result) {
               if (this.endGameVariable.value) {
@@ -384,7 +389,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'pawn7') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.movePawn7(pos);
-
+            this.userMoves += 1;
             console.log('Result czy zbity: ' + result);
             if (result) {
               if (this.endGameVariable.value) {
@@ -405,7 +410,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'pawn8') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.movePawn8(pos);
-
+            this.userMoves += 1;
             console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
           if (result) {
@@ -427,7 +432,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'rook') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.moveRook(pos);
-
+            this.userMoves += 1;
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
           if (result) {
@@ -449,7 +454,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'rook2') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.moveRook2(pos);
-
+            this.userMoves += 1;
             // console.log('Result czy zbity: ' + result);
           // musimy zwrocic boolean czy mamy zbicie czy nie!!!
           if (result) {
@@ -471,9 +476,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'bishop') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.moveBishop(pos);
-
-            // console.log('Result czy zbity: ' + result);
-          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+            this.userMoves += 1;
           if (result) {
             if (this.endGameVariable.value) {
               this.endGameBackValue();
@@ -493,9 +496,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'bishop2') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.moveBishop2(pos);
-
-            // console.log('Result czy zbity: ' + result);
-          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+            this.userMoves += 1;
           if (result) {
             if (this.endGameVariable.value) {
               this.endGameBackValue();
@@ -515,9 +516,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         } else if (this.figureCoords.id === 'queen') {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.moveQueen(pos);
-
-            // console.log('Result czy zbity: ' + result);
-          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+            this.userMoves += 1;
            if (result) {
             if (this.endGameVariable.value) {
               this.endGameBackValue();
@@ -535,6 +534,7 @@ export class BoardComponent implements OnInit, OnDestroy {
             console.log('NIe prawidlowy ruch Queen');
           }
         }
+
     } else {
         console.error('Check');
     }
@@ -671,15 +671,20 @@ openOppoentMovesDialog(dialogContent: string) {
 
 // end game function button
 gameRoomBackValue() {
-  const matchResult = this.match;
+  console.log('Jestem w gameRoomBackValue!!!');
+    const matchResult = this.match;
     matchResult.status = 'FINISHED';
     console.log('Przed zapisasz: ' + matchResult.userOneId + ' ' + this.userId);
     if (matchResult.userOneId === this.userId) {
       console.log('Zapisuje jedengo');
         matchResult.whoWon = matchResult.userTwoId;
+        matchResult.userOneMoves = this.userMoves;
+        matchResult.userOneRoundsTime = this.userRoundTime;
     } else {
       console.log('Zapisuje drugiego');
         matchResult.whoWon = matchResult.userOneId;
+        matchResult.userTwoMoves = this.userMoves;
+        matchResult.userTwoRoundsTime = this.userRoundTime;
     }
     console.log('matchResult: ' + matchResult.status);
     this.matchBack.emit(matchResult);
@@ -687,15 +692,20 @@ gameRoomBackValue() {
 }
 
 endGameBackValue() {
+  console.log('Jestem w endGameBackValue!!!');
   const matchResult = this.match;
     matchResult.status = 'FINISHED';
     console.log('Przed zapisasz: ' + matchResult.userOneId + ' ' + this.userId);
     if (matchResult.userOneId === this.userId) {
       console.log('Zapisuje jedengo');
         matchResult.whoWon = matchResult.userOneId;
+        matchResult.userOneMoves = this.userMoves;
+        matchResult.userOneRoundsTime = this.userRoundTime;
     } else {
       console.log('Zapisuje drugiego');
         matchResult.whoWon = matchResult.userTwoId;
+        matchResult.userTwoMoves = this.userMoves;
+        matchResult.userTwoRoundsTime = this.userRoundTime;
     }
     console.log('matchResult: ' + matchResult.status);
     // ----------------------
@@ -718,10 +728,10 @@ initializeWebSocketConnection() {
       if (messageTab[3] === this.username) {
         console.log('MessageMOveOpponent: ' + messageTab[4]);
         this.opponentMove(messageTab[4]);
-        console.log('Odpalam czas znowu');
-        this.minutes = 0;
-        this.seconds = 0;
-        this.startCountTime();
+        // console.log('Odpalam czas znowu');
+        // this.minutes = 0;
+        // this.seconds = 0;
+        // this.startCountTime();
       }
     }
   });
@@ -735,6 +745,13 @@ sendMessageMove(message) {
   }
    if (this.userTurn) {
     console.log('Resetuje czas Unsubscirbe');
+      if (this.minutes !== 0) {
+        this.userRoundTime += ((this.minutes / 60) + this.seconds);
+        console.log('UserRoundTime ' + this.userRoundTime);
+      } else {
+        this.userRoundTime += this.seconds;
+        console.log('UserRoundTime ' + this.userRoundTime);
+      }
     this.subscription.unsubscribe();
     this.minutes = 0;
     this.seconds = 0;
@@ -748,18 +765,29 @@ sendMessageMove(message) {
 opponentMove(move: string) {
   const tabMove = move.split('-', 5);
   if (tabMove[0] === 'END') {
+    console.log('Jestem w opponentMove END!!!');
     const matchResult = this.match;
     matchResult.status = 'FINISHED';
+    if (matchResult.userOneId === this.userId) {
+        matchResult.userOneMoves = this.userMoves;
+        matchResult.userOneRoundsTime = this.userRoundTime;
+    } else {
+        matchResult.userTwoMoves = this.userMoves;
+        matchResult.userTwoRoundsTime = this.userRoundTime;
+    }
+    this.matchBack.emit(matchResult);
     // ----------------------
     this.errorFigure = 'END';
     this.openDialog();
-    // ----------------------
-    this.matchBack.emit(matchResult);
   } else {
     if (tabMove[4] !== this.username) {
     this.game.moveFigure(tabMove[0], this.makeCoor(tabMove[1], tabMove[2]), Boolean(tabMove[3]));
     this.userTurn = true;
     this.game.updateUserTurn(true);
+    console.log('Odpalam czas znowu');
+        this.minutes = 0;
+        this.seconds = 0;
+        this.startCountTime();
     }
   }
 }

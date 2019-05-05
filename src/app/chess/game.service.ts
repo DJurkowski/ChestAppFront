@@ -980,7 +980,7 @@ export class GameService {
       }
     }
   }
-// dokonczyc
+
   moveBishop(to: Coord) {
     const { x, y } = this.bishopCurrentPosition;
     const dx = to.x - x;
@@ -1089,8 +1089,6 @@ export class GameService {
           }
         }
       }
-
-
     }
   }
 
@@ -3316,7 +3314,6 @@ export class GameService {
     this.changePosition('bishop2N', { x: 5, y: 0});
     this.queenNPosition$.next({ x: 3, y: 0});
     this.changePosition('queenN', { x: 3, y: 0});
-
 
   }
 

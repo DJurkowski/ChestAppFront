@@ -237,16 +237,18 @@ export class GameroomlistComponent implements OnInit {
   }
 
   endGameValue(event: Match) {
-    if (event.status === 'FINISHED' && event.whoWon !== 0) {
+    if (event.status === 'FINISHED' ) {
       for (const i of this.matchWaitList) {
         if (i.id === event.id) {
           i.showMatch = false;
           i.status = 'FINISHED';
-          i.whoWon = event.whoWon;
-          // dodac upload na server -- upload
-          this.matchService.modifyMatch(i.id, this.username, i).subscribe(
+          if (event.whoWon !== 0) {
+            i.whoWon = event.whoWon;
+          }
+          this.matchService.modifyMatch(i.id, this.username, event).subscribe(
             data => {
-              data = i;
+              console.log('Wysylam Modyfikacje Match User: ' + this.username);
+              data = event;
             },
             error => {
               console.log(error);
