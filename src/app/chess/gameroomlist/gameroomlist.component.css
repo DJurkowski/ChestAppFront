@@ -1,8 +1,9 @@
-/* .container {
-  width: 560px;
-  height: 560px;
-} */
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 tr {
   border: none;
   color: white;

@@ -3,10 +3,10 @@
   <table class="table table-striped">
     <tbody>
       <tr *ngFor='let matchWait of matchWaitList'>
-          <div *ngIf='isShowed'>
-              <div *ngIf='(userId === matchWait.userOneId && matchWait.userOneReady === true) || (userId === matchWait.userTwoId && matchWait.userTwoReady === true); else BlockElse'>
+          <div *ngIf='isShowed' class="center">
+              <span *ngIf='(userId === matchWait.userOneId && matchWait.userOneReady === true) || (userId === matchWait.userTwoId && matchWait.userTwoReady === true); else BlockElse' class="center">
                 <td>{{matchWait.name}}</td> <td>Waiting for opponent acceptation...</td>
-              </div>
+              </span>
               <ng-template #BlockElse>
                 <div id='{{matchWait.id}}'></div> <span *ngIf='isShowed'> <td>{{matchWait.name}}</td> <td><button class="btn btn-lg btn-success" (click)="acceptGame(matchWait)" > Accept </button></td>
                   <td><button class="btn btn-lg btn-danger" (click)="denyGame(matchWait)"> Deny </button></td>
@@ -28,5 +28,4 @@
         </div>
         </tr>
     </tbody>
-        <!-- <button (click)="acceptGame(match)" > {{match.name}}  Play</button></span> -->
   </table>

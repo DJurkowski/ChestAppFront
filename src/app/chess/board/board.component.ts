@@ -433,8 +433,7 @@ export class BoardComponent implements OnInit, OnDestroy {
           if (this.game.canMoveFigure(pos, this.figureCoords.id)) {
             result = this.game.moveRook(pos);
             this.userMoves += 1;
-            // console.log('Result czy zbity: ' + result);
-          // musimy zwrocic boolean czy mamy zbicie czy nie!!!
+
           if (result) {
             if (this.endGameVariable.value) {
               this.endGameBackValue();

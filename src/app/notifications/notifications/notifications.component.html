@@ -8,18 +8,18 @@
       </tr>
     </thead>
   <tbody>
-      <tr *ngFor="let noti of notiList" style="padding-bottom: 5px;margin-bottom: 5px">
-          <td  *ngIf= "!noti.seen" class="bg-info" style="border-radius: 5px; margin-bottom: 2%">
+      <tr *ngFor="let noti of notiList">
+          <td  *ngIf= "!noti.seen" class="bg-warning" style="border-radius: 5px">
             <span style="color: black">{{noti.message}}</span>
           </td>
-          <td *ngIf= "!noti.seen"><button type="button" class="btn btn-info" (click)='seenFunction(noti.id)'>Seen</button></td>
+          <td *ngIf= "!noti.seen"><button type="button" class="btn btn-warning" (click)='seenFunction(noti.id)'>Seen</button></td>
           <td *ngIf= "!noti.seen"><button type="button" class="btn btn-danger" (click)="deleteNotification(noti.id)">Delete</button></td>
       </tr>
       <tr *ngFor="let noti of notiList">
-        <td *ngIf= "noti.seen" class="bg-warning" style="border-radius: 5px">
+        <td *ngIf= "noti.seen" class="bg-info" style="border-radius: 5px">
           <span style="color: black">{{noti.message}}</span>
         </td>
-        <td *ngIf= "noti.seen"><button type="button" class="btn btn-warning" (click)="seenFunction(noti.id)">Unseen</button></td>
+        <td *ngIf= "noti.seen"><button type="button" class="btn btn-info" (click)="seenFunction(noti.id)">Unseen</button></td>
         <td *ngIf= "noti.seen"><button type="button" class="btn btn-danger" (click)="deleteNotification(noti.id)">Delete</button></td>
     </tr>
   </tbody>

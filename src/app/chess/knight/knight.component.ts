@@ -12,8 +12,8 @@ export class KnightComponent implements OnInit {
 
   getStyle() {
     return this.check
-    ? { border: '8px solid #09f190'}
-    : { border: 'none' };
+    ? { color: '#5cb85c'}
+    : { color: 'unset' };
   }
 
   getNegStyle() {
