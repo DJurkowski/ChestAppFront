@@ -1,3 +1,4 @@
+import { UserStatisticsComponent } from './user/user-statistics/user-statistics.component';
 import { GameroomlistComponent } from './chess/gameroomlist/gameroomlist.component';
 import { RoomListComponent } from './room/room-list/room-list.component';
 import { TournamentUserlistComponent } from './tournament/tournament-userlist/tournament-userlist.component';
@@ -71,6 +72,10 @@ const routes: Routes = [
 {
   path: 'notifications',
   component: NotificationsComponent
+},
+{
+  path: 'userStats',
+  component: UserStatisticsComponent
 }
 ];
 

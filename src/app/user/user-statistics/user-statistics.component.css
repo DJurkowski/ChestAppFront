@@ -1,0 +1,13 @@
+table {
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+td {
+  border-top: none;
+  border-color: white;
+  border-width: 5px;
+}
+
+

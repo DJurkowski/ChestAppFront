@@ -5,6 +5,8 @@ export class User {
   rankValue: number;
   wins: number;
   losses: number;
+  movesSum: number;
+  roundTime: number;
   joined: string;
   available: boolean;
 }

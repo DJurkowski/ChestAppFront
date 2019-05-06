@@ -42,6 +42,7 @@ import { RookComponent } from './chess/rook/rook.component';
 import { BishopComponent } from './chess/bishop/bishop.component';
 import { QueenComponent } from './chess/queen/queen.component';
 import { OpponentDialogComponent } from './chess/opponent-dialog/opponent-dialog.component';
+import { UserStatisticsComponent } from './user/user-statistics/user-statistics.component';
 
 
 
@@ -73,7 +74,8 @@ import { OpponentDialogComponent } from './chess/opponent-dialog/opponent-dialog
     RookComponent,
     BishopComponent,
     QueenComponent,
-    OpponentDialogComponent
+    OpponentDialogComponent,
+    UserStatisticsComponent
   ],
   imports: [
     BrowserModule,

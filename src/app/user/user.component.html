@@ -1,4 +1,4 @@
-<h1 class="h3 mb-3 font-weight-normal text-primary" style="color:white">User Profil</h1>
+<h1 class="h3 mb-3 font-weight-normal text-white" style="color:white">User Profil</h1>
 <div class="center">
   <div class="text-white mb-3 box">
 
@@ -19,27 +19,8 @@
                 Edit failed!<br/>{{errorMessage}}
               </div>
             </li>
-            <li><strong >Joined: </strong>
+            <li style="padding-bottom: 15px;"><strong >Joined: </strong>
               <input type="data" value="{{form.joined}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="data"
-              required [disabled]='true'>
-            </li>
-            <li><strong >Rank Level: </strong>
-              <input type="text" value="{{form.rankValue}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="rank"
-              required [disabled]='true'>
-            </li>
-
-            <li><strong >Number of Matches: </strong>
-              <input type="text" value="{{form.wins + form.losses}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="matches"
-              required [disabled]='true'>
-            </li>
-
-            <li><strong >Wins: </strong>
-              <input type="text" value="{{form.wins}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="wins"
-              required [disabled]='true'>
-            </li>
-
-            <li><strong >Losses: </strong>
-              <input type="text" value="{{form.losses}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'" class="form-control bg-dark" id="losses"
               required [disabled]='true'>
             </li>
         </div>
