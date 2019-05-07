@@ -1,7 +1,9 @@
 <h1 class="h3 mb-3 font-weight-normal" style="color:white">Score Board</h1>
+<input id="search" class="form-control" [(ngModel)]="searchText" placeholder="Serach user"/>
 <table class="table table-hover table-striped table-dark">
     <thead>
       <tr>
+        <th>No.</th>
         <th>Username</th>
         <th>Wins</th>
         <th>Losses</th>
@@ -10,10 +12,10 @@
       </tr>
     </thead>
   <tbody>
-      <tr *ngFor="let user of users | async">
-          <!-- <app-user-details [user]='user'></app-user-details> -->
-          <td *ngIf= "user.username == username; else elseBlock">
-            <u style="color: rgb(0, 189, 9)">{{user.username}}</u>
+      <tr *ngFor="let user of userList | userFilter : searchText;let i = index">
+          <td scope="row">{{i+1}}</td>
+          <td *ngIf= "user.username == usernameId; else elseBlock">
+            <a style="color: #5cb85c">{{user.username}}</a>
           </td>
             <ng-template #elseBlock>
             <td> {{user.username}} </td>

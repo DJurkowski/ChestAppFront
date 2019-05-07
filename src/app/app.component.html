@@ -9,8 +9,8 @@
         <button class="nav-link btn btn-outline-dark" routerLink="user" [disabled]='isDisabled'>User Board</button>
       </li> -->
       <li *ngIf="authority === 'user'" class="nav-item dropdown">
-        <button class="nav-link dropdown-toggle btn btn-outline-dark" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]='isDisabled'>User</button>
-        <div class="dropdown-menu" aria-labelledby="dropdown02">
+        <button class="nav-link dropdown-toggle btn btn-outline-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]='isDisabled'>User</button>
+        <div class="dropdown-menu">
           <a class="dropdown-item" routerLink="user">Edit User</a>
           <a class="dropdown-item" routerLink="userStats">User Statistics</a>
         </div>

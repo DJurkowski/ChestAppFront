@@ -10,10 +10,18 @@ thead {
   border: none;
 }
 table {
+  clear: right;
   border: none;
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
   width: 70%;
+}
+
+#search {
+  float: right;
+  width: 20%;
+  margin-right: 2%;
+  margin-bottom: 2%;
 }
 

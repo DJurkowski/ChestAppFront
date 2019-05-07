@@ -2,6 +2,7 @@
 <table class="table table-hover table-striped table-dark">
     <thead>
         <tr>
+          <th>No.</th>
           <th>Name</th>
           <th>Description</th>
           <th>MinValueOfRankValue</th>
@@ -10,9 +11,10 @@
         </tr>
       </thead>
     <tbody>
-      <tr *ngFor="let tournament of tournaments | async" >
-        <td> {{tournament.name}} </td>
-        <td> {{tournament.description}} </td>
+      <tr *ngFor="let tournament of tournaments | async; let i = index" >
+        <td>{{i+1}}</td>
+        <td>{{tournament.name}}</td>
+        <td>{{tournament.description}}</td>
         <td>{{tournament.minValueOfRankValue}}</td>
         <td>{{tournament.maxNumberOfUser}}</td>
         <td>{{tournament.numberOfUser}}</td>

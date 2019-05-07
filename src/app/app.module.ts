@@ -43,6 +43,7 @@ import { BishopComponent } from './chess/bishop/bishop.component';
 import { QueenComponent } from './chess/queen/queen.component';
 import { OpponentDialogComponent } from './chess/opponent-dialog/opponent-dialog.component';
 import { UserStatisticsComponent } from './user/user-statistics/user-statistics.component';
+import { SearchPipe } from './user/search.pipe';
 
 
 
@@ -75,7 +76,8 @@ import { UserStatisticsComponent } from './user/user-statistics/user-statistics.
     BishopComponent,
     QueenComponent,
     OpponentDialogComponent,
-    UserStatisticsComponent
+    UserStatisticsComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

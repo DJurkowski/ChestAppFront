@@ -12,16 +12,28 @@ import { Component, OnInit } from '@angular/core';
 export class UserListComponent implements OnInit {
 
   users: Observable<User[]>;
-  username: string;
+  userList: Array<User> = new Array<User>();
+  usernameId: string;
+  searchText = '';
+  aa = false;
   constructor(private userService: UserService, private token: TokenStorageService ) { }
 
   ngOnInit() {
-    this.username = this.token.getUsername();
+    this.usernameId = this.token.getUsername();
     this.reloadData();
   }
 
   reloadData() {
     this.users = this.userService.getUsers();
+    this.users.forEach(data => {
+      data.forEach(xdata => {
+        this.userList.push(xdata);
+      });
+    });
+  }
+
+  setIndex(ii) {
+    this.aa = ii;
   }
 
 }
