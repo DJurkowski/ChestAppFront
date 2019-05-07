@@ -1,5 +1,29 @@
 <h1 class="h3 mb-3 font-weight-normal" style="color:white">Tournaments</h1>
 
-<div *ngFor="let tournament of tournaments | async">
-  <app-tournamnet-details [tournament]='tournament'></app-tournamnet-details>
+<div class="container">
+<div class="card-deck mb-3 text-center text-white center">
+  <div *ngIf="isJoin; else joinForm" style="margin-right: auto;margin-left: auto; width: 50%;">
+      <a style="color: white">You join to tournament</a><br/>
+  </div>
+  <ng-template #joinForm>
+  <div *ngFor="let tournament of tournaments | async">
+
+            <div class="card bg-dark mb-3 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Tournament</h4>
+              </div>
+              <div class="card-body">
+                <h4 class="card-title pricing-card-title"><strong>Name: </strong>{{tournament.name}}</h4>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li><strong>Description: </strong> {{tournament.description}}</li>
+                  <li><strong>MinValueOfRankValue: </strong> {{tournament.minValueOfRankValue}}</li>
+                  <li><strong>MaxNumberOfUser: </strong> {{tournament.maxNumberOfUser}}</li>
+                  <li><strong>Match Time: </strong> {{tournament.matchTime}}</li>
+                </ul>
+                <button class="btn btn-lg btn-success" (click)='addUserToTournament(tournament.id)'>Join</button>
+              </div>
+            </div>
+  </div>
+</ng-template>
+</div>
 </div>

@@ -13,6 +13,9 @@ export class TournamentListComponent implements OnInit {
 
   tournaments: Observable<Tournament[]>;
   username: string;
+  isJoin = false;
+  isJoinFailed = false;
+  errorMessage = '';
 
   constructor(private tournamentService: TournamentService, private token: TokenStorageService) { }
 
@@ -23,6 +26,32 @@ export class TournamentListComponent implements OnInit {
 
   reloadData() {
     this.tournaments = this.tournamentService.getTournaments(this.username);
+  }
+
+  addUserToTournament(tournamentId: number) {
+    this.tournamentService.addUserToTournament(tournamentId, this.username)
+    .subscribe(
+      data => {
+        console.log(data);
+          this.isJoin = true;
+          this.isJoinFailed = false;
+      },
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.message;
+        this.isJoinFailed = true;
+      });
+  }
+
+  deleteTournament(tournamentId: number) {
+    this.tournamentService.deleteTournament(tournamentId, this.username)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error)
+      );
   }
 
 }

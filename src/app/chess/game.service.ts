@@ -1185,6 +1185,7 @@ export class GameService {
         return true;
       }
     }
+    return false;
   }
 
   moveRook2(to: Coord) {
@@ -1503,9 +1504,10 @@ export class GameService {
             }
           }
         }
+        return true;
       }
-      return true;
     }
+    return false;
   }
 
   moveKnight(to: Coord) {
