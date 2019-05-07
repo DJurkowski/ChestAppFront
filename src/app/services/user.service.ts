@@ -58,5 +58,9 @@ export class UserService {
     return this.http.put(`${this.baseUrl}` + `/user` + `/${userId}` + `/edi`, email);
   }
 
+  deleteUser(userId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}` + `/user` + `/${userId}`,  { responseType: 'text'});
+  }
+
 
 }

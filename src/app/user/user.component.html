@@ -1,5 +1,6 @@
+<div *ngIf="usernameId;else loggedOut" class="center">
 <h1 class="h3 mb-3 font-weight-normal text-white" style="color:white">User Profil</h1>
-<div class="center">
+
   <div class="text-white mb-3 box">
 
         <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
@@ -16,8 +17,8 @@
                 <div *ngIf="!!email.errors?.email" style="background-color: tomato; color: black; border-style: none">Email must be a valid email address</div>
               </div>
               <div *ngIf="f.submitted && isEditedFailed" class="alert alert-warning" style="background-color: tomato; color: black; border-style: none">
-                Edit failed!<br/>{{errorMessage}}
-              </div>
+                  Edit failed!<br/>{{errorMessage}}
+                </div>
             </li>
             <li style="padding-bottom: 15px;"><strong >Joined: </strong>
               <input type="data" value="{{form.joined}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="data"
@@ -27,14 +28,21 @@
           <div class="but">
             <div *ngIf="isDisabled; else elseBlock" class="but">
               <button type="button" (click)="disabledFunction()" class="btn btn-lg btn-block btn-success">Edit</button>
-              <button type="button" class="btn btn-lg btn-block btn-danger">Delete</button>
+              <button type="button" (click)="deleteUser()" class="btn btn-lg btn-block btn-danger">Delete</button>
+            </div>
+            <div *ngIf="isDeleteFailed" class="alert alert-warning" style="background-color: tomato; color: black; border-style: none">
+                Delete failed!<br/>{{errorMessage}}
             </div>
             <ng-template #elseBlock class="but">
               <input type="submit"  class="btn btn-lg btn-block btn-success" value="Save">
               <button type="button" (click)="disabledFunction()" class="btn btn-lg btn-block btn-secondary">Back</button>
             </ng-template>
         </div>
+
         </form>
   </div>
-
 </div>
+<ng-template #loggedOut>
+    <h1 class="text-white">Welcome to ChessApp</h1>
+    <p class="text-white">Please login.</p>
+  </ng-template>

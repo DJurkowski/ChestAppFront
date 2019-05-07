@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('AppHomeNgOnInit!!!!!!!!');
     if (this.tokenStorage.getToken()) {
       this.roles = this.tokenStorage.getAuthorities();
       this.roles.every(role => {

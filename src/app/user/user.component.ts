@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { User } from './user';
+import { WebSocketService } from '../globalService/web-socket.service';
 
 @Component({
   selector: 'app-user',
@@ -17,11 +18,12 @@ export class UserComponent implements OnInit {
   form: any = {};
   isEdited = false;
   isEditedFailed = false;
+  isDeleteFailed = false;
   errorMessage: string;
 
   public isDisabled = true;
 
-  constructor(private userService: UserService, private token: TokenStorageService) {
+  constructor(private userService: UserService, private token: TokenStorageService, private webSocket: WebSocketService) {
 
    }
 
@@ -57,5 +59,25 @@ export class UserComponent implements OnInit {
         }
       );
     }
+
+    deleteUser() {
+      this.userService.deleteUser(this.usernameId).subscribe(
+        data => {
+          this.logout();
+        },
+        error => {
+          this.errorMessage = `${JSON.parse(error.error).message}`;
+          this.isDeleteFailed = true;
+        }
+
+      );
+    }
+
+    logout() {
+      this.webSocket.closeConnection();
+      this.token.signOut();
+      window.location.reload();
+    }
+
 
 }
