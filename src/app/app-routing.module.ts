@@ -1,3 +1,4 @@
+import { FriendListComponent } from './friend/friend-list/friend-list.component';
 import { TournamentEditListComponent } from './tournament/tournament-edit-list/tournament-edit-list.component';
 import { UserStatisticsComponent } from './user/user-statistics/user-statistics.component';
 import { GameroomlistComponent } from './chess/gameroomlist/gameroomlist.component';
@@ -15,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
+import { UserFriendComponent } from './friend/user-friend/user-friend.component';
 
 const routes: Routes = [
   {
@@ -81,7 +83,16 @@ const routes: Routes = [
 {
   path: 'tourDetails',
   component: TournamentEditListComponent
+},
+{
+  path: 'friendList',
+  component: FriendListComponent
+},
+{
+  path: 'userFriendList',
+  component: UserFriendComponent
 }
+
 ];
 
 @NgModule({

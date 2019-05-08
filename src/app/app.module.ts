@@ -45,6 +45,10 @@ import { UserStatisticsComponent } from './user/user-statistics/user-statistics.
 import { SearchPipe } from './user/search.pipe';
 import { TournamentEditComponent } from './tournament/tournament-edit/tournament-edit.component';
 import { TournamentEditListComponent } from './tournament/tournament-edit-list/tournament-edit-list.component';
+import { FriendListComponent } from './friend/friend-list/friend-list.component';
+import { FriendService } from './services/friend.service';
+import { UserFriendComponent } from './friend/user-friend/user-friend.component';
+import { UserFriendDetailsComponent } from './friend/user-friend-details/user-friend-details.component';
 
 
 @NgModule({
@@ -78,7 +82,10 @@ import { TournamentEditListComponent } from './tournament/tournament-edit-list/t
     UserStatisticsComponent,
     SearchPipe,
     TournamentEditComponent,
-    TournamentEditListComponent
+    TournamentEditListComponent,
+    FriendListComponent,
+    UserFriendComponent,
+    UserFriendDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +99,7 @@ import { TournamentEditListComponent } from './tournament/tournament-edit-list/t
     MatTableModule
   ],
   providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService, GameService,
-    MatchService, WebSocketService, NotificationService],
+    MatchService, WebSocketService, NotificationService, FriendService],
   bootstrap: [AppComponent],
   entryComponents: [FigureErrorDialogComponent, OpponentDialogComponent, BoardComponent]
 })

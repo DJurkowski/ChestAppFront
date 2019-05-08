@@ -1,0 +1,47 @@
+<table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+  <tbody>
+      <tr *ngFor="let friend of friendsList">
+
+        <td *ngIf="friend.userOneName !== usernameId; else elseBlock">
+          {{friend.userOneName}}
+        </td>
+        <ng-template #elseBlock>
+          <td>{{friend.userTwoName}}</td>
+        </ng-template>
+        <td>
+            <button type="button" (click)="sendInvitation(friend.id)" class="btn btn-primary">Send Invitation</button>
+        </td>
+      </tr>
+      <tr *ngFor="let friend of friendAccept">
+
+          <td *ngIf="friend.userOneName !== usernameId; else elseBlock">
+            {{friend.userOneName}}
+          </td>
+          <ng-template #elseBlock>
+            <td>{{friend.userTwoName}}</td>
+          </ng-template>
+          <td>
+            <button type="button" (click)="sendInvitation(friend.id)" class="btn btn-success">Accept</button>
+            <button type="button" (click)="denyInvitation(friend.id)" class="btn btn-danger">Deny</button>
+          </td>
+      </tr>
+      <tr *ngFor="let friend of friendWaitList">
+
+          <td *ngIf="friend.userOneName !== usernameId; else elseBlock">
+            {{friend.userOneName}}
+          </td>
+          <ng-template #elseBlock>
+            <td>{{friend.userTwoName}}</td>
+          </ng-template>
+          <td>
+            Waiting for Acceptation
+          </td>
+      </tr>
+  </tbody>
+</table>
