@@ -1,3 +1,4 @@
+import { TournamentEditListComponent } from './tournament/tournament-edit-list/tournament-edit-list.component';
 import { UserStatisticsComponent } from './user/user-statistics/user-statistics.component';
 import { GameroomlistComponent } from './chess/gameroomlist/gameroomlist.component';
 import { RoomListComponent } from './room/room-list/room-list.component';
@@ -76,6 +77,10 @@ const routes: Routes = [
 {
   path: 'userStats',
   component: UserStatisticsComponent
+},
+{
+  path: 'tourDetails',
+  component: TournamentEditListComponent
 }
 ];
 

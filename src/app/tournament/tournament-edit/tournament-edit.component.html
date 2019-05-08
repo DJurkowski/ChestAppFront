@@ -1,0 +1,61 @@
+
+<div class="text-white mb-3 box" class="center">
+
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+
+  <div class="list-unstyled mt-3 mb-2">
+      <li class="form-group">
+        <strong>Id: </strong>
+        <input type="text" value="{{form.id}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"
+        class="form-control bg-dark" id [disabled]='true'>
+
+        <strong>Name: </strong>
+        <input type="text" value="{{form.name}}"
+        class="form-control bg-dark text-white" required name [disabled]='isDisabled'>
+
+        <strong >Description: </strong>
+        <input type="text" class="form-control bg-dark text-white" [(ngModel)]="form.description" #description="ngModel"
+         name="description" required [disabled]="isDisabled"/>
+
+         <strong >Max Number Of Users: </strong>
+        <input type="number" class="form-control bg-dark text-white" [(ngModel)]="form.maxNumberOfUser" #maxNumberOfUser="ngModel"
+         name="maxNumberOfUser" required [disabled]="isDisabled"/>
+         <div *ngIf="f.submitted && maxNumberOfUser.invalid">
+            <div *ngIf="!!maxNumberOfUser.errors?.required" style="color: tomato">MaxNumberOfUser is required</div>
+        </div>
+
+         <strong >Match Time: </strong>
+         <select class="form-control bg-dark text-white" id="matchTime" required [(ngModel)]="form.matchTime" name="matchTime" #matchTime="ngModel"
+         [disabled]="isDisabled">
+          <option [value]='form.matchTime' selected disabled>{{form.matchTime}}</option>
+          <option *ngFor= "let tim of times" [value]="tim" style="color:white">{{tim}}</option>
+        </select>
+      </li>
+      <li><strong >Actual Number of Users: </strong>
+        <input type="number" value="{{form.numberOfUser}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="numberOfUser"
+        required [disabled]='true'>
+      </li>
+      <li style="padding-bottom: 15px;"><strong >Status: </strong>
+        <input type="text" value="{{form.status}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="status"
+        required [disabled]='true'>
+      </li>
+  </div>
+    <div *ngIf="userId === tournament.masterUser && tournament.status !=='FINISHED' && tournament.status !=='STARTED'" >
+      <div *ngIf="isDisabled; else elseBlock" >
+        <button type="button" (click)="disabledFunction()" class="btn btn-lg btn-block btn-success">Edit</button>
+        <button type="button" (click)="deleteTournament()" class="btn btn-lg btn-block btn-danger">Delete</button>
+      </div>
+      <div *ngIf="isDeleteFailed" class="alert alert-warning" style="background-color: tomato; color: black; border-style: none">
+          Delete failed!<br/>{{errorMessage}}
+      </div>
+      <ng-template #elseBlock class="but">
+        <input type="submit"  class="btn btn-lg btn-block btn-success" value="Save">
+        <button type="button" (click)="disabledFunction()" class="btn btn-lg btn-block btn-secondary">Back</button>
+        <div *ngIf="f.submitted && isEditedFailed" class="alert alert-warning" style="background-color: tomato; color: black; border-style: none">
+            Edit failed!<br/>{{errorMessage}}
+        </div>
+      </ng-template>
+  </div>
+
+  </form>
+</div>

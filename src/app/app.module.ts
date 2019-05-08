@@ -19,7 +19,6 @@ import { UserService } from './services/user.service';
 import { TokenStorageService } from './auth/token-storage.service';
 import { AuthService } from './auth/auth.service';
 import { CreateTournamnetComponent } from './tournament/create-tournamnet/create-tournamnet.component';
-import { TournamnetDetailsComponent } from './tournament/tournamnet-details/tournamnet-details.component';
 import { TournamentListComponent } from './tournament/tournament-list/tournament-list.component';
 import { TournamentUserlistComponent } from './tournament/tournament-userlist/tournament-userlist.component';
 import { UserListComponent } from './user/user-list/user-list.component';
@@ -44,7 +43,8 @@ import { QueenComponent } from './chess/queen/queen.component';
 import { OpponentDialogComponent } from './chess/opponent-dialog/opponent-dialog.component';
 import { UserStatisticsComponent } from './user/user-statistics/user-statistics.component';
 import { SearchPipe } from './user/search.pipe';
-
+import { TournamentEditComponent } from './tournament/tournament-edit/tournament-edit.component';
+import { TournamentEditListComponent } from './tournament/tournament-edit-list/tournament-edit-list.component';
 
 
 @NgModule({
@@ -57,7 +57,6 @@ import { SearchPipe } from './user/search.pipe';
     RegisterComponent,
     PmComponent,
     CreateTournamnetComponent,
-    TournamnetDetailsComponent,
     TournamentListComponent,
     TournamentUserlistComponent,
     UserListComponent,
@@ -77,7 +76,9 @@ import { SearchPipe } from './user/search.pipe';
     QueenComponent,
     OpponentDialogComponent,
     UserStatisticsComponent,
-    SearchPipe
+    SearchPipe,
+    TournamentEditComponent,
+    TournamentEditListComponent
   ],
   imports: [
     BrowserModule,

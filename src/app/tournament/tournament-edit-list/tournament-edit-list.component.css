@@ -1,0 +1,13 @@
+.center {
+  margin-right: auto;
+  margin-left: auto;
+  width: 50%;
+}
+
+table {
+  border: none;
+  border-radius: 7px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
