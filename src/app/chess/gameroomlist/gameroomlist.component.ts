@@ -77,17 +77,7 @@ export class GameroomlistComponent implements OnInit {
 
     this.tournaments.forEach(data => {
       data.forEach( xdata => {
-        this.tournas.push({
-          id: xdata.id,
-          description: xdata.description,
-          masterUser: xdata.masterUser,
-          maxNumberOfUser: xdata.maxNumberOfUser,
-          minValueOfRankValue: xdata.minValueOfRankValue,
-          name: xdata.name,
-          numberOfUser: xdata.masterUser,
-          status: xdata.status,
-          matchTime: xdata.matchTime
-        });
+        this.tournas.push( xdata);
       });
       for (const i of this.tournas) {
           if (i.status === 'STANDBY') {

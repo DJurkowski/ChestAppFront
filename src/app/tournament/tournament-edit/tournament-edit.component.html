@@ -31,13 +31,27 @@
           <option *ngFor= "let tim of times" [value]="tim" style="color:white">{{tim}}</option>
         </select>
       </li>
-      <li><strong >Actual Number of Users: </strong>
+      <li><strong>Actual Number of Users: </strong>
         <input type="number" value="{{form.numberOfUser}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="numberOfUser"
         required [disabled]='true'>
       </li>
-      <li style="padding-bottom: 15px;"><strong >Status: </strong>
+      <li><strong >Status: </strong>
         <input type="text" value="{{form.status}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="status"
         required [disabled]='true'>
+      </li>
+      <li><strong >Start Date: </strong>
+        <input type="text" value="{{form.startDate | date: 'dd/MM/yyyy'}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="startDate"
+        required [disabled]='true'>
+      </li>
+      <li><strong >End Date: </strong>
+        <input type="text" value="{{form.endDate | date: 'dd/MM/yyyy'}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="form-control bg-dark" id="endDate"
+        required [disabled]='true'>
+      </li>
+      <li class="mb-2"><strong>Tournament users</strong>
+        <div *ngFor="let cos of tournament.users">
+          <input type="text" value="{{cos.username}}" [ngClass]="isDisabled ? 'text-white': 'text-muted'"  class="mb-2 form-control bg-dark" id="cos"
+         [disabled]='true'>
+        </div>
       </li>
   </div>
     <div *ngIf="userId === tournament.masterUser && tournament.status !=='FINISHED' && tournament.status !=='STARTED'" >

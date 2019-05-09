@@ -6,33 +6,47 @@
   <form name="form" class="form-signin" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <h1 class="h3 mb-3 font-weight-normal" style="color:white">Create Tournament</h1>
 
-        <label for="name" class="sr-only">Name</label>
+        <label for="name" class="text-white"><strong>Name</strong></label>
         <input type="text" class="form-control" id="name" [(ngModel)]="form.name" name="name" #name="ngModel"
           required placeholder="Name" style="margin-bottom:10px">
         <div *ngIf="f.submitted && name.invalid">
-          <div *ngIf="!!name.errors?.required" style="color: tomato">Name is required</div>
+          <div *ngIf="!!name.errors?.required" class="mb-2 alert alert-danger text-dark">Name is required</div>
         </div>
 
-        <label for="description" class="sr-only">Description</label>
+        <label for="description" class="text-white"><strong>Description</strong></label>
         <input type="text" class="form-control" id="description" [(ngModel)]="form.description" name="description" #description="ngModel"
            placeholder="Description" style="margin-bottom:10px">
 
-        <label for="maxNumberOfUser" class="sr-only">MaxNumberOfUser</label>
+        <label for="maxNumberOfUser" class="text-white"><strong>Max Number Of User</strong></label>
         <input type="number" class="form-control" id="maxNumberOfUser" required [(ngModel)]="form.maxNumberOfUser" name="maxNumberOfUser" #maxNumberOfUser="ngModel"
            min="2" placeholder="Max Number Of User" style="margin-bottom:10px">
           <div *ngIf="f.submitted && maxNumberOfUser.invalid">
-              <div *ngIf="!!maxNumberOfUser.errors?.required" style="color: tomato">MaxNumberOfUser is required</div>
+              <div *ngIf="!!maxNumberOfUser.errors?.required" class="mb-2 alert alert-danger text-dark">MaxNumberOfUser is required</div>
           </div>
 
-          <label for="matchTime" class="sr-only">Match Time</label>
+          <label for="matchTime" class="text-white"><strong>Match Time</strong></label>
           <select class="form-control" id="matchTime" required [(ngModel)]="form.matchTime" name="matchTime" #matchTime="ngModel"
            style="margin-bottom:10px;color:gray">
             <option [value]='undefined' selected disabled>Match Time</option>
             <option *ngFor= "let tim of times" [value]="tim" style="color:black">{{tim}}</option>
           </select>
 
+          <label for="startDate" class="text-white"><strong>Start Date</strong></label>
+          <input type="date" class="form-control" id="startDate" [(ngModel)]="form.startDate" name="startDate" #startDate="ngModel"
+          placeholder="Start Date" style="margin-bottom:10px" (blur)="currentDateCheck()">
+          <div *ngIf="isErrorCurrentDate" class="mb-2 alert alert-danger text-dark">
+            {{errorDateStart}}
+          </div>
+
+          <label for="endDate" class="text-white"><strong>End Date</strong></label>
+          <input type="date" class="form-control" id="endDate" [(ngModel)]="form.endDate" name="endDate" #endDate="ngModel"
+          placeholder="End Date" style="margin-bottom:10px" (blur)="compareTwoDates()">
+          <div *ngIf="isErrorDate" class="mb-2 alert alert-danger text-dark">
+            {{errorDate}}
+          </div>
+
         <button class="btn btn-lg btn-success btn-block">Submit</button>
-        <div *ngIf="f.submitted && isCreatedFailed" class="alert alert-danger">
+        <div *ngIf="f.submitted && isCreatedFailed" class="alert alert-danger text-dark">
             Operation failed!<br/>{{errorMessage}}
           </div>
 

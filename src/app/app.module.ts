@@ -49,6 +49,7 @@ import { FriendListComponent } from './friend/friend-list/friend-list.component'
 import { FriendService } from './services/friend.service';
 import { UserFriendComponent } from './friend/user-friend/user-friend.component';
 import { UserFriendDetailsComponent } from './friend/user-friend-details/user-friend-details.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -99,7 +100,7 @@ import { UserFriendDetailsComponent } from './friend/user-friend-details/user-fr
     MatTableModule
   ],
   providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService, GameService,
-    MatchService, WebSocketService, NotificationService, FriendService],
+    MatchService, WebSocketService, NotificationService, FriendService, DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [FigureErrorDialogComponent, OpponentDialogComponent, BoardComponent]
 })
