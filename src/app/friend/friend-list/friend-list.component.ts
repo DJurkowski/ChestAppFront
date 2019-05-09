@@ -18,6 +18,8 @@ export class FriendListComponent implements OnInit {
   friendAccept: Array<Friend> = new Array<Friend>();
   usernameId: string;
 
+  isEmpty = false;
+
   constructor(private token: TokenStorageService, private friendService: FriendService, private webSocketService: WebSocketService) {
     this.usernameId = this.token.getUsername();
   }
@@ -27,6 +29,7 @@ export class FriendListComponent implements OnInit {
   }
 
   reloadData() {
+    this. isEmpty = false;
     this.friendsList = [];
     this.friendWaitList = [];
     this.friendAccept = [];
@@ -58,6 +61,10 @@ export class FriendListComponent implements OnInit {
           }
         } else if ( xdata.userOneAccept === true && xdata.userTwoAccept === true) {
           console.log('Wyswietlam friend: ' + xdata);
+        }
+
+        if ((this.friendsList.length === 0) && (this.friendWaitList.length === 0) && (this.friendAccept.length === 0)) {
+          this.isEmpty = true;
         }
       });
     });

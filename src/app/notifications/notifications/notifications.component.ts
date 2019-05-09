@@ -26,7 +26,6 @@ export class NotificationsComponent implements OnInit {
   reloadData() {
     this.notiList = [];
     this.notificationList = this.notificationService.getNotifications(this.username);
-
     this.notificationList.forEach(data => {
       data.forEach( xdata => {
         this.notiList.push ( xdata );

@@ -1,16 +1,16 @@
-tr {
+table {
   border: none;
-  color: white;
-  width: 100%;
-}
-th {
-  color: white;
+  border-radius: 7px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
 }
 thead {
   border: none;
 }
-table {
-  border: none;
+#message{
+  border-radius: 5px;
 }
+
 
 
