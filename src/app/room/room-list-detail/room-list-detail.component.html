@@ -1,19 +1,24 @@
-  <div class="container justify-content-center" style="height: 100%; margin-bottom: 20px;">
+<!-- <div class="container justify-content-center" >
     <div class="d-flex flex-column bd-highlight" style="max-height: 812px;">
-      <!-- <button (click)="hideDiv()" class="btn btn-outline-light">
-        <span *ngIf='!isHidden;else elseBlock'>Open</span>
-        <ng-template #elseBlock>Close</ng-template>
-        Chat
-      </button> -->
-      <!-- <div *ngIf='isHidden' class="boxone"> -->
+
         <div class="boxone">
           <input id="input{{room.id}}" placeholder="Type a message..." type="text" class="p-2 mt-auto input-group border border-light rounded"
           #input
           (keyup.enter)="sendMessage(input.value)"
           style="margin-top: 10px"/>
           <div class="p-2 chat" id="{{room.id}}" class="transbox">
-            <div class="alert alert-secondary flex-wrap" *ngFor="let roomMessage of messageList | async">{{roomMessage.message}}</div>
+            <div class="alert alert-secondary flex-wrap" style="overflow-wrap: break-word;" *ngFor="let roomMessage of messageList | async">{{roomMessage.message}}</div>
           </div>
       </div>
     </div>
+  </div> -->
+  <div class="text-white mb-2 boxone" >
+      <input type="text" class="p-2 mb-2 mt-auto input-group border border-light rounded" id="input{{room.id}}" placeholder="Type a message..."
+      #input
+      (keyup.enter)="sendMessage(input.value)"
+      style="margin-top: 10px"/>
+      <div class="p-2 chat" id="{{room.id}}" class="transbox">
+        <div class="alert alert-secondary flex-wrap" style="overflow-wrap: break-word;" *ngFor="let roomMessage of messageList | async">{{roomMessage.message}}</div>
+      </div>
+
   </div>

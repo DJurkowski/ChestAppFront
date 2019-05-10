@@ -21,11 +21,17 @@ div.transbox {
 }
 
 .chat {
+  text-align: center;
   float: right;
   margin-right: 20px;
+  height: 50px;
+  width: 100px;
 }
 
 .noti {
+  text-align: center;
   float: left;
   margin-left: 20px;
+  height: 50px;
+  width: 100px;
 }

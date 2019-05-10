@@ -70,12 +70,12 @@
 <footer>
   <div *ngIf="authority">
 
-  <input type="button" value="Chat" class="btn btn-primary btn-lg chat" routerLink="rooms" [disabled]='isDisabled'>
+  <input type="button" value="Chat" class="mt-2 btn btn-primary btn-lg chat" routerLink="rooms" [disabled]='isDisabled'>
     <span *ngIf="notifications; else haveNotification">
-        <input type="button" value="N" class="btn btn-danger btn-lg noti" (click)="turnOffNotification()" routerLink="notifications" [disabled]='isDisabled'>
+        <input type="button" value="N" class="mt-2 btn btn-danger btn-lg noti" (click)="turnOffNotification()" routerLink="notifications" [disabled]='isDisabled'>
     </span>
     <ng-template #haveNotification>
-        <input type="button" value="N" class="btn btn-primary btn-lg noti" routerLink="notifications" [disabled]='isDisabled'>
+        <input type="button" value="N" class="mt-2 btn btn-primary btn-lg noti" routerLink="notifications" [disabled]='isDisabled'>
     </ng-template>
   </div>
 </footer>
