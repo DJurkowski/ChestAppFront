@@ -26,16 +26,23 @@
           <button class="nav-link btn btn-outline-dark" routerLink="scoreboard" [disabled]='isDisabled'>Score Board</button>
         </li>
     <li *ngIf="authority === 'user'" class="nav-item dropdown">
-      <button class="nav-link dropdown-toggle btn btn-outline-dark" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]='isDisabled'>Tournament</button>
-      <div class="dropdown-menu" aria-labelledby="dropdown01">
+      <button class="nav-link dropdown-toggle btn btn-outline-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]='isDisabled'>Tournament</button>
+      <div class="dropdown-menu" >
         <a class="dropdown-item" routerLink="addtour">Create Tournament</a>
         <a class="dropdown-item" routerLink="tourDetails">List of Tournaments</a>
         <a class="dropdown-item" routerLink="tournament">Join to Tournament</a>
         <a class="dropdown-item" routerLink="usertournament">User Tournament</a>
       </div>
     </li>
-    <li *ngIf="authority === 'user'" class="nav-item">
-      <button class="nav-link btn btn-outline-dark" routerLink="gamerooms" [disabled]='isDisabled'>Game Rooms</button>
+    <li *ngIf="authority === 'user'" class="nav-item dropdown">
+        <button class="nav-link dropdown-toggle btn btn-outline-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]='isDisabled'>Game</button>
+        <div class="dropdown-menu" >
+          <a class="dropdown-item" routerLink="createQuickGame">Create Quick Game</a>
+          <a class="dropdown-item" routerLink="quickGameList">QuickGame Games</a>
+          <a class="dropdown-item" routerLink="gamerooms">Tournament Games</a>
+        </div>
+        <!-- createQuickGame
+      <button class="nav-link btn btn-outline-dark" routerLink="gamerooms" [disabled]='isDisabled'>Game Rooms</button> -->
     </li>
     <li *ngIf="authority === 'admin'" class="nav-item">
       <a class="nav-link " routerLink="admin">Admin Board</a>

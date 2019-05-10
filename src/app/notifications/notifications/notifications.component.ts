@@ -49,7 +49,7 @@ export class NotificationsComponent implements OnInit {
   deleteNotification(id: number) {
     for (const i of this.notiList) {
       if ( i.id === id) {
-        console.log('Jestem !!');
+        // console.log('Jestem !!');
         this.notificationService.deleteNotification(id, this.username).subscribe(
           data => {
             this.reloadData();

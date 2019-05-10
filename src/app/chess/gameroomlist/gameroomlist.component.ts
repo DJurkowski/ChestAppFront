@@ -174,6 +174,7 @@ export class GameroomlistComponent implements OnInit {
                   } else {
                     this.webSocketService.sendMessage('ready', match.name, this.username, match.userTwoId, 'false');
                   }
+                  this.reloadData();
                 }
             });
 
@@ -190,14 +191,16 @@ export class GameroomlistComponent implements OnInit {
 
       setTimeout(() => {
       console.log('Odrzucam Notyfikacje!!!!');
-        this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username + ' deny your invitation');
+        this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username
+         + ' deny your invitation' + match.name);
       }, 2000);
     } else {
       console.log('Odrzucam Ready!!!!');
       this.webSocketService.sendMessage('ready', match.name, this.username, match.userTwoId, 'false');
       setTimeout(() => {
       console.log('Odrzucam Notyfikacje!!!!');
-      this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username + ' deny your invitation');
+      this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username
+      + ' deny your invitation ' + match.name);
       }, 2000);
     }
     this.reloadData();
@@ -211,7 +214,8 @@ export class GameroomlistComponent implements OnInit {
       setTimeout(() => {
       console.log('Wysylam zaproszenie 2Notyfikacje');
       // tslint:disable-next-line:max-line-length
-      this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username + ' is waiting for your joining to match');
+      this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username
+      + ' is waiting for your joining to tournament match (match name: ' + match.name + ')');
       }, 2000);
     } else {
       console.log('Wysylam zaproszenie 1Ready');
@@ -219,7 +223,8 @@ export class GameroomlistComponent implements OnInit {
       setTimeout(() => {
       console.log('Wysylam zaproszenie 2Notyfikacje');
       // tslint:disable-next-line:max-line-length
-      this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username + ' is waiting for your joining to match');
+      this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username
+      + ' is waiting for your joining to tournament match (match name: ' + match.name + ')');
       }, 2000);
     }
     this.reloadData();
@@ -239,6 +244,14 @@ export class GameroomlistComponent implements OnInit {
             data => {
               console.log('Wysylam Modyfikacje Match User: ' + this.username);
               data = event;
+            },
+            error => {
+              console.log(error);
+            }
+          );
+          this.userService.userAvailable(this.username, 'true').subscribe(
+            data => {
+              console.log('Wysylam User available !!!' + data);
             },
             error => {
               console.log(error);

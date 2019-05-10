@@ -50,6 +50,8 @@ import { FriendService } from './services/friend.service';
 import { UserFriendComponent } from './friend/user-friend/user-friend.component';
 import { UserFriendDetailsComponent } from './friend/user-friend-details/user-friend-details.component';
 import { DatePipe } from '@angular/common';
+import { CreateQuickGameComponent } from './game/create-quick-game/create-quick-game.component';
+import { QuickGameListComponent } from './game/quick-game-list/quick-game-list.component';
 
 
 @NgModule({
@@ -86,7 +88,9 @@ import { DatePipe } from '@angular/common';
     TournamentEditListComponent,
     FriendListComponent,
     UserFriendComponent,
-    UserFriendDetailsComponent
+    UserFriendDetailsComponent,
+    CreateQuickGameComponent,
+    QuickGameListComponent
   ],
   imports: [
     BrowserModule,

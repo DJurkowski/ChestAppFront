@@ -32,6 +32,10 @@ export class WebSocketService {
   globalStartGameUpdate: Observable<string>;
   globalStartGameObserver: Observer<string>;
 
+  globalStartQuickGame: string;
+  globalStartQuickGameUpdate: Observable<string>;
+  globalStartQuickGameObserver: Observer<string>;
+
   private messageOut;
 
   private stompClient;
@@ -52,6 +56,9 @@ export class WebSocketService {
     });
     this.globalStartGameUpdate = Observable.create((observer: Observer<string>) => {
       this.globalStartGameObserver = observer;
+    });
+    this.globalStartQuickGameUpdate = Observable.create((observer: Observer<string>) => {
+      this.globalStartQuickGameObserver = observer;
     });
     this.userAvailableUpdate = Observable.create((observer: Observer<boolean>) => {
       this.userAvailableObserver = observer;
@@ -81,6 +88,11 @@ export class WebSocketService {
   updateGlobalStartGame(message: string) {
     this.globalStartGame = message;
     this.globalStartGameObserver.next(this.globalStartGame);
+  }
+
+  updateGlobalStartQuickGame(message: string) {
+    this.globalStartQuickGame = message;
+    this.globalStartQuickGameObserver.next(this.globalStartQuickGame);
   }
 
   updateUserAvailable(message: boolean) {
@@ -126,6 +138,11 @@ export class WebSocketService {
             case 'startGame': {
               console.log('JestemW Switch StartGame');
               that.updateGlobalStartGame(message.body);
+              break;
+            }
+            case 'startQuickGame': {
+              console.log('JestemW Switch QuickGame');
+              that.updateGlobalStartQuickGame(message.body);
             }
           }
           console.log('Dostalem message taki bo tak : ' + message.body);

@@ -104,8 +104,9 @@ export class BoardComponent implements OnInit, OnDestroy {
       console.log('User Identification' + this.userId);
     });
 
-    this.userService.userAvailable(this.username, 'false').subscribe();
     this.initializeWebSocketConnection();
+    this.userService.userAvailable(this.username, 'false').subscribe();
+
   }
 
 // timer
@@ -177,7 +178,14 @@ export class BoardComponent implements OnInit, OnDestroy {
     // }
     this.game.resetFiguresPositions();
     this.webSocketService.updateUserAvailable(false);
-    this.userService.userAvailable(this.username, 'true').subscribe();
+    this.userService.userAvailable(this.username, 'true').subscribe(
+      data => {
+        console.log('Wysylam User available BOOAAARD!!!' + data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   xy(i): Coord {

@@ -1,0 +1,30 @@
+<h1 class="h3 mb-3 font-weight-normal text-white">Create Quick Game</h1>
+<div *ngIf="isCreated; else createForm">
+  <a style="color: white">Quick game created successfully</a><br/>
+</div>
+
+<ng-template #createForm>
+  <form name="form" class="form-signin" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+        <label for="name" class="text-white"><strong>Name</strong></label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="form.name" name="name" #name="ngModel"
+          minlength="3" required placeholder="Name" style="margin-bottom:10px">
+        <div *ngIf="f.submitted && name.invalid">
+          <div *ngIf="!!name.errors?.required" class="mb-2 alert alert-danger text-dark">Name is required</div>
+          <div *ngIf="!!name.errors?.minlength" class="mb-2 alert alert-danger text-dark">Name must be at least 3 characters</div>
+        </div>
+
+          <label for="matchTime" class="text-white"><strong>Match Time</strong></label>
+          <select class="form-control" id="matchTime" required [(ngModel)]="form.matchTime" name="matchTime" #matchTime="ngModel"
+           style="margin-bottom:10px;color:gray">
+            <option [value]='undefined' selected disabled>Match Time</option>
+            <option *ngFor= "let tim of times" [value]="tim" style="color:black">{{tim}}</option>
+          </select>
+
+        <button class="btn btn-lg btn-success btn-block">Submit</button>
+        <div *ngIf="f.submitted && isCreatedFailed" class="alert alert-danger text-dark">
+            Operation failed!<br/>{{errorMessage}}
+          </div>
+
+    </form>
+</ng-template>

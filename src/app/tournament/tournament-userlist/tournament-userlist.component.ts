@@ -14,6 +14,7 @@ export class TournamentUserlistComponent implements OnInit {
 
   tournaments: Observable<Tournament[]>;
   username: string;
+  isEmpty = false;
 
   constructor(private tournamentService: TournamentService, private token: TokenStorageService, private userService: UserService) { }
 
@@ -23,7 +24,9 @@ export class TournamentUserlistComponent implements OnInit {
   }
 
   reloadData() {
+    this.isEmpty = false;
     this.tournaments = this.tournamentService.getUserTournaments(this.username);
+
   }
 
 }

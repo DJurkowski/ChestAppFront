@@ -17,6 +17,8 @@ import { RegisterComponent } from './register/register.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { UserFriendComponent } from './friend/user-friend/user-friend.component';
+import { CreateQuickGameComponent } from './game/create-quick-game/create-quick-game.component';
+import { QuickGameListComponent } from './game/quick-game-list/quick-game-list.component';
 
 const routes: Routes = [
   {
@@ -91,6 +93,14 @@ const routes: Routes = [
 {
   path: 'userFriendList',
   component: UserFriendComponent
+},
+{
+  path: 'createQuickGame',
+  component: CreateQuickGameComponent
+},
+{
+  path: 'quickGameList',
+  component: QuickGameListComponent
 }
 
 ];
