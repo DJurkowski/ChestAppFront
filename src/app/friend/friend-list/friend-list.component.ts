@@ -17,7 +17,7 @@ export class FriendListComponent implements OnInit {
   friendWaitList: Array<Friend> = new Array<Friend>();
   friendAccept: Array<Friend> = new Array<Friend>();
   usernameId: string;
-
+  searchText = '';
   isEmpty = false;
 
   constructor(private token: TokenStorageService, private friendService: FriendService, private webSocketService: WebSocketService) {

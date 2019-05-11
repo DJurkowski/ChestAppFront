@@ -13,6 +13,7 @@ export class UserFriendComponent implements OnInit {
 
   friends: Observable<User[]>;
   usernameId: string;
+  searchText = '';
 
   isHidden = false;
   isOpened: number;
