@@ -1,3 +1,5 @@
+import { ForgotPasswordComponent } from './mail/forgot-password/forgot-password.component';
+import { MailService } from './services/mail.service';
 import { MatchService } from './services/match.service';
 import { GameService } from './chess/game.service';
 import { RoomService } from './services/room.service';
@@ -92,7 +94,8 @@ import { FriendPipePipe } from './friend/friend-pipe.pipe';
     UserFriendDetailsComponent,
     CreateQuickGameComponent,
     QuickGameListComponent,
-    FriendPipePipe
+    FriendPipePipe,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +109,7 @@ import { FriendPipePipe } from './friend/friend-pipe.pipe';
     MatTableModule
   ],
   providers: [httpInterceptorProviders, TokenStorageService, AuthService, UserService, TournamentService, RoomService, GameService,
-    MatchService, WebSocketService, NotificationService, FriendService, DatePipe],
+    MatchService, WebSocketService, NotificationService, FriendService, DatePipe, MailService],
   bootstrap: [AppComponent],
   entryComponents: [FigureErrorDialogComponent, OpponentDialogComponent, BoardComponent]
 })

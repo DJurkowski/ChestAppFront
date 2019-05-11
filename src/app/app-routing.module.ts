@@ -1,3 +1,4 @@
+import { ForgotPasswordComponent } from './mail/forgot-password/forgot-password.component';
 import { FriendListComponent } from './friend/friend-list/friend-list.component';
 import { TournamentEditListComponent } from './tournament/tournament-edit-list/tournament-edit-list.component';
 import { UserStatisticsComponent } from './user/user-statistics/user-statistics.component';
@@ -39,7 +40,7 @@ const routes: Routes = [
 },
 {
     path: 'auth/login',
-    component: LoginComponent
+    component: LoginComponent,
 },
 {
     path: 'signup',
@@ -101,6 +102,10 @@ const routes: Routes = [
 {
   path: 'quickGameList',
   component: QuickGameListComponent
+},
+{
+  path: 'forgotPassword',
+  component: ForgotPasswordComponent
 }
 
 ];

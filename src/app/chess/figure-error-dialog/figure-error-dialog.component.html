@@ -3,6 +3,8 @@
 <div [ngSwitch]="name">
     <p *ngSwitchCase="'king'">
       Error King: <span style="color:red">unallowable movement</span></p>
+    <p *ngSwitchCase="'queen'">
+      Error Queen: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'knight'">
       Error Knight: <span style="color:red">unallowable movement</span></p>
     <p *ngSwitchCase="'knight2'">

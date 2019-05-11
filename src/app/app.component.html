@@ -58,7 +58,7 @@
     <a class="btn btn-outline-success my-2 my-sm-0" routerLink="signup" style="margin-left: 10px">Sign up</a>
   </div>
   <div *ngIf="authority">
-    <button class="btn btn-outline-secondary" routerLink="home" [disabled]='isDisabled'>Logout</button>
+    <button class="btn btn-outline-secondary" (click)="logout()" [disabled]='isDisabled'>Logout</button>
   </div>
   </div>
   </nav>

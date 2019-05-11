@@ -1,9 +1,9 @@
 <div *ngIf="isLoggedIn; else loggedOut">
-  Logged in as {{roles}}.
+  <h1>Welcome {{username}} to ChessApp</h1>
+  <h4>Let's play some chess!</h4>
 </div>
 
 <ng-template #loggedOut>
-  <!-- <div class="row col-sm-6" style="max-width:350px;"> -->
     <form class="form-signin"  name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
         <h1 class="h3 mb-3 font-weight-normal" style="color:white">Login</h1>
 
@@ -14,7 +14,6 @@
           <div *ngIf="!!username.errors?.required" style="color:tomato">Username is required</div>
         </div>
 
-      <!-- <div class="form-group"> -->
         <label for="password" class="sr-only">Password</label>
         <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
           required minlength="6" placeholder="Password" style="margin-bottom:10px" />
@@ -22,17 +21,14 @@
           <div *ngIf="!!password.errors?.required" style="color: tomato">Password is required</div>
           <div *ngIf="!!password.errors?.minlength" style="color: tomato">Password must be at least 6 characters</div>
         </div>
-      <!-- </div> -->
-      <!-- <div class="form-group"> -->
         <button class="btn btn-lg btn-success btn-block">Login</button>
         <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
           Login failed: {{errorMessage}}
         </div>
-        <p class="mt-5 mb-3" style="color: white">&copy; ChessApp 2019</p>
-      <!-- </div> -->
+        <a href="forgotPassword" class="mt-2 text-white">Forgot Password?</a>
+        <p class="mt-4 mb-3" style="color: white">&copy; ChessApp 2019</p>
     </form>
     <hr />
     <p style="color: white">Don't have an account?</p>
     <a href="signup" class="btn btn-outline-success" style="margin-bottom: 20px">Sign Up</a>
-  <!-- </div> -->
 </ng-template>

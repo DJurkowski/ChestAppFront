@@ -70,4 +70,11 @@ export class AppComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.webSocketService.closeConnection();
+    this.tokenStorage.signOut();
+    window.location.reload();
+  }
+
+
 }

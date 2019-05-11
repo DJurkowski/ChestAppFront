@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { User } from '../user';
 import { UserService } from 'src/app/services/user.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-statistics',
@@ -11,14 +12,12 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class UserStatisticsComponent implements OnInit {
 
-
   username: string;
-
   userId: number;
   userIdentification: Observable<Object>;
   userProfil: User;
 
-  constructor(private userService: UserService, private token: TokenStorageService ) {
+  constructor(private userService: UserService, private token: TokenStorageService, private router: Router ) {
     this.username = this.token.getUsername();
   }
 
@@ -35,7 +34,11 @@ export class UserStatisticsComponent implements OnInit {
       joined: '',
       available: true
       };
+    if (this.token.getToken()) {
     this.reloadData();
+    } else {
+      this.router.navigate(['home']);
+    }
   }
 
   reloadData() {

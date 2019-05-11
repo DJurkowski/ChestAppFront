@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   form: any = {};
   isLoggedIn = false;
   isLoginFailed = false;
+  username: string;
   errorMessage = '';
   roles: string[] = [];
   private loginInfo: AuthLoginInfo;
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      this.username = this.tokenStorage.getUsername();
       this.roles = this.tokenStorage.getAuthorities();
     }
   }

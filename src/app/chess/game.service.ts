@@ -3085,6 +3085,7 @@ export class GameService {
 
       case 'kingN': {
         this.kingNPosition$.next(pos);
+        this.endGameObservable.next(true);
         // this.kingNPosition$.unsubscribe();
         this.scorePointsUser(5, 'add');
         return true;
@@ -3092,7 +3093,7 @@ export class GameService {
 
       case 'queenN': {
         this.queenNPosition$.next(pos);
-        this.endGameObservable.next(true);
+
         // this.kingNPosition$.unsubscribe();
         this.scorePointsUser(6, 'add');
         return true;

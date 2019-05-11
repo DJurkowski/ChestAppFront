@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { User } from './user';
 import { WebSocketService } from '../globalService/web-socket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -23,21 +24,26 @@ export class UserComponent implements OnInit {
 
   public isDisabled = true;
 
-  constructor(private userService: UserService, private token: TokenStorageService, private webSocket: WebSocketService) {
+  constructor(private userService: UserService, private token: TokenStorageService, private webSocket: WebSocketService,
+    private router: Router) {
 
    }
 
   ngOnInit() {
-    this.usernameId = this.token.getUsername();
-    this.userService.getUserProfil(this.usernameId).subscribe(
-      data => {
-        this.userProfil = data;
-        this.form = this.userProfil;
-      },
-      error => {
-        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-      }
-    );
+    if (this.token.getToken()) {
+      this.usernameId = this.token.getUsername();
+      this.userService.getUserProfil(this.usernameId).subscribe(
+        data => {
+          this.userProfil = data;
+          this.form = this.userProfil;
+        },
+        error => {
+          this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+        }
+      );
+    } else {
+      this.router.navigate(['home']);
+    }
   }
 
   disabledFunction() {
