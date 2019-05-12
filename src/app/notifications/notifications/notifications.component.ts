@@ -3,6 +3,7 @@ import { NotificationService } from './../../services/notification.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Notification} from './../../notifications/notifications/notification';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,11 +17,16 @@ export class NotificationsComponent implements OnInit {
   notiList: Array<Notification> = new Array<Notification>();
   username: string;
 
-  constructor(private notificationService: NotificationService, private token: TokenStorageService) { }
+  constructor(private notificationService: NotificationService, private token: TokenStorageService, private router: Router) { }
 
   ngOnInit() {
-    this.username = this.token.getUsername();
-    this.reloadData();
+    if (this.token.getToken()) {
+      this.username = this.token.getUsername();
+      this.reloadData();
+    } else {
+      this.router.navigate(['home']);
+    }
+
   }
 
   reloadData() {

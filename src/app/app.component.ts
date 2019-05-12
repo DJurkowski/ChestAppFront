@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { TokenStorageService } from './auth/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { WebSocketService } from './globalService/web-socket.service';
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
 
   public isDisabled = false;
 
-  constructor(private tokenStorage: TokenStorageService, private webSocketService: WebSocketService) {
+  constructor(private tokenStorage: TokenStorageService, private webSocketService: WebSocketService, private router: Router) {
     this.initializeWebSocketConnection();
     this.initializeUserAvailable();
   }

@@ -4,6 +4,7 @@ import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../../auth/token-storage.service';
 import { TournamentService } from '../../services/tournament.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tournament-userlist',
@@ -16,11 +17,17 @@ export class TournamentUserlistComponent implements OnInit {
   username: string;
   isEmpty = false;
 
-  constructor(private tournamentService: TournamentService, private token: TokenStorageService, private userService: UserService) { }
+  constructor(private tournamentService: TournamentService, private token: TokenStorageService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.username = this.token.getUsername();
-    this.reloadData();
+    if (this.token.getToken()) {
+      this.username = this.token.getUsername();
+      this.reloadData();
+    } else {
+      this.router.navigate(['home']);
+    }
+
   }
 
   reloadData() {

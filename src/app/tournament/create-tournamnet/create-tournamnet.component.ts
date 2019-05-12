@@ -4,6 +4,7 @@ import { Tournament } from './../tournament';
 import { Component, OnInit } from '@angular/core';
 import { TournamentInfo } from '../tournament-info';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-tournamnet',
@@ -25,10 +26,15 @@ export class CreateTournamnetComponent implements OnInit {
   username: string;
   times = [ 1, 5, 10, 15];
 
-  constructor(private tournamentService: TournamentService, private token: TokenStorageService, private datePipe: DatePipe) { }
+  constructor(private tournamentService: TournamentService, private token: TokenStorageService,
+    private datePipe: DatePipe, private router: Router) { }
 
   ngOnInit() {
-    this.username = this.token.getUsername();
+    if (this.token.getToken()) {
+      this.username = this.token.getUsername();
+    } else {
+      this.router.navigate(['home']);
+    }
   }
 
   currentDateCheck() {

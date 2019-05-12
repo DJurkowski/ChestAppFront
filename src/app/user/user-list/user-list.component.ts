@@ -3,6 +3,7 @@ import { UserService } from './../../services/user.service';
 import { Observable } from 'rxjs';
 import { User } from './../user';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -16,11 +17,16 @@ export class UserListComponent implements OnInit {
   usernameId: string;
   searchText = '';
   aa = false;
-  constructor(private userService: UserService, private token: TokenStorageService ) { }
+  constructor(private userService: UserService, private token: TokenStorageService, private router: Router) { }
 
   ngOnInit() {
-    this.usernameId = this.token.getUsername();
-    this.reloadData();
+    if (this.token.getToken()) {
+      this.usernameId = this.token.getUsername();
+       this.reloadData();
+    } else {
+      this.router.navigate(['home']);
+    }
+
   }
 
   reloadData() {

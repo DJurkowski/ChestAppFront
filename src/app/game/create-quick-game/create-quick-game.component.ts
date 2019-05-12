@@ -2,6 +2,7 @@ import { MatchService } from './../../services/match.service';
 import { MatchInfo } from './../../match/match-info';
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-quick-game',
@@ -19,10 +20,15 @@ export class CreateQuickGameComponent implements OnInit {
   username: string;
   times = [ 1, 5, 10, 15];
 
-  constructor(private token: TokenStorageService, private matchService: MatchService) { }
+  constructor(private token: TokenStorageService, private matchService: MatchService, private router: Router) { }
 
   ngOnInit() {
-    this.username = this.token.getUsername();
+    if (this.token.getToken()) {
+      this.username = this.token.getUsername();
+    } else {
+      this.router.navigate(['home']);
+    }
+
   }
 
   onSubmit() {

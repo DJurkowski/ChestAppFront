@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Tournament } from '../tournament';
 import { TokenStorageService } from '../../auth/token-storage.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tournament-edit-list',
   templateUrl: './tournament-edit-list.component.html',
@@ -17,11 +18,16 @@ export class TournamentEditListComponent implements OnInit {
   isOpened: number;
 
 
-  constructor(private tournamentService: TournamentService, private token: TokenStorageService) {}
+  constructor(private tournamentService: TournamentService, private token: TokenStorageService, private router: Router) {}
 
   ngOnInit() {
-    this.username = this.token.getUsername();
-    this.reloadData();
+
+    if (this.token.getToken()) {
+      this.username = this.token.getUsername();
+      this.reloadData();
+    } else {
+      this.router.navigate(['home']);
+    }
   }
 
   reloadData() {

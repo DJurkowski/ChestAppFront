@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/user/user';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { FriendService } from 'src/app/services/friend.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-friend',
@@ -18,12 +19,16 @@ export class UserFriendComponent implements OnInit {
   isHidden = false;
   isOpened: number;
 
-  constructor(private token: TokenStorageService, private friendService: FriendService) {
+  constructor(private token: TokenStorageService, private friendService: FriendService, private router: Router) {
     this.usernameId = this.token.getUsername();
    }
 
   ngOnInit() {
+    if (this.token.getToken()) {
     this.reloadData();
+    } else {
+      this.router.navigate(['home']);
+    }
   }
 
   reloadData() {
