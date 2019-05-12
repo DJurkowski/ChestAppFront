@@ -35,4 +35,12 @@ export class MatchService {
     return this.http.get(`${this.baseUrl}/${userId}` + `/usermatches`);
   }
 
+  getMatch(userId: string, matchId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}` + `/${userId}` + `/match` + `/${matchId}`);
+  }
+
+  getAllQuickGames(userId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${userId}` + `/quickgames`);
+  }
+
 }

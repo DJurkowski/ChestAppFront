@@ -55,6 +55,8 @@ import { DatePipe } from '@angular/common';
 import { CreateQuickGameComponent } from './game/create-quick-game/create-quick-game.component';
 import { QuickGameListComponent } from './game/quick-game-list/quick-game-list.component';
 import { FriendPipePipe } from './friend/friend-pipe.pipe';
+import { TournamentMatchesComponent } from './tournament/tournament-matches/tournament-matches.component';
+import { AllQuickGamesComponent } from './game/all-quick-games/all-quick-games.component';
 
 
 @NgModule({
@@ -95,7 +97,9 @@ import { FriendPipePipe } from './friend/friend-pipe.pipe';
     CreateQuickGameComponent,
     QuickGameListComponent,
     FriendPipePipe,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    TournamentMatchesComponent,
+    AllQuickGamesComponent
   ],
   imports: [
     BrowserModule,

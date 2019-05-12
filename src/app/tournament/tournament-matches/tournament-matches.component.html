@@ -1,0 +1,36 @@
+<h1 class="h3 mb-3 font-weight-normal" style="color:white">Tournament Matches</h1>
+<table class="table table-striped table-dark">
+  <tbody *ngFor="let tournament of tournaments | async; let i = index">
+    <tr>
+      <td>No. {{i+1}}</td>
+      <td>Name: {{tournament.name}}</td>
+      <td><button (click)="hideDiv(tournament.id)" class="btn btn-outline-light">
+        <span *ngIf='isHidden && isOpened === tournament.id;else elseBut'>Close</span>
+      <ng-template #elseBut>Details</ng-template>
+      </button></td>
+    </tr>
+    <tr>
+      <td colspan="3" *ngIf='isOpened === tournament.id'>
+          <table class="table table-hover table-striped table-dark">
+            <thead>
+              <tr class="text-dark">
+                <th>Match status</th>
+                <th>Player</th>
+                <th>Match winner</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let match of tournament.matches">
+              <tr class="text-dark">
+                <td>{{match.status}}</td>
+                <td>{{match.userOneUsername}} vs {{match.userTwoUsername}}</td>
+                <td *ngIf="match.whoWon === match.userOneId"class="p-2">{{match.userOneUsername}}</td>
+                <td *ngIf="match.whoWon === match.userTwoId"class="p-2">{{match.userTwoUsername}}</td>
+                <td *ngIf="match.whoWon === 0" class="p-2">-</td>
+              </tr>
+            </tbody>
+          </table>
+      </td>
+  </tr>
+  </tbody>
+</table>
+

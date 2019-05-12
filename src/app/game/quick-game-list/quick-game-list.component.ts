@@ -74,8 +74,8 @@ export class QuickGameListComponent implements OnInit {
     this.matches.forEach(data => {
       data.forEach( zdata => {
 
-          // tslint:disable-next-line:max-line-length
-          if ((zdata.userOneReady === true && zdata.userTwoReady !== true) || (zdata.userOneReady !== true && zdata.userTwoReady === true)) {
+          if ((zdata.userOneReady === true && zdata.userTwoReady !== true)
+          || (zdata.userOneReady !== true && zdata.userTwoReady === true)) {
             this.matchWaitList.push(zdata);
           } else {
             this.matchList.push(zdata);
@@ -94,28 +94,15 @@ export class QuickGameListComponent implements OnInit {
     if (this.userId !== match.userOneId) {
       console.log('Wysylam zaproszenie 1Ready');
       this.webSocketService.sendMessage('ready', match.name, this.username, match.userOneId, 'true');
-
+      this.reloadData();
       setTimeout(() => {
       console.log('Wysylam zaproszenie 2Notyfikacje');
-      // tslint:disable-next-line:max-line-length
       this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username
       + ' is waiting for your joining to quick game (game name: ' + match.name + ')');
+      // this.reloadData();
       }, 2000);
-      this.reloadData();
-    }
-    // } else {
-    //   console.log('Wysylam zaproszenie 1Ready');
-    //   this.webSocketService.sendMessage('ready', match.name, this.username, match.userTwoId, 'true');
-    //   if (match.userTwoId !== 0) {
-    //   setTimeout(() => {
-    //   console.log('Wysylam zaproszenie 2Notyfikacje');
-    //   // tslint:disable-next-line:max-line-length
-    //   this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username
-    //   + ' is waiting for your joining to tournament match (match name: ' + match.name + ')');
-    //   }, 2000);
-    //   }
-    // }
 
+    }
   }
 
   playGame(match: Match) {
@@ -178,12 +165,12 @@ export class QuickGameListComponent implements OnInit {
 
   denyGame(match: Match) {
     this.webSocketService.sendMessage('ready', match.name, this.username, match.userTwoId, 'false');
+    this.reloadData();
     setTimeout(() => {
     console.log('Odrzucam Notyfikacje!!!!');
     this.webSocketService.sendMessage('noti', match.name, this.username , match.userTwoId, this.username
     + ' deny your invitation ' + match.name);
     }, 2000);
-    this.reloadData();
   }
 
   startGame(matchName: string) {

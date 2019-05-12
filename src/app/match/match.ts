@@ -1,8 +1,12 @@
+import { User } from '../../app/user/user';
+
 export class Match {
   id: number;
   name: string;
   userOneId: number;
   userTwoId: number;
+  userOneUsername: string;
+  userTwoUsername: string;
   userOneReady: boolean;
   userTwoReady: boolean;
   userOneMoves: number;
@@ -17,4 +21,5 @@ export class Match {
   whoWon: number;
   startGameUser: number;
   matchTime: number;
+  users: Array<User>;
 }

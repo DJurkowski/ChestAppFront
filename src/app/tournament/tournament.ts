@@ -14,4 +14,5 @@ export class Tournament {
   status: string;
   matchTime: number;
   users: Array<User>;
+  matches: Array<Match>;
 }

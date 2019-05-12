@@ -20,6 +20,8 @@ import { NotificationsComponent } from './notifications/notifications/notificati
 import { UserFriendComponent } from './friend/user-friend/user-friend.component';
 import { CreateQuickGameComponent } from './game/create-quick-game/create-quick-game.component';
 import { QuickGameListComponent } from './game/quick-game-list/quick-game-list.component';
+import { TournamentMatchesComponent } from './tournament/tournament-matches/tournament-matches.component';
+import { AllQuickGamesComponent } from './game/all-quick-games/all-quick-games.component';
 
 const routes: Routes = [
   {
@@ -106,8 +108,15 @@ const routes: Routes = [
 {
   path: 'forgotPassword',
   component: ForgotPasswordComponent
+},
+{
+  path: 'tourMatches',
+  component: TournamentMatchesComponent
+},
+{
+  path: 'allQuickGames',
+  component: AllQuickGamesComponent
 }
-
 ];
 
 @NgModule({
