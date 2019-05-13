@@ -13,7 +13,7 @@
                 </span>
             </ng-template>
           </div>
-        <div *ngIf='matchWait.showMatch' class="container">
+        <div *ngIf='matchWait.showMatch'>
           <app-board [match]='matchWait' (matchBack)='endGameValue($event)'></app-board>
         </div>
       </tr>

@@ -4,7 +4,7 @@
     <tbody>
       <tr *ngFor='let matchWait of matchWaitList'>
           <div *ngIf='isShowed' class="center">
-              <span *ngIf='(userId === matchWait.userTwoId && matchWait.userTwoReady === true ); else BlockElse' class="center">
+              <span *ngIf='(userId === matchWait.userTwoId && matchWait.userTwoReady === true); else BlockElse' class="center">
                 <td>{{matchWait.name}}</td> <td>Waiting for opponent acceptation...</td>
               </span>
               <ng-template #BlockElse>
@@ -15,7 +15,7 @@
                 </span>
             </ng-template>
           </div>
-        <div *ngIf='matchWait.showMatch' class="container">
+        <div *ngIf='matchWait.showMatch'>
           <app-board [match]='matchWait' (matchBack)='endGameValue($event)'></app-board>
         </div>
       </tr>

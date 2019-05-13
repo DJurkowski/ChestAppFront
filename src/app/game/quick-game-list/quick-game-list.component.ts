@@ -94,14 +94,13 @@ export class QuickGameListComponent implements OnInit {
     if (this.userId !== match.userOneId) {
       console.log('Wysylam zaproszenie 1Ready');
       this.webSocketService.sendMessage('ready', match.name, this.username, match.userOneId, 'true');
-      this.reloadData();
       setTimeout(() => {
       console.log('Wysylam zaproszenie 2Notyfikacje');
       this.webSocketService.sendMessage('noti', match.name, this.username , match.userOneId, this.username
       + ' is waiting for your joining to quick game (game name: ' + match.name + ')');
       // this.reloadData();
       }, 2000);
-
+      this.reloadData();
     }
   }
 

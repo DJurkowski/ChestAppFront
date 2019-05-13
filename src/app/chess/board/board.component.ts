@@ -735,14 +735,11 @@ initializeWebSocketConnection() {
       if (messageTab[3] === this.username) {
         console.log('MessageMOveOpponent: ' + messageTab[4]);
         this.opponentMove(messageTab[4]);
-        // console.log('Odpalam czas znowu');
-        // this.minutes = 0;
-        // this.seconds = 0;
-        // this.startCountTime();
       }
     }
   });
 }
+
 // web socket message
 sendMessageMove(message) {
   if (this.userId === this.match.userOneId) {
@@ -801,6 +798,13 @@ opponentMove(move: string) {
 
 makeCoor(posx: string, posy: string): Coord {
   return {x: (Number(posx)), y: Math.abs(Number(posy) - 7)};
+}
+
+fullScreen() {
+  const elem = document.documentElement;
+  const methodToBeInvoked = elem.requestFullscreen ||
+    elem['mozRequestFullscreen'] || elem['msRequestFullscreen'];
+  if (methodToBeInvoked) { methodToBeInvoked.call(elem); }
 }
 
 }
