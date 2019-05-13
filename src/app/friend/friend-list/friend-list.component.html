@@ -30,7 +30,7 @@
             <td>{{friend.userTwoName}}</td>
           </ng-template>
           <td>
-            <button type="button" (click)="sendInvitation(friend.id)" class="btn btn-success">Accept</button>
+            <button type="button" (click)="acceptInvitation(friend.id)" class="btn btn-success">Accept</button>
             <button type="button" (click)="denyInvitation(friend.id)" class="ml-2 btn btn-danger">Deny</button>
           </td>
       </tr>
@@ -47,7 +47,7 @@
           </td>
       </tr>
       <tr *ngIf="isEmpty">
-        <td colspan="2">No available users</td></tr>
+        <td colspan="2">No more available users</td></tr>
   </tbody>
 </table>
 </div>

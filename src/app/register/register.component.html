@@ -10,22 +10,22 @@
         <input type="text" class="form-control" name="username" [(ngModel)]="form.username" #username="ngModel"
           minlength="3" required placeholder="Username" style="margin-bottom:10px"/>
         <div *ngIf="f.submitted && username.invalid">
-          <div *ngIf="!!username.errors?.required" style="color: tomato">Username is required</div>
-          <div *ngIf="!!username.errors?.minlength" style="color: tomato">Username must be at least 3 characters</div>
+          <div *ngIf="!!username.errors?.required" class="alert alert-danger text-dark">Username is required</div>
+          <div *ngIf="!!username.errors?.minlength" class="alert alert-danger text-dark">Username must be at least 3 characters</div>
         </div>
         <label for="email" class="sr-only">Email</label>
         <input type="text" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel" required email placeholder="Email address"
         style="margin-bottom:10px"/>
         <div *ngIf="f.submitted && email.invalid">
-          <div *ngIf="!!email.errors?.required" style="color: tomato">Email is required</div>
-          <div *ngIf="!!email.errors?.email" style="color: tomato">Email must be a valid email address</div>
+          <div *ngIf="!!email.errors?.required" class="alert alert-danger text-dark">Email is required</div>
+          <div *ngIf="!!email.errors?.email" class="alert alert-danger text-dark">Email must be a valid email address</div>
         </div>
         <label for="password" class="sr-only">Password</label>
         <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
           required minlength="6" placeholder="Password" style="margin-bottom:10px" />
         <div *ngIf="f.submitted && password.invalid">
-          <div *ngIf="!!password.errors?.required" style="color: tomato">Password is required</div>
-          <div *ngIf="!!password.errors?.minlength" style="color: tomato">Password must be at least 6 characters</div>
+          <div *ngIf="!!password.errors?.required" class="alert alert-danger text-dark">Password is required</div>
+          <div *ngIf="!!password.errors?.minlength" class="alert alert-danger text-dark">Password must be at least 6 characters</div>
         </div>
         <button class="btn btn-lg btn-success btn-block">Register</button>
         <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning" style="background-color: tomato; color: black; border-style: none">

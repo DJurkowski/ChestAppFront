@@ -20,11 +20,12 @@ export class UserFriendComponent implements OnInit {
   isOpened: number;
 
   constructor(private token: TokenStorageService, private friendService: FriendService, private router: Router) {
-    this.usernameId = this.token.getUsername();
+
    }
 
   ngOnInit() {
     if (this.token.getToken()) {
+      this.usernameId = this.token.getUsername();
     this.reloadData();
     } else {
       this.router.navigate(['home']);

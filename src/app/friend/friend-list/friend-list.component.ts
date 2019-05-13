@@ -94,30 +94,33 @@ export class FriendListComponent implements OnInit {
           }
         }
       }
-      for (const i of this.friendAccept) {
-        if (i.id === friendId) {
-          if (i.userOneName === this.usernameId) {
-            i.userOneAccept = true;
-            this.friendService.sendInvitation(this.usernameId, i).subscribe(
-              data => {
-                this.webSocketService.sendMessage('noti', i.id, this.usernameId, i.userTwoId,
-                this.usernameId + ' accepted your invitation');
-                this.reloadData();
-              }
-            );
-          } else {
-            i.userTwoAccept = true;
-            this.friendService.sendInvitation(this.usernameId, i).subscribe(
-              data => {
-                this.webSocketService.sendMessage('noti', i.id, this.usernameId, i.userOneId,
-                this.usernameId + ' accepted your invitation');
-                this.reloadData();
-              }
-            );
-          }
+    }
+
+  acceptInvitation(friendId: number) {
+    for (const i of this.friendAccept) {
+      if (i.id === friendId) {
+        if (i.userOneName === this.usernameId) {
+          i.userOneAccept = true;
+          this.friendService.sendInvitation(this.usernameId, i).subscribe(
+            data => {
+              this.webSocketService.sendMessage('noti', i.id, this.usernameId, i.userTwoId,
+              this.usernameId + ' accepted your invitation');
+              this.reloadData();
+            }
+          );
+        } else {
+          i.userTwoAccept = true;
+          this.friendService.sendInvitation(this.usernameId, i).subscribe(
+            data => {
+              this.webSocketService.sendMessage('noti', i.id, this.usernameId, i.userOneId,
+              this.usernameId + ' accepted your invitation');
+              this.reloadData();
+            }
+          );
         }
       }
     }
+  }
 
 
     denyInvitation(friendId: number) {
