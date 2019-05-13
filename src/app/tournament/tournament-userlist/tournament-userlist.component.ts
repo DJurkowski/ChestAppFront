@@ -16,6 +16,7 @@ export class TournamentUserlistComponent implements OnInit {
   tournaments: Observable<Tournament[]>;
   username: string;
   isEmpty = false;
+  searchText = '';
 
   constructor(private tournamentService: TournamentService, private token: TokenStorageService,
     private router: Router) { }

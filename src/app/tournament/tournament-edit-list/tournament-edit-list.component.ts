@@ -16,6 +16,7 @@ export class TournamentEditListComponent implements OnInit {
   username: string;
   isHidden = false;
   isOpened: number;
+  searchText = '';
 
 
   constructor(private tournamentService: TournamentService, private token: TokenStorageService, private router: Router) {}

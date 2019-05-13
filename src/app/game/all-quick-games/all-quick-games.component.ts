@@ -17,6 +17,7 @@ export class AllQuickGamesComponent implements OnInit {
   username: string;
   isHidden = false;
   isOpened: number;
+  searchText = '';
 
   constructor(private matchService: MatchService, private token: TokenStorageService, private router: Router) { }
 

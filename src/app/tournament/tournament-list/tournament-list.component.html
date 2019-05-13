@@ -7,22 +7,21 @@
   </div>
   <ng-template #joinForm>
   <div *ngFor="let tournament of tournaments | async">
-
-            <div class="card bg-dark mb-3 box-shadow">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Tournament</h4>
-              </div>
-              <div class="card-body">
-                <h4 class="card-title pricing-card-title"><strong>Name: </strong>{{tournament.name}}</h4>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li><strong>Description: </strong> {{tournament.description}}</li>
-                  <li><strong>MinValueOfRankValue: </strong> {{tournament.minValueOfRankValue}}</li>
-                  <li><strong>MaxNumberOfUser: </strong> {{tournament.maxNumberOfUser}}</li>
-                  <li><strong>Match Time: </strong> {{tournament.matchTime}}</li>
-                </ul>
-                <button class="btn btn-lg btn-success" (click)='addUserToTournament(tournament.id)'>Join</button>
-              </div>
-            </div>
+      <div class="card bg-dark mb-3 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Tournament</h4>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title pricing-card-title"><strong>Name: </strong>{{tournament.name}}</h4>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li><strong>Description: </strong> {{tournament.description}}</li>
+            <li><strong>MinValueOfRankValue: </strong> {{tournament.minValueOfRankValue}}</li>
+            <li><strong>MaxNumberOfUser: </strong> {{tournament.maxNumberOfUser}}</li>
+            <li><strong>Match Time: </strong> {{tournament.matchTime}}</li>
+          </ul>
+          <button class="btn btn-lg btn-success" (click)='addUserToTournament(tournament.id)'>Join</button>
+        </div>
+      </div>
   </div>
 </ng-template>
 </div>

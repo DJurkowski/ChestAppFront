@@ -1,48 +1,47 @@
-<h1 mat-dialog-title></h1>
 <div mat-dialog-content>
-<div [ngSwitch]="name">
-    <p *ngSwitchCase="'king'">
-      Error King: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'queen'">
-      Error Queen: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'knight'">
-      Error Knight: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'knight2'">
-      Error Knight: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'rook'">
-      Error Rook: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'rook2'">
-      Error Rook: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'bishop'">
-      Error Bishop: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'bishop2'">
-      Error Bishop: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'pawn'">
-      Error Pawn: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'pawn2'">
-      Error Pawn: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'pawn3'">
-      Error Pawn: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'pawn4'">
-      Error Pawn: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'pawn5'">
-      Error Pawn: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'pawn6'">
-      Error Pawn: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'pawn7'">
-      Error Pawn: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'pawn8'">
-      Error Pawn: <span style="color:red">unallowable movement</span></p>
-    <p *ngSwitchCase="'END'">
-      <span style="color:black"><b>GAME OVER</b></span></p>
-    <p *ngSwitchCase="'WIN'">
-      GAME OVER<br><span style="color:black"><b>YOU WIN! :)</b></span></p>
-    <p *ngSwitchCase="'TIME'">
-      GAME OVER<br><span style="color:black"><b>TIME OVER!<br/>YOU LOSE :(</b></span></p>
-    <p *ngSwitchCase="'Unavailable'">
-      User<br><span style="color:black"><b>is unavailable now. Try later</b></span></p>
-</div>
+    <div [ngSwitch]="name">
+        <p *ngSwitchCase="'king'">
+          Error King: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'queen'">
+          Error Queen: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'knight'">
+          Error Knight: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'knight2'">
+          Error Knight: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'rook'">
+          Error Rook: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'rook2'">
+          Error Rook: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'bishop'">
+          Error Bishop: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'bishop2'">
+          Error Bishop: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'pawn'">
+          Error Pawn: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'pawn2'">
+          Error Pawn: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'pawn3'">
+          Error Pawn: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'pawn4'">
+          Error Pawn: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'pawn5'">
+          Error Pawn: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'pawn6'">
+          Error Pawn: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'pawn7'">
+          Error Pawn: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'pawn8'">
+          Error Pawn: <span style="color:red">unallowable movement</span></p>
+        <p *ngSwitchCase="'END'">
+          <span style="color:black"><b>GAME OVER</b></span></p>
+        <p *ngSwitchCase="'WIN'">
+          GAME OVER<br><span style="color:black"><b>YOU WIN! :)</b></span></p>
+        <p *ngSwitchCase="'TIME'">
+          GAME OVER<br><span style="color:black"><b>TIME OVER!<br/>YOU LOSE :(</b></span></p>
+        <p *ngSwitchCase="'Unavailable'">
+          User<br><span style="color:black"><b>is unavailable now. Try later!</b></span></p>
+    </div>
 </div>
 <div mat-dialog-actions>
-  <button (click)="onNoClick()">Close</button>
+  <button (click)="onNoClick()" class="btn btn-danger">Close</button>
 </div>

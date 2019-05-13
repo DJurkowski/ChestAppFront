@@ -57,6 +57,7 @@ import { QuickGameListComponent } from './game/quick-game-list/quick-game-list.c
 import { FriendPipePipe } from './friend/friend-pipe.pipe';
 import { TournamentMatchesComponent } from './tournament/tournament-matches/tournament-matches.component';
 import { AllQuickGamesComponent } from './game/all-quick-games/all-quick-games.component';
+import { TourSearchPipe } from './tournament/tour-search.pipe';
 
 
 @NgModule({
@@ -99,7 +100,8 @@ import { AllQuickGamesComponent } from './game/all-quick-games/all-quick-games.c
     FriendPipePipe,
     ForgotPasswordComponent,
     TournamentMatchesComponent,
-    AllQuickGamesComponent
+    AllQuickGamesComponent,
+    TourSearchPipe
   ],
   imports: [
     BrowserModule,

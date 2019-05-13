@@ -17,6 +17,7 @@ export class TournamentMatchesComponent implements OnInit {
 
   isHidden = false;
   isOpened: number;
+  searchText = '';
 
   constructor(private tournamentService: TournamentService, private token: TokenStorageService, private router: Router) { }
 
