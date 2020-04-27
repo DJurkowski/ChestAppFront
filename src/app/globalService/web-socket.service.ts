@@ -113,39 +113,31 @@ export class WebSocketService {
       that.stompClient.subscribe('/privateMessage/' + username, (message) => {
         if (message.body) {
           const messageTab = message.body.split(';', 5);
-          console.log('To mi wyskoczylo z message.body ' + messageTab[0]);
           switch (messageTab[0]) {
             case 'chat': {
-              console.log('JestemW Switch Chat!!!');
               that.updateGlobalMessage(message.body);
               break;
             }
             case 'noti': {
-              console.log('JestemW Switch Noti!!!');
               that.updateGlobalNotification(message.body);
               break;
             }
             case 'game': {
-            console.log('JestemW Switch Game!!!');
               that.updateGlobalGame(message.body);
               break;
             }
             case 'ready': {
-            console.log('JestemW Switch Ready!!!');
               that.updateGlobalUserReady(message.body);
               break;
             }
             case 'startGame': {
-              console.log('JestemW Switch StartGame');
               that.updateGlobalStartGame(message.body);
               break;
             }
             case 'startQuickGame': {
-              console.log('JestemW Switch QuickGame');
               that.updateGlobalStartQuickGame(message.body);
             }
           }
-          console.log('Dostalem message taki bo tak : ' + message.body);
 
         }
       });

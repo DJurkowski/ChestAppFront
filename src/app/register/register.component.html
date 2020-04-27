@@ -28,7 +28,7 @@
           <div *ngIf="!!password.errors?.minlength" class="alert alert-danger text-dark">Password must be at least 6 characters</div>
         </div>
         <button class="btn btn-lg btn-success btn-block">Register</button>
-        <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning" style="background-color: tomato; color: black; border-style: none">
+        <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-danger text-dark">
           Signup failed!<br/>{{errorMessage}}
         </div>
         <p class="mt-5 mb-3" style="color: white">&copy; ChessApp 2019</p>

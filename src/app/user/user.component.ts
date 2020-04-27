@@ -31,6 +31,8 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     if (this.token.getToken()) {
+      this.isEditedFailed = false;
+      this.isDeleteFailed = false;
       this.usernameId = this.token.getUsername();
       this.userService.getUserProfil(this.usernameId).subscribe(
         data => {
@@ -47,6 +49,9 @@ export class UserComponent implements OnInit {
   }
 
   disabledFunction() {
+    this.isEditedFailed = false;
+    this.isDeleteFailed = false;
+    this.errorMessage = '';
     this.isDisabled = !this.isDisabled;
   }
 
